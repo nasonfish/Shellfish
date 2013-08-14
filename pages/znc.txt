@@ -1,0 +1,102 @@
+Once you are logged into your VPS and have taken proper security steps, follow this tutorial to setup the ZNC service on your VPS. (# means run as root or use sudo)
+
+# useradd -m -s /bin/bash -d /var/lib/znc znc
+
+# aptitude install build-essential -y
+# aptitude install libssl-dev -y
+# aptitude install libperl-dev -y
+
+$ wget http://znc.in/releases/znc-1.0.tar.gz
+$ tar -xzvf znc-1.0.tar.gz
+$ cd znc-1.0
+$ ./configure --with-openssl
+$ make
+$ make install
+
+# wget -O /etc/init.d/znc https://dl.dropbox.com/u/25339754/znc
+
+# chmod +x /etc/init.d/znc
+# update-rc.d znc defaults
+
+# su znc
+
+$ znc -d /var/lib/znc --makeconf
+
+[ ok ] Checking for list of available modules...
+[ ** ] Building new config
+[ ** ]
+[ ** ] First let's start with some global settings...
+[ ** ]
+[ ?? ] What port would you like ZNC to listen on? (1025 to 65535): 1337
+[ ?? ] Would you like ZNC to listen using SSL? (yes/no) [no]: yes
+[ ** ] Unable to locate pem file: [/var/lib/znc/znc.pem]
+[ ?? ] Would you like to create a new pem file now? (yes/no) [yes]: yes
+[ ok ] Writing Pem file [/var/lib/znc/znc.pem]...
+[ ?? ] Would you like ZNC to listen using ipv6? (yes/no) [yes]: yes
+[ ?? ] Listen Host (Blank for all ips):
+[ ok ] Verifying the listener...
+[ ** ]
+[ ** ] -- Global Modules --
+[ ** ]
+[ ** ] +-----------+----------------------------------------------------------+
+[ ** ] | Name      | Description                                              |
+[ ** ] +-----------+----------------------------------------------------------+
+[ ** ] | partyline | Internal channels and queries for users connected to znc |
+[ ** ] | webadmin  | Web based administration module                          |
+[ ** ] +-----------+----------------------------------------------------------+
+[ ** ] And 9 other (uncommon) modules. You can enable those later.
+[ ** ]
+[ ?? ] Load global module <partyline>? (yes/no) [no]: no
+[ ?? ] Load global module <webadmin>? (yes/no) [no]: yes
+[ ** ]
+[ ** ] Now we need to set up a user...
+[ ** ]
+[ ?? ] Username (AlphaNumeric): zncuser
+[ ?? ] Enter Password:
+[ ?? ] Confirm Password:
+[ ?? ] Would you like this user to be an admin? (yes/no) [yes]: yes
+[ ?? ] Nick [zncuser]: zncuser
+[ ?? ] Alt Nick [zncuser_]:
+[ ?? ] Ident [zncuser]:
+[ ?? ] Real Name [Got ZNC?]:
+[ ?? ] Bind Host (optional):
+[ ?? ] Number of lines to buffer per channel [50]:
+[ ?? ] Would you like to clear channel buffers after replay? (yes/no) [yes]:
+[ ?? ] Default channel modes [+stn]:
+[ ** ]
+[ ** ] -- User Modules --
+[ ** ]
+[ ** ] +--------------+------------------------------------------------------------------------------------------+
+[ ** ] | Name         | Description                                                                              |
+[ ** ] +--------------+------------------------------------------------------------------------------------------+
+[ ** ] | chansaver    | Keep config up-to-date when user joins/parts                                             |
+[ ** ] | controlpanel | Dynamic configuration through IRC. Allows editing only yourself if you're not ZNC admin. |
+[ ** ] | perform      | Keeps a list of commands to be executed when ZNC connects to IRC.                        |
+[ ** ] +--------------+------------------------------------------------------------------------------------------+
+[ ** ] And 22 other (uncommon) modules. You can enable those later.
+[ ** ]
+[ ?? ] Load module <chansaver>? (yes/no) [no]: yes
+[ ?? ] Load module <controlpanel>? (yes/no) [no]:
+[ ?? ] Load module <perform>? (yes/no) [no]:
+[ ** ]
+[ ?? ] Would you like to set up a network? (yes/no) [no]:
+[ ** ]
+[ ?? ] Would you like to set up another user? (yes/no) [no]:
+[ ok ] Writing config [/var/lib/znc/configs/znc.conf]...
+[ ** ]
+[ ** ] To connect to this ZNC you need to connect to it as your IRC server
+[ ** ] using the port that you supplied.  You have to supply your login info
+[ ** ] as the IRC server password like this: user/network:pass.
+[ ** ]
+[ ** ] Try something like this in your IRC client...
+[ ** ] /server <znc_server_ip> +1337 zncuser:<pass>
+[ ** ] And this in your browser...
+[ ** ] https://<znc_server_ip>:1337/
+[ ** ]
+[ ?? ] Launch ZNC now? (yes/no) [yes]: no
+
+
+$ exit
+
+# service znc start
+# chsh -s /bin/false znc
