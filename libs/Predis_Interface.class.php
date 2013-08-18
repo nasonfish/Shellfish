@@ -57,10 +57,23 @@ class Predis_Interface {
         }
     }
 
-    public function getAllPages(){
+    public function getAllPages($limit = -1){
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('pages'));
-        return $this->redis->executeCommand($cmd);
+        return $this->shorten($this->redis->executeCommand($cmd), $limit);
+    }
+
+    /*
+     * Small utility function that shortens an array.
+     */
+    private function shorten($pages, $limit){
+        if(!is_array($pages)){
+            return array();
+        }
+        if($limit < 0){
+            return $pages;
+        }
+        return array_slice($pages, 0, $limit);
     }
 
     public function tagSearch($tags = array(), $limit = 10, $pagination = 1){
@@ -89,10 +102,10 @@ class Predis_Interface {
                 $return = array_intersect($return, $pages);
             }
         }
-        return $return === false ? array() : ($limit < 0 ? $return : array_slice($return, $limit * $pagination, $limit));
+        return $return === false ? array() : ($limit < 0 ? $return : array_slice($return, $limit * $pagination-1, $limit));
     }
 
-    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array()){
+    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $username = "Anonymous", $ip = "Unknown"){
 
         // First, let's just initialize the database. This is pretty simple, but you can comment it out after there are things in the database.
         // I'll do that later
@@ -121,6 +134,12 @@ class Predis_Interface {
         $cmd->setRawArguments(array('page:' . $id . ':download', $download)); // This can be FALSE/0.
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':text', $text));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':username', $username));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':ip', $ip));
+        $this->redis->executeCommand($cmd);
+
         // Tags of the page
         foreach($tags as $tag){
             $cmd = new Predis\Command\SetAdd();
@@ -138,7 +157,7 @@ class Predis_Interface {
          * "tag:<tagname>" SET(1, 2, 3, 4, ids_of_pages)
          *
          * "pages" SET(1, 2, 3, 4, ids_of_all_the_pages)
-         * "page:<pageid>:(title|description|download|text)" string(the specified thing in a string.)
+         * "page:<pageid>:(title|description|download|text|username)" string(the specified thing in a string.)
          *
          * "next_id" string(id of the next page we will add)
          */

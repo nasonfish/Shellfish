@@ -82,6 +82,19 @@ class Page{
         return $this->predis->getPredis()->executeCommand($cmd);
     }
 
+    public function getUsername(){
+        $cmd = new Predis\Command\StringGet();
+        $cmd->setRawArguments(array('page:' . $this->id . ':username'));
+        return $this->predis->getPredis()->executeCommand($cmd);
+    }
+
+    public function getIP(){
+        // We probably won't use this, but it's good to have it, just in case bad things happen.
+        $cmd = new Predis\Command\StringGet();
+        $cmd->setRawArguments(array('page:' . $this->id . ':ip'));
+        return $this->predis->getPredis()->executeCommand($cmd);
+    }
+
     public function getId(){
         return $this->id;
     }
