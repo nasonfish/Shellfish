@@ -15,7 +15,7 @@
         include('../libs/Tutorials.class.php');
         include('../libs/Predis_Page.class.php');
         $tutorials = new Tutorials;
-        $tutorials->printTut(new Page($_GET['id']), true);
+        $tutorials->printTut(new Page($_GET['id'], $tutorials->getPredisInterface()), true);
         ?>
     </div>
     <div class="foot">

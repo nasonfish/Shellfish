@@ -21,4 +21,10 @@ $ip = $_SERVER['REMOTE_ADDR'];
 
 Yay! You authenticated!
 
-<?=$username?>, your ip is <?=$ip?>.
+<?=$username?>, your ip is <?=$ip?>
+
+<?
+include('../libs/Predis_Interface.class.php');
+$interface = new Predis_Interface();
+print $interface->create();
+?>

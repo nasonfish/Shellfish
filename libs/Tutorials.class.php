@@ -26,11 +26,11 @@
 
 class Tutorials {
 
-    private $predis;
+    private $predisInterface;
 
     public function __construct(){
         include('Predis_Interface.class.php');
-        $this->predis = new Predis_Interface;
+        $this->predisInterface = new Predis_Interface;
     }
 
     /**
@@ -56,8 +56,8 @@ class Tutorials {
         ';
     }
 
-    public function getPredis(){
-        return $this->predis;
+    public function getPredisInterface(){
+        return $this->predisInterface;
     }
 
     public function dlLink(Page $tutorial){

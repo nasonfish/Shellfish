@@ -73,7 +73,7 @@ class Predis_Interface {
         if($limit < 0){
             return $pages;
         }
-        return array_slice($pages, $limit * $pagination-1, $limit);
+        return array_slice($pages, $limit * ($pagination-1), $limit);
     }
 
     public function tagSearch($tags = array(), $limit = 10, $pagination = 1){
@@ -148,6 +148,10 @@ class Predis_Interface {
             $cmd->setRawArguments(array('tag:' . $tag, $id)); // Add the id to the tag
             $this->redis->executeCommand($cmd);
         }
+        $cmd = new Predis\Command\SetAdd();
+        $cmd->setRawArguments(array('pages', $id));
+        $this->redis->executeCommand($cmd);
+
         return $id;
     }
 

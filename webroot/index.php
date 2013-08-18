@@ -12,9 +12,11 @@
         </div>
         <div class="body">
             <?php
-            include('../libs/Tutorials.class.php'); $tutorials = new Tutorials;
-            foreach($tutorials->getPredis()->getAllPages(10) as $tutorial){
-                $tutorials->printTut($tutorial);
+            include('../libs/Tutorials.class.php');
+            include('../libs/Predis_Page.class.php');
+            $tutorials = new Tutorials;
+            foreach($tutorials->getPredisInterface()->getAllPages(10) as $tutorial){
+                $tutorials->printTut(new Page($tutorial, $tutorials->getPredisInterface()));
             }
             ?>
         </div>
