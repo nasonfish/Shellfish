@@ -57,23 +57,23 @@ class Predis_Interface {
         }
     }
 
-    public function getAllPages($limit = -1){
+    public function getAllPages($limit = -1, $pagination = 1){
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('pages'));
-        return $this->shorten($this->redis->executeCommand($cmd), $limit);
+        return $this->shorten($this->redis->executeCommand($cmd), $limit, $pagination);
     }
 
     /*
      * Small utility function that shortens an array.
      */
-    private function shorten($pages, $limit){
+    private function shorten($pages, $limit, $pagination){
         if(!is_array($pages)){
             return array();
         }
         if($limit < 0){
             return $pages;
         }
-        return array_slice($pages, 0, $limit);
+        return array_slice($pages, $limit * $pagination-1, $limit);
     }
 
     public function tagSearch($tags = array(), $limit = 10, $pagination = 1){
@@ -102,7 +102,7 @@ class Predis_Interface {
                 $return = array_intersect($return, $pages);
             }
         }
-        return $return === false ? array() : ($limit < 0 ? $return : array_slice($return, $limit * $pagination-1, $limit));
+        return $return === false ? array() : $this->shorten($return, $limit, $pagination);
     }
 
     public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $username = "Anonymous", $ip = "Unknown"){

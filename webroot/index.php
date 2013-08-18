@@ -11,7 +11,12 @@
 
         </div>
         <div class="body">
-            <?php include('../libs/Tutorials.class.php'); $tutorials = new Tutorials; foreach($tutorials->first(10) as $tutorial){ $tutorials->printTut($tutorial);} ?>
+            <?php
+            include('../libs/Tutorials.class.php'); $tutorials = new Tutorials;
+            foreach($tutorials->getPredis()->getAllPages(10) as $tutorial){
+                $tutorials->printTut($tutorial);
+            }
+            ?>
         </div>
         <div class="foot">
 

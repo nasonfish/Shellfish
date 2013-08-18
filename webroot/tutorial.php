@@ -11,7 +11,12 @@
 
     </div>
     <div class="body">
-        <?php include('../libs/Tutorials.class.php'); $tutorials = new Tutorials; $tutorials->printTut($tutorials->getTut($_GET['id']), true);?>
+        <?php
+        include('../libs/Tutorials.class.php');
+        include('../libs/Predis_Page.class.php');
+        $tutorials = new Tutorials;
+        $tutorials->printTut(new Page($_GET['id']), true);
+        ?>
     </div>
     <div class="foot">
         <?php print($tutorials->dlLink($_GET['id'])); ?>
