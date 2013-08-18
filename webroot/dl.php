@@ -1,6 +1,6 @@
 
 <?php
-include ('../libs/tutorials.class.php');
+include('../libs/Tutorials.class.php');
 $tutorials = new Tutorials;
 $page = $tutorials->getPage($_GET['id']);
 

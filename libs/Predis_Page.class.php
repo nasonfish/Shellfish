@@ -81,4 +81,8 @@ class Page{
         $cmd->setRawArguments(array('page:' . $this->id . ':download'));
         return $this->predis->getPredis()->executeCommand($cmd);
     }
+
+    public function getId(){
+        return $this->id;
+    }
 }

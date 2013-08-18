@@ -33,7 +33,7 @@ class Tutorials {
     public function __construct(){
         //$this->parseXML();
         //$this->redis->set('a', 'b');
-        include('predis_interface.class.php');
+        include('Predis_Interface.class.php');
         $this->predis = new Predis_Interface;
     }
 
