@@ -6,13 +6,18 @@
 
 class Tutorials {
 
-    public $tutorials = false;
+//    public $tutorials = false;
+
+    private $predis;
 
     public function __construct(){
-        $this->parseXML();
+        //$this->parseXML();
+        //$this->redis->set('a', 'b');
+        include('predis_interface.class.php');
+        $this->predis = new Predis_Interface;
     }
 
-    private function parseXML(){
+/*    private function parseXML(){
         $file = "../pages.xml";
         $xml = simplexml_load_file($file);
         if(!$xml){
@@ -20,6 +25,7 @@ class Tutorials {
         }
         $this->tutorials = $xml;
     }
+*/
 
     /**
      * We can't splice because it's not an array.
@@ -31,8 +37,11 @@ class Tutorials {
         //return array_slice($this->tutorials, 0, $amount);
         $return = array();
         for($i = 0; $i < $amount; $i++){
-            if(!empty($this->tutorials->page[$i])){
-                $return[] = $this->tutorials->page[$i];
+//            if(!empty($this->tutorials->page[$i])){
+//                $return[] = $this->tutorials->page[$i];
+//            }
+            if($this->predis->exists($i)){
+                $return[] = $i;
             }
         }
         return $return;
@@ -57,7 +66,7 @@ class Tutorials {
      * Print out the nice text of a tutorial.
      * @param bool $tutorial
      */
-    public function printTut($tutorial = false, $all = false){
+    public function printTut($id = false, $all = false){
         $text = file_get_contents('../pages/' . $tutorial->file);
         print '
             <div class="tutorial">
@@ -77,7 +86,7 @@ class Tutorials {
         ';
     }
 
-    public function getTut($id = false){
+    public function getPage($id = false){
         //if(!empty($id)){
             foreach($this->tutorials->page as $page){
                 if($page->id == $id){
@@ -96,6 +105,7 @@ class Tutorials {
                 return '<a href="/dl.php?id='.$id.'">Download me!</a>';
             }
         }
+        return '';
     }
 
 }

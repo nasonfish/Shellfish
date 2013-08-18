@@ -1,7 +1,7 @@
 <?php
 include ('../libs/tutorials.class.php');
 $tutorials = new Tutorials;
-$page = $tutorials->getTut($_GET['id']);
+$page = $tutorials->getPage($_GET['id']);
 
 header('Content-Description: File Transfer');
 header('Content-Type: application/octet-stream');
