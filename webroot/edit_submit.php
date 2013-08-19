@@ -22,8 +22,8 @@ $peregrine = new Peregrine;
 $peregrine->init();
 
 $tutorials = new Tutorials;
-$id = $tutorials->create($peregrine->post->getRaw('title'), $peregrine->post->getRaw('description'),
+$tutorials->edit($peregrine->post->getInt('id'), $peregrine->post->getRaw('title'), $peregrine->post->getRaw('description'),
     $peregrine->post->getRaw('text'), $peregrine->post->isEmpty('download') ? false : $peregrine->post->getRaw('download'),
     explode(', ', $peregrine->post->getRaw('tags')), $peregrine->post->getUsername('username'), $peregrine->post->getIP('ip'));
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
-header('Location: /tutorial.php?id='.$id);
+header('Location: /tutorial.php?id='.$peregrine->post->getInt('id'));

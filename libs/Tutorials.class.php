@@ -72,7 +72,7 @@ class Tutorials {
     public function html_downloadLink(Page $tutorial){
         if($tutorial){
             if($tutorial->getDownload()){
-                return '<a href="/dl.php?id='.$tutorial->getId().'">Download me!</a>';
+                return '<a target="_blank" href="/dl.php?id='.$tutorial->getId().'">Download me!</a>';
             }
         }
         return '';
@@ -212,7 +212,7 @@ class Tutorials {
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':description', $description));
         $this->redis->executeCommand($cmd);
-        if($download !== false){
+        if($download != false){
             $cmd->setRawArguments(array('page:' . $id . ':download', $download));
             $this->redis->executeCommand($cmd);
         }
@@ -236,6 +236,41 @@ class Tutorials {
         $this->redis->executeCommand($cmd);
 
         return $id;
+    }
+
+    public function edit($id, $title, $description, $text, $download, $tags, $username, $ip){ // TODO add defaults.
+        // String data of the tutorial
+        $cmd = new Predis\Command\StringSet();
+        $cmd->setRawArguments(array('page:' . $id . ':title', $title));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':description', $description));
+        $this->redis->executeCommand($cmd);
+        if($download != false){
+            $cmd->setRawArguments(array('page:' . $id . ':download', $download));
+            $this->redis->executeCommand($cmd);
+        }
+        $cmd->setRawArguments(array('page:' . $id . ':text', $text));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':username', $username));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':ip', $ip));
+        $this->redis->executeCommand($cmd);
+        // Remove this tutorial from its old tags
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array('tags'));
+        foreach($this->redis->executeCommand($cmd) as $tag){
+            $cmd = new Predis\Command\SetRemove();
+            $cmd->setRawArguments(array('tag:' . $tag, $id));
+            $this->redis->executeCommand($cmd); // Maybe I shouldn't be doing this, but it doesn't care if it's not in the set already, it just gives me a return value of false.
+        }
+        // Tags of the page
+        foreach($tags as $tag){
+            $cmd = new Predis\Command\SetAdd();
+            $cmd->setRawArguments(array('tags', $tag)); // We can use this because if it already exists, it is not added, it returns 0.
+            $this->redis->executeCommand($cmd);
+            $cmd->setRawArguments(array('tag:' . $tag, $id)); // Add the id to the tag
+            $this->redis->executeCommand($cmd);
+        }
     }
 
     /*

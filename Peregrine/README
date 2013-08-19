@@ -1,0 +1,129 @@
+Peregrine - A PHP Security/Caging Class
+Copyright (c) 2009-2011, Michael Botsko Botsko.net, LLC
+http://www.botsko.net/peregrine
+
+Introduction
+============================
+
+Peregrine is a PHP object that aims to improve PHP superglobal security
+by transferring the raw incoming values to private member variables. You may
+then access the data using a wide range of more secure filtering functions.
+
+You may also pass in arrays of custom data to build a custom cage. The filters
+available range from integers, alpha-numeric, emails, url, IP, phone, etc. All
+methods come in an is__ and get__ flavor, returning boolean or valid values
+respectively.
+
+It's very easy to work with Peregrine and to integrate it into your framework
+or application.
+
+
+Features
+============================
+
+- Provides common filtering to securely access data
+- Wipes original "unsafe" data
+- Easily integrated into existing code, minimal code
+- Sanitize custom data, and/or PHP superglobals
+- Allows both is/get functionality for all methods
+- get__ methods allow custom default values in case nothing is passed
+- Combine multiple fields to validate as group - for dates, phone numbers, etc
+- Growing number of methods for non-standard filtering: names,
+valid html element id types, etc
+
+
+Basics
+============================
+
+First, simply create an instance after including the class file in your code.
+
+$peregrine = new Peregrine;
+
+To automatically copy and destroy the existing superglobals so that
+you're forced to access them through the secure cages, simply call the init
+function:
+
+$peregrine->init();
+
+For example, to access an incoming GET value that needs to be an integer, simply
+call:
+
+$peregrine->get->getInt('user_id');
+
+
+Method Types
+============================
+
+All of the available functions may be called with either a get__() or is__()
+format. For example, to simply test if an array element is a certain value,
+simply run:
+
+$peregrine->get->isInt('user_id');
+// will return (bool)
+
+You'll get a boolean return telling if it *is* an integer or not.
+
+If you want to return the value if it meets your criteria, or at least
+the characters that do, you may call the get__() version:
+
+$peregrine->get->getInt('user_id');
+// might equal (int)1
+
+For a complete list of methods, take a look at the peregrine class.
+
+
+Custom Cages
+============================
+
+You may pass your own arrays to Peregrine using the sanitize method. It will
+delete your original array so that the data only exists in the returned object.
+
+$yourarray = array('myname'=>'Mike Botsko');
+$clean = Peregrine::sanitize( $yourarray );
+
+You may use Peregrine as usual:
+
+$clean->getName('myname');
+
+
+Combining Fields
+============================
+
+When designing a form, you'll often have a single piece of data separated into
+several fields. Dates and phone numbers are the most common. It's a pain
+to validate each field separately or to combine the data yourself, and then
+validate it.
+
+Peregrine provides an awesome method that does all of this for you.
+
+For example, if we want to combine month/day/year fields and validate them all
+as a date, we can:
+
+$p->combine('%s-%s-%s', array('year','month','day'), 'getDate', array('Y-m-d'));
+
+The first argument is our template string, which is determines how our fields
+are to be combined. The second is an array of field names.
+
+The third is which method in Perergrine you want to use to validate the end result, 
+and the fourth is any arguments which need to be passed to the validation method.
+
+
+Known Issues
+============================
+
+- The session superglobal is the only one not destroyed because dealing with it
+is tricky. Since the $_SESSION array is frequently modified by applications, it
+can refresh it by running:
+
+$peregrine->refreshCage('session');
+
+We're working to improve this so that the original session may not be used.
+Comments or suggestions are appreciated.
+
+
+- Because of how the magic is/get functions work, they pass additional
+arguments no matter what and those are going to be NULL unless you've
+set them. The methods were designed to default any additional
+arguments that are NULL back to their real defaults. If you want a real
+NULL returned as the default, you'll have to use the real methods with
+your own condition logic.
