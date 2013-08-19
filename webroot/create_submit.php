@@ -24,6 +24,6 @@ $peregrine->init();
 $tutorials = new Tutorials;
 $id = $tutorials->create($peregrine->post->getRaw('title'), $peregrine->post->getRaw('description'),
     $peregrine->post->getRaw('text'), $peregrine->post->isEmpty('download') ? false : $peregrine->post->getRaw('download'),
-    explode(', ', $peregrine->post->getRaw('tags')), $peregrine->post->getUsername('username'), $peregrine->post->getIP('ip'));
+    explode(', ', $peregrine->post->getRaw('tags')), $peregrine->server->getUsername('PHP_AUTH_USER'), $peregrine->server->getIP('REMOTE_ADDR'));
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
 header('Location: /tutorial.php?id='.$id);

@@ -14,7 +14,7 @@
     <textarea id="download" name="download"><?=$page->getDescription();?></textarea>
     <label for="tags">Tags (Separate with ', ')</label>
     <input id="tags" name="tags" type="text" value="<?=implode(', ', $page->getTags())?>"/>
-    <input id="ip" name="ip" value="<?=$_SERVER['REMOTE_ADDR']?>"> <!-- hidden, this will be the last edited person. -->
+    <!--<input id="ip" name="ip" value="<?//=$_SERVER['REMOTE_ADDR']?>">--> <!-- hidden, this will be the last edited person. -->
     <br/>
     <button type="submit">Re-Submit!</button>
 </form>

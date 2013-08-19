@@ -9,3 +9,26 @@ textarea{
 #ip{
     display: none;
 }
+
+.title-bar{
+    width: 100%;
+    background-color: #c5fff8;
+}
+.title{
+    text-align: left;
+    height: 100%;
+}
+.right-things{
+    text-align: right;
+    height: 100%;
+}
+
+/*
+
+<div class="title-bar">
+    <h4 class="title"><a href="/">Tutorials</a></h4>
+    <div class="right-things">
+        <form action="/tagsearch.php" method="get"><label for="title-tag-search">Search for tags:</label><input name="tags" id="title-tag-search" placeholder="vps,bash"/></form>
+    </div>
+</div>
+*/

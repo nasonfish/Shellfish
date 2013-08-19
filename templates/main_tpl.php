@@ -9,6 +9,12 @@
 <body>
 <div class="content">
     <div class="head">
+        <div class="title-bar">
+            <h4 class="title"><a href="/">Tutorials</a></h4>
+            <div class="right-things">
+                <form action="/tagsearch.php" method="get"><label for="title-tag-search">Search for tags:</label><input name="tags" id="title-tag-search" placeholder="vps,bash"/></form>
+            </div>
+        </div>
         <?php $this->head(); ?>
     </div>
     <div class="body">

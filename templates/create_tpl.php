@@ -1,6 +1,6 @@
 <form method="post" action="/create_submit.php">
-    <label for="username">Enter your username</label>
-    <input id="username" name="username" type="text" value="<?=$username?>"/>
+    <!--<label for="username">Enter your username</label>
+    <input id="username" name="username" type="text" value="<?//=$username?>"/>-->
     <label for="title">Enter a title</label>
     <input id="title" name="title" type="text" placeholder="How to..."/>
     <label for="description">Enter a description/subtitle</label>
@@ -11,7 +11,7 @@
     <textarea id="download" name="download" placeholder="#!/bin/bash"></textarea>
     <label for="tags">Pick some tags so people can find your tutorial! (Separate with ', ')</label>
     <input id="tags" name="tags" type="text" placeholder="puppies, cheese, swords, ham"/>
-    <input id="ip" name="ip" value="<?=$ip?>"> <!-- hidden -->
+    <!--<input id="ip" name="ip" value="<?//=$ip?>">--> <!-- hidden -->
     <br/>
     <button type="submit">Create!</button>
 </form>
