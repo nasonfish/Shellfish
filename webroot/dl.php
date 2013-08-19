@@ -1,7 +1,8 @@
 <?php
 include('../libs/Predis_Page.class.php');
+include('../libs/Tutorials.class.php');
 try{
-    $page = new Page($_GET['id']);
+    $page = new Page($_GET['id'], new Tutorials);
 } catch(PredisPageDoesNotExistException $e){
     echo "Error - that page does not exist.";
 }
