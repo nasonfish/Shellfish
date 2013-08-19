@@ -49,7 +49,7 @@ class Tutorials {
      * @param Page $tutorial
      * @param bool $all Show all of the tutorial, or truncate?
      */
-    public function html_printTut(Page $tutorial, $all = false){
+    public function html_printTutorial(Page $tutorial, $all = false){
         $all = $all || strlen($tutorial->getText()) <= 150;
         print '
             <div class="tutorial">
@@ -58,7 +58,7 @@ class Tutorials {
                 <div class="tutorial-text">
                     <pre class="tutorial">
                         <span class="truncatedtext">
-'.htmlentities(substr($tutorial->getText(), 0, 150)).($all ? '' : '<span class="dotdot" id="tutorial-id-'.$tutorial->getId().'-dot">...</span><span class="fulltext" id="tutorial-id-'.$tutorial->getId().'">').htmlentities(substr($text, 150)).'
+'.htmlentities(substr($tutorial->getText(), 0, 150)).($all ? '' : '<span class="dotdot" id="tutorial-id-'.$tutorial->getId().'-dot">...</span><span class="fulltext" id="tutorial-id-'.$tutorial->getId().'">').htmlentities(substr($tutorial->getText(), 150)).'
                         </span>
                         </span>
 
@@ -69,13 +69,22 @@ class Tutorials {
         ';
     }
 
-    public function html_dlLink(Page $tutorial){
+    public function html_downloadLink(Page $tutorial){
         if($tutorial){
             if($tutorial->getDownload()){
                 return '<a href="/dl.php?id='.$tutorial->getId().'">Download me!</a>';
             }
         }
         return '';
+    }
+
+    public function html_printTags(Page $tutorial){
+        $return = "<p>Tags: ";
+        foreach($tutorial->getTags() as $tag){
+            $return .= '<a href="tagsearch.php?tags='.$tag.'">' . $tag . '</a>&nbsp;';
+        }
+        $return .= "</p>";
+        return $return;
     }
 
     /**
@@ -144,7 +153,7 @@ class Tutorials {
             $results[$tag] = array();
             $command = new Predis\Command\SetIsMember();
             $command->setRawArguments(array('tags', $tag));
-            if($this->redis->executeCommand($command)){
+            if(!$this->redis->executeCommand($command)){
                 return array(); // "That tag doesn't really exist. Sorry"
             }
             foreach($pages as $pageid){
@@ -203,8 +212,10 @@ class Tutorials {
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':description', $description));
         $this->redis->executeCommand($cmd);
-        $cmd->setRawArguments(array('page:' . $id . ':download', $download)); // This can be FALSE/0.
-        $this->redis->executeCommand($cmd);
+        if($download !== false){
+            $cmd->setRawArguments(array('page:' . $id . ':download', $download));
+            $this->redis->executeCommand($cmd);
+        }
         $cmd->setRawArguments(array('page:' . $id . ':text', $text));
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':username', $username));

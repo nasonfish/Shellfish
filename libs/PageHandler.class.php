@@ -24,6 +24,7 @@ class PageHandler {
         require('Predis_Page.class.php');
         require('PredisPageDoesNotExistException.php');
         $this->template = $template;
+        $pass['tutorials'] = new Tutorials;
         $this->pass = $pass;
         include('../templates/main_tpl.php');
     }

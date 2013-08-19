@@ -1,3 +1,2 @@
 <?php
-$tutorials = new Tutorials;
-$tutorials->html_printTut($tutorials->page($_GET['id']), true);
+$tutorials->html_printTutorial($tutorials->page($_GET['id']), true);

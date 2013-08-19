@@ -51,6 +51,7 @@ class Page{
                 $return[] = $tag;
             }
         }
+        return $return;
     }
 
     public function getText(){
