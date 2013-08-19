@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header("WWW-Authenticate: Basic realm=\"DarkHelmet Minecraft MODREQ stats\"");
+    header("WWW-Authenticate: Basic realm=\"Tutorials.pufferfi.sh - Create Tutorial\"");
     header("HTTP/1.0 401 Unauthorized");
     echo '401 Unauthorized - No username/password supplied. Sorry.';
     exit;
@@ -17,14 +17,5 @@ $username = $_SERVER['PHP_AUTH_USER'];
 
 $ip = $_SERVER['REMOTE_ADDR'];
 
-?>
-
-Yay! You authenticated!
-
-<?=$username?>, your ip is <?=$ip?>
-
-<?
-include('../libs/Predis_Interface.class.php');
-$interface = new Predis_Interface();
-print $interface->create();
-?>
+require('../libs/PageHandler.class.php');
+new PageHandler('create', array('username' => $username, 'ip' => $ip));

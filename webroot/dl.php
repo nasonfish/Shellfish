@@ -1,4 +1,3 @@
-
 <?php
 include('../libs/Predis_Page.class.php');
 try{

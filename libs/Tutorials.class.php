@@ -26,18 +26,31 @@
 
 class Tutorials {
 
-    private $predisInterface;
+    private $redis;
 
     public function __construct(){
-        include('Predis_Interface.class.php');
-        $this->predisInterface = new Predis_Interface;
+        require 'Predis/Autoloader.php';
+        Predis\Autoloader::register();
+        $this->redis = new Predis\Client();
     }
 
     /**
-     * Print out the nice text of a tutorial.
-     * @param bool $tutorial
+     * Get a page object for the given id.
+     * @param int $id The tutorial id
+     * @return Page the page object so we can get information.
      */
-    public function printTut(Page $tutorial, $all = false){
+    public function page($id){
+        return new Page($id, $this);
+    }
+
+    /**
+     * Print out the nice HTML of a tutorial.
+     *
+     * @param Page $tutorial
+     * @param bool $all Show all of the tutorial, or truncate?
+     */
+    public function html_printTut(Page $tutorial, $all = false){
+        $all = $all || strlen($tutorial->getText()) <= 150;
         print '
             <div class="tutorial">
                 <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial.php?id='.$tutorial->getId().'">'.$tutorial->getTitle().' (by '.$tutorial->getUsername().')</a></h3>
@@ -56,11 +69,7 @@ class Tutorials {
         ';
     }
 
-    public function getPredisInterface(){
-        return $this->predisInterface;
-    }
-
-    public function dlLink(Page $tutorial){
+    public function html_dlLink(Page $tutorial){
         if($tutorial){
             if($tutorial->getDownload()){
                 return '<a href="/dl.php?id='.$tutorial->getId().'">Download me!</a>';
@@ -68,5 +77,165 @@ class Tutorials {
         }
         return '';
     }
+
+    /**
+     * Get the Predis Client that you can use
+     * to execute queries.
+     *
+     * @return \Predis\Client
+     */
+    public function getPredis(){
+        return $this->redis;
+    }
+
+    /**
+     * Check if a page exists in the redis database
+     * @param bool $id The id of the page.
+     * @return bool|mixed|\Predis\ResponseObjectInterface
+     */
+    public function exists($id = false){
+        if($id === false){
+            return false;
+        } else {
+            $cmd = new Predis\Command\SetIsMember();
+            $cmd->setRawArguments(array("pages", $id));
+            return $this->redis->executeCommand($cmd);
+        }
+    }
+
+    /**
+     * Get all of the pages in the database.
+     *
+     * @param int $limit Is there a limit to how many we should have? (also, amount per page). < 0 for all of them
+     * @param int $pagination What page are we on?
+     * @return array Page ids
+     */
+    public function getAllPages($limit = -1, $pagination = 1){
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array('pages'));
+        return $this->shorten($this->redis->executeCommand($cmd), $limit, $pagination);
+    }
+
+    /*
+     * Small utility function that shortens an array.
+     */
+    private function shorten($pages, $limit, $pagination){
+        if(!is_array($pages)){
+            return array();
+        }
+        if($limit < 0){
+            return $pages;
+        }
+        return array_slice($pages, $limit * ($pagination-1), $limit);
+    }
+
+    /**
+     * Search for all tutorials with a tag
+     *
+     * @param array $tags Array of strings, for the tags we search for
+     * @param int $limit A limit to how many we should return. < 0 means return all. also per-page
+     * @param int $pagination Pagination page.
+     * @return array Array of integers, ids of pages that match all tags.
+     */
+    public function tagSearch($tags = array(), $limit = -1, $pagination = 1){
+        $pages = $this->getAllPages();
+        $results = array();
+        foreach($tags as $tag){
+            $results[$tag] = array();
+            $command = new Predis\Command\SetIsMember();
+            $command->setRawArguments(array('tags', $tag));
+            if($this->redis->executeCommand($command)){
+                return array(); // "That tag doesn't really exist. Sorry"
+            }
+            foreach($pages as $pageid){
+                $cmd = new Predis\Command\SetIsMember();
+                $cmd->setRawArguments(array('tag:' . $tag, $pageid));
+                if($this->redis->executeCommand($cmd)){
+                    $results[$tag][] = $pageid;
+                }
+            }
+        }
+        $return = false;
+        foreach($results as $pages){
+            if($return === false){
+                $return = $pages;
+            } else {
+                $return = array_intersect($return, $pages);
+            }
+        }
+        return $return === false ? array() : $this->shorten($return, $limit, $pagination);
+    }
+
+    /**
+     * Create a new tutorial
+     * @param string $title Our title
+     * @param string $description Description, subtitle, etc.
+     * @param string $text All the text inside the tutorial.
+     * @param bool $download Download text, or false if there is none. We can have them download bash scripts to run.
+     * @param array $tags An array of tags that we apply to the tutorial.
+     * @param string $username The username who submitted it, from the http auth.
+     * @param string $ip The ip of the user who submitted it. We can use this if bad things happen.
+     * @return int|mixed|\Predis\ResponseObjectInterface Integer, the id of the page we just created.
+     */
+    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $username = "Anonymous", $ip = "Unknown"){
+
+        // First, let's just initialize the database. This is pretty simple, but you can comment it out after there are things in the database.
+        // I'll do that later
+        $cmd = new Predis\Command\KeyExists();
+        $cmd->setRawArguments(array('next_id'));
+        if(!$this->redis->executeCommand($cmd)){
+            $cmd = new Predis\Command\StringSet();
+            $cmd->setRawArguments(array('next_id', 0)); // There's no current page, so we start at 0.
+            $this->redis->executeCommand($cmd);
+            $id = 0;
+        } else {
+            $cmd = new Predis\Command\StringGet();
+            $cmd->setRawArguments(array('next_id')); // Get what the id should be
+            $id = $this->redis->executeCommand($cmd);
+
+            $cmd = new Predis\Command\StringIncrement(); // Auto increment
+            $cmd->setRawArguments(array('next_id'));
+            $this->redis->executeCommand($cmd); // For next time we add something.
+        }
+        // String data of the tutorial
+        $cmd = new Predis\Command\StringSet();
+        $cmd->setRawArguments(array('page:' . $id . ':title', $title));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':description', $description));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':download', $download)); // This can be FALSE/0.
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':text', $text));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':username', $username));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':ip', $ip));
+        $this->redis->executeCommand($cmd);
+
+        // Tags of the page
+        foreach($tags as $tag){
+            $cmd = new Predis\Command\SetAdd();
+            $cmd->setRawArguments(array('tags', $tag)); // We can use this because if it already exists, it is not added, it returns 0.
+            $this->redis->executeCommand($cmd);
+            $cmd->setRawArguments(array('tag:' . $tag, $id)); // Add the id to the tag
+            $this->redis->executeCommand($cmd);
+        }
+        $cmd = new Predis\Command\SetAdd();
+        $cmd->setRawArguments(array('pages', $id));
+        $this->redis->executeCommand($cmd);
+
+        return $id;
+    }
+
+    /*
+     * Okay, so here's our schema.
+     * "tags" SET(tagname, othertag, blah)
+     * "tag:<tagname>" SET(1, 2, 3, 4, ids_of_pages)
+     *
+     * "pages" SET(1, 2, 3, 4, ids_of_all_the_pages)
+     * "page:<pageid>:(title|description|download|text|username)" string(the specified thing in a string.)
+     *
+     * "next_id" string(id of the next page we will add)
+     */
 
 }

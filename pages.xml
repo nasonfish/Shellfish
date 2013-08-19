@@ -5,7 +5,7 @@
         <id>0</id> // increment this, this will be unique.
         <title>My awesome title!</title>
         <description>Just a quick little description</description>
-        <page>name.txt</page> // File name, in /pages/
+        <page>name.txt</page> // File name, in /templates/
         <type>markdown</type> currently supported: text, markdown
         <tags>
             <tag>tag1</tag>

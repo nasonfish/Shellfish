@@ -26,28 +26,28 @@
 class Page{
 
     private $id;
-    private $predis;
+    private $redis;
 
     /**
      * Create a new page! WE'RE JUST AN INTEGER!
      */
-    public function __construct($id = false, Predis_Interface $predis){
+    public function __construct($id = false, Tutorials $predis){
         if(!$predis->exists($id)){
             throw new PredisPageDoesNotExistException($id, "Predis Page Construct");
         }
         $this->id = $id;
-        $this->predis = $predis;
+        $this->redis = $predis->getPredis();
     }
 
     public function getTags(){
         $return = array();
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('tags'));
-        $result = $this->predis->getPredis()->executeCommand($cmd);
+        $result = $this->redis->executeCommand($cmd);
         foreach($result as $tag){
             $checkCommand = new Predis\Command\SetIsMember();
             $checkCommand->setRawArguments(array('tag:' . $tag, $this->id));
-            if($this->predis->getPredis()->executeCommand($checkCommand)){
+            if($this->redis->executeCommand($checkCommand)){
                 $return[] = $tag;
             }
         }
@@ -56,43 +56,43 @@ class Page{
     public function getText(){
         $cmd = new Predis\Command\StringGet();
         $cmd->setRawArguments(array('page:' . $this->id . ':text'));
-        return $this->predis->getPredis()->executeCommand($cmd);
+        return $this->redis->executeCommand($cmd);
     }
 
     public function getDescription(){
         $cmd = new Predis\Command\StringGet();
         $cmd->setRawArguments(array('page:' . $this->id . ':description'));
-        return $this->predis->getPredis()->executeCommand($cmd);
+        return $this->redis->executeCommand($cmd);
     }
 
     public function getTitle(){
         $cmd = new Predis\Command\StringGet();
         $cmd->setRawArguments(array('page:' . $this->id . ':title'));
-        return $this->predis->getPredis()->executeCommand($cmd);
+        return $this->redis->executeCommand($cmd);
     }
 
     public function getDownload(){
         $cmd = new Predis\Command\KeyExists();
         $cmd->setRawArguments(array('page:' . $this->id . ':download'));
-        if(!$this->predis->getPredis()->executeCommand($cmd)){
+        if(!$this->redis->executeCommand($cmd)){
             return false;
         }
         $cmd = new Predis\Command\StringGet();
         $cmd->setRawArguments(array('page:' . $this->id . ':download'));
-        return $this->predis->getPredis()->executeCommand($cmd);
+        return $this->redis->executeCommand($cmd);
     }
 
     public function getUsername(){
         $cmd = new Predis\Command\StringGet();
         $cmd->setRawArguments(array('page:' . $this->id . ':username'));
-        return $this->predis->getPredis()->executeCommand($cmd);
+        return $this->redis->executeCommand($cmd);
     }
 
     public function getIP(){
         // We probably won't use this, but it's good to have it, just in case bad things happen.
         $cmd = new Predis\Command\StringGet();
         $cmd->setRawArguments(array('page:' . $this->id . ':ip'));
-        return $this->predis->getPredis()->executeCommand($cmd);
+        return $this->redis->executeCommand($cmd);
     }
 
     public function getId(){

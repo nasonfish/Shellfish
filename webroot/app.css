@@ -1,3 +1,11 @@
 .fulltext{
     display: none;
 }
+
+textarea{
+    font-family: monospace;
+}
+
+#ip{
+    display: none;
+}
