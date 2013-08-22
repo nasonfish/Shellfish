@@ -8,10 +8,30 @@
     <input id="title" name="title" type="text" value="<?=$page->getTitle()?>"/>
     <label for="description">Description/Subtitle</label>
     <input id="description" name="description" type="text" value="<?=$page->getDescription()?>"/>
-    <label for="text">Tutorial</label>
-    <textarea id="text" name="text"><?=$page->getText()?></textarea>
+    <div class="row-fluid">
+        <div class="span7">
+            <label for="text">Tutorial</label>
+            <textarea id="text" name="text" rows="25" class="tutorial-editor"><?=$page->getText()?></textarea>
+        </div>
+        <div class="span4" style="padding-left: 17px; padding-top: 15px;">
+            <h4>Markdown</h4>
+            <p>Markdown can be used in this tutorial to create neat formatting and make your tutorial look nice.</p>
+            <p>You can check out <a href="http://daringfireball.net/projects/markdown/basics">this page</a> to see what Markdown offers.</p>
+            <p>Here's a few tips that may be useful:</p>
+            <ul>
+                <li>Use <code>_single underscores_</code> for <em>italics</em> and <code>__double underscores__</code> for <b>emphasis</b></li>
+                <li>Remember to press the <code>return</code> key twice for a new paragraph, not just once.</li>
+                <li>Indent four spaces to create a code block - syntax highlighting coming soon.</li>
+                <li>Use `backticks` for <code>small one-line code blocks</code></li>
+                <li>You can just type normally, and Markdown shouldn't affect anything too much if you don't want it to.</li>
+                <li>You can make unordered lists by using <code> - item in list</code>. Remember a space in front of the "-"!</li>
+                <li>Ordered lists are similar, you can use <code> 1. item in list</code>, incrementing the number for each line.</li>
+                <li>Use headers (&lt;h1&gt;, &lt;h2&gt;, etc.) using <code># header1</code>, <code>## header2</code>, etc. Remember, h1 is bigger than h2, which is bigger than h3, not the other way around!</li>
+            </ul>
+        </div>
+    </div>
     <label for="download">Downloadable Script</label>
-    <textarea id="download" name="download"><?=$page->getDownload();?></textarea>
+    <textarea id="download" name="download" rows="25"><?=$page->getDownload();?></textarea>
     <label for="tags">Tags (Separate with ', ')</label>
     <input id="tags" name="tags" type="text" value="<?=implode(', ', $page->getTags())?>"/>
     <!--<input id="ip" name="ip" value="<?//=$_SERVER['REMOTE_ADDR']?>">--> <!-- hidden, this will be the last edited person. -->

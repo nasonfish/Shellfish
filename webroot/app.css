@@ -93,6 +93,13 @@ button.download{
 botton.download:active{
     border-style: ridge;
 }
+input[type="text"],
+textarea{
+    width: 800px;
+}
+textarea.tutorial-editor{
+    width: 100%;
+}
 /*
 
 <div class="title-bar">
