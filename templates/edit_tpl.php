@@ -11,7 +11,7 @@
     <label for="text">Tutorial</label>
     <textarea id="text" name="text"><?=$page->getText()?></textarea>
     <label for="download">Downloadable Script</label>
-    <textarea id="download" name="download"><?=$page->getDescription();?></textarea>
+    <textarea id="download" name="download"><?=$page->getDownload();?></textarea>
     <label for="tags">Tags (Separate with ', ')</label>
     <input id="tags" name="tags" type="text" value="<?=implode(', ', $page->getTags())?>"/>
     <!--<input id="ip" name="ip" value="<?//=$_SERVER['REMOTE_ADDR']?>">--> <!-- hidden, this will be the last edited person. -->

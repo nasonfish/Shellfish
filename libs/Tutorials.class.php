@@ -74,9 +74,10 @@ class Tutorials {
     }
 
     public function html_downloadLink(Page $tutorial){
+        // <a target="_blank" href="/dl.php?id='.$tutorial->getId().'"
         if($tutorial){
             if($tutorial->getDownload()){
-                return '<a target="_blank" href="/dl.php?id='.$tutorial->getId().'">Download me!</a>';
+                return sprintf('<button class="download" onclick="location.href=\'/dl.php?id=%s\'">Do it for me!</button>', $tutorial->getId());
             }
         }
         return '';
@@ -252,6 +253,10 @@ class Tutorials {
         if($download != false){
             $cmd->setRawArguments(array('page:' . $id . ':download', $download));
             $this->redis->executeCommand($cmd);
+        } else {
+            $rem = new Predis\Command\KeyDelete();
+            $rem->setRawArguments(array('page:' . $id . ':download'));
+            $this->redis->executeCommand($rem);
         }
         $cmd->setRawArguments(array('page:' . $id . ':text', $text));
         $this->redis->executeCommand($cmd);
