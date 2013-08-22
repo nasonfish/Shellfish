@@ -1,7 +1,7 @@
 $('.showall').click(function(){
     $('#' + $(this).attr('for') + '-dot').hide();
     $('#' + $(this).attr('for') + '-truncated').hide();
-    $('#' + $(this).attr('for')).show("slow");
+    $('#' + $(this).attr('for')).show();
     $(this).hide();
 });
 
@@ -21,4 +21,9 @@ $('.markdown-test').click(function(){
     } else {
         displayNew();
     }
+    Rainbow.color();
+});
+
+$('.show-toggle').click(function(){
+    $('#' + $(this).attr('for')).slideToggle();
 });

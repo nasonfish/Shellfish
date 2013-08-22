@@ -55,26 +55,37 @@ class Tutorials {
      */
     public function html_printTutorial(Page $tutorial, $all = false){
         $all = $all || strlen($tutorial->getText()) <= 150;
-        print '
+        print($this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial.php?id='.$tutorial->getId().'">'.$tutorial->getTitle().'</a></h3>
-                <!--<span class="tutorial-description"><i>'.$tutorial->getDescription().'</i></span><br/>-->
-                <span class="tutorial-author">by '.$tutorial->getUsername().'</span><hr/>
+                <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial.php?id=%id%">%title%</a></h3>
+                <!--<span class="tutorial-description"><i>%desc%</i></span><br/>-->
+                <span class="tutorial-author">by %user%</span><hr/>
                 <div class="tutorial-text">
                         '.($all ? '' : '
-                        <span class="truncated-text" id="tutorial-id-'.$tutorial->getId().'-truncated">
-                               '.$this->md->defaultTransform(substr($tutorial->getText(), 0, 150))
-                      .'</span>'
-                      .'<span class="dotdot" id="tutorial-id-'.$tutorial->getId().'-dot">...</span>').'
-                      <span class="full-text'.($all?'-all':'').'" id="tutorial-id-'.$tutorial->getId().'">'
-                          .$this->md->defaultTransform($tutorial->getText()).'
-                      </span>
-                    '.($all ? '' : '<a class="showall" for="tutorial-id-'.$tutorial->getId().'">Show full tutorial</a>').'
+                        <span class="truncated-text" id="tutorial-id-%id%-truncated">%ttext%</span>'
+                      .'<span class="dotdot" id="tutorial-id-%id%-dot">...</span>').'
+                      <span class="full-text'.($all?'-all':'').'" id="tutorial-id-%id%">%ftext%</span>
+                    '.($all ? '' : '<a class="showall" for="tutorial-id-%id%">Show full tutorial</a>').'
                 </div>
                 <br/>
             </div>
             <br/><br/>
-        ';
+        ', $tutorial));
+    }
+
+    private function doReplaces($string, Page $tutorial){
+        $replaces = array(
+            '%id%' => $tutorial->getId(),
+            '%title%' => $tutorial->getTitle(),
+            '%desc%' => $tutorial->getDescription(),
+            '%user%' => $tutorial->getUsername(),
+            '%ttext%' => $this->md->defaultTransform(substr($tutorial->getText(), 0, 150)),
+            '%ftext%' => $this->md->defaultTransform($tutorial->getText())
+        );
+        foreach($replaces as $key => $val){
+            $string = str_replace($key, $val, $string);
+        }
+        return $string;
     }
 
     public function html_downloadLink(Page $tutorial){

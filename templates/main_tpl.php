@@ -4,6 +4,7 @@
     <title>Tutorials, by pufferfi.sh</title>
     <link href="/bootstrap.css" rel="stylesheet" media="all">
     <link href="/app.css" rel="stylesheet" media="all">
+    <link href="/Rainbow/solarized-dark.css" rel="stylesheet" media="all">
     <?php $this->css(); ?>
 </head>
 <body>
@@ -32,6 +33,7 @@
 <footer>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="/app.js"></script>
+    <script src="/Rainbow/rainbow-custom.min.js"></script>
     <?php $this->js(); ?>
 </footer>
 </body>
