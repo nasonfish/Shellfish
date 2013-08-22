@@ -2,18 +2,23 @@
 <html>
 <head>
     <title>Tutorials, by pufferfi.sh</title>
-    <link href="/app.css" rel="stylesheet" media="all">
     <link href="/bootstrap.css" rel="stylesheet" media="all">
+    <link href="/app.css" rel="stylesheet" media="all">
     <?php $this->css(); ?>
 </head>
 <body>
 <div class="content">
     <div class="head">
         <div class="title-bar">
-            <h4 class="title"><a href="/">Tutorials</a></h4>
-            <div class="right-things">
-                <form action="/tagsearch.php" method="get"><label for="title-tag-search">Search for tags:</label><input name="tags" id="title-tag-search" placeholder="vps,bash"/></form>
+            <h2 class="title pull-left">Tutorials</h2>
+            <div class="pull-right right-things">
+                <form action="/tagsearch.php" method="get"><input name="tags" id="title-tag-search" placeholder="Search for tutorials!"/></form>
             </div>
+        </div>
+        <div class="sub-bar">
+            <ul class="sub-links">
+                <li class="sub-link"><a href="/">Home</a></li>
+            </ul>
         </div>
         <?php $this->head(); ?>
     </div>

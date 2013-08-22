@@ -11,18 +11,56 @@ textarea{
 }
 
 .title-bar{
-    width: 100%;
-    background-color: #c5fff8;
+    background-color: #2d3e50;
+    height: 70px;
+}
+.sub-bar{
+    background-color: #01b8e2;
+    height: 30px;
+}
+.sub-links{
+    list-style: none;
+    height: 100%;
+    color: #FFFFFF;
+}
+.sub-link{
+    height: 100%;
+    text-align: center;
+    font-size: 15px;
+    padding-top: 3.25px;
+    width: 30px;
+}
+.sub-link a{
+    color: #FFFFFF;
+}
+.sub-link:hover{
+    background-color: #019cc3;
+}
+.sub-link a:hover{
+    color: #FFFFFF;
 }
 .title{
     text-align: left;
-    height: 100%;
-}
-.right-things{
-    text-align: right;
-    height: 100%;
+    padding-left: 35px;
+    color: #FFFFFF;
+    font-family: Sansation,serif;
 }
 
+.right-things{
+    padding-right: 30px;
+    padding-top: 20px;
+}
+
+body{
+    background-color: #f1f5f8;
+}
+
+.tutorial{
+    background-color: #FFFFFF;
+}
+.tutorial-description{
+    font-size: 16px;
+}
 /*
 
 <div class="title-bar">

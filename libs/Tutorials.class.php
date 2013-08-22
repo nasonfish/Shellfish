@@ -28,10 +28,14 @@ class Tutorials {
 
     private $redis;
 
+    private $md;
+
     public function __construct(){
         require 'Predis/Autoloader.php';
+        include '../Markdown/Michelf/MarkdownExtra.php';
         Predis\Autoloader::register();
         $this->redis = new Predis\Client();
+        $this->md = new \Michelf\MarkdownExtra();
     }
 
     /**
@@ -54,18 +58,17 @@ class Tutorials {
         print '
             <div class="tutorial">
                 <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial.php?id='.$tutorial->getId().'">'.$tutorial->getTitle().' (by '.$tutorial->getUsername().')</a></h3>
-                <span class="tutorial-description"><i>'.$tutorial->getDescription().'</i></span>
+                <span class="tutorial-description"><i>'.$tutorial->getDescription().'</i></span><br/><br/>
                 <div class="tutorial-text">
-                    <pre class="tutorial">
                         <span class="truncatedtext">
-'.htmlentities(substr($tutorial->getText(), 0, 150)).($all ? '' : '<span class="dotdot" id="tutorial-id-'.$tutorial->getId().'-dot">...</span><span class="fulltext" id="tutorial-id-'.$tutorial->getId().'">').htmlentities(substr($tutorial->getText(), 150)).'
+'.$this->md->defaultTransform(substr($tutorial->getText(), 0, 150)).($all ? '' : '<span class="dotdot" id="tutorial-id-'.$tutorial->getId().'-dot">...</span><span class="fulltext" id="tutorial-id-'.$tutorial->getId().'">').$this->md->defaultTransform(substr($tutorial->getText(), 150)).'
                         </span>
                         </span>
-
-                    </pre>
                     '.($all ? '' : '<a class="showall" for="tutorial-id-'.$tutorial->getId().'">Show full tutorial</a>').'
                 </div>
+                <br/>
             </div>
+            <br/><br/>
         ';
     }
 
