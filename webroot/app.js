@@ -1,6 +1,7 @@
 $('.showall').click(function(){
     $('#' + $(this).attr('for') + '-dot').hide();
-    $('#' + $(this).attr('for')).slideDown("slow");
+    $('#' + $(this).attr('for') + '-truncated').hide();
+    $('#' + $(this).attr('for')).show("slow");
     $(this).hide();
 });
 

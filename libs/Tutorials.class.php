@@ -61,10 +61,14 @@ class Tutorials {
                 <!--<span class="tutorial-description"><i>'.$tutorial->getDescription().'</i></span><br/>-->
                 <span class="tutorial-author">by '.$tutorial->getUsername().'</span><hr/>
                 <div class="tutorial-text">
-                        <span class="truncatedtext">
-'.$this->md->defaultTransform(substr($tutorial->getText(), 0, 150)).($all ? '' : '<span class="dotdot" id="tutorial-id-'.$tutorial->getId().'-dot">...</span><span class="fulltext" id="tutorial-id-'.$tutorial->getId().'">').$this->md->defaultTransform(substr($tutorial->getText(), 150)).'
-                        </span>
-                        </span>
+                        '.($all ? '' : '
+                        <span class="truncated-text" id="tutorial-id-'.$tutorial->getId().'-truncated">
+                               '.$this->md->defaultTransform(substr($tutorial->getText(), 0, 150))
+                      .'</span>'
+                      .'<span class="dotdot" id="tutorial-id-'.$tutorial->getId().'-dot">...</span>').'
+                      <span class="full-text'.($all?'-all':'').'" id="tutorial-id-'.$tutorial->getId().'">'
+                          .$this->md->defaultTransform($tutorial->getText()).'
+                      </span>
                     '.($all ? '' : '<a class="showall" for="tutorial-id-'.$tutorial->getId().'">Show full tutorial</a>').'
                 </div>
                 <br/>
