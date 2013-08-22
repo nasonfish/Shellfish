@@ -57,8 +57,9 @@ class Tutorials {
         $all = $all || strlen($tutorial->getText()) <= 150;
         print '
             <div class="tutorial">
-                <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial.php?id='.$tutorial->getId().'">'.$tutorial->getTitle().' (by '.$tutorial->getUsername().')</a></h3>
-                <span class="tutorial-description"><i>'.$tutorial->getDescription().'</i></span><br/><br/>
+                <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial.php?id='.$tutorial->getId().'">'.$tutorial->getTitle().'</a></h3>
+                <!--<span class="tutorial-description"><i>'.$tutorial->getDescription().'</i></span><br/>-->
+                <span class="tutorial-author">by '.$tutorial->getUsername().'</span><hr/>
                 <div class="tutorial-text">
                         <span class="truncatedtext">
 '.$this->md->defaultTransform(substr($tutorial->getText(), 0, 150)).($all ? '' : '<span class="dotdot" id="tutorial-id-'.$tutorial->getId().'-dot">...</span><span class="fulltext" id="tutorial-id-'.$tutorial->getId().'">').$this->md->defaultTransform(substr($tutorial->getText(), 150)).'

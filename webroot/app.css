@@ -57,9 +57,27 @@ body{
 
 .tutorial{
     background-color: #FFFFFF;
+    padding: 5px 25px 10px 15px;
+    border-color: #CECECE;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
 }
 .tutorial-description{
     font-size: 16px;
+}
+.body{
+    padding: 13px;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+}
+hr{
+    border-width: 3px;
+}
+.tutorial-author{
+    font-size: 14px;
+    padding-left: 6px;
 }
 /*
 

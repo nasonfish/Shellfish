@@ -22,7 +22,7 @@
         </div>
         <?php $this->head(); ?>
     </div>
-    <div class="body">
+    <div class="body row-fluid">
         <?php $this->page(); ?>
     </div>
     <div class="foot">
