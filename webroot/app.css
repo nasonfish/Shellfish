@@ -100,6 +100,16 @@ textarea{
 textarea.tutorial-editor{
     width: 100%;
 }
+
+#md-preview{
+    background-color: #FFFFFF;
+    padding: 5px 25px 10px 15px;
+    border-color: #CECECE;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
 /*
 
 <div class="title-bar">

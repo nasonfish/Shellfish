@@ -12,6 +12,8 @@
         <div class="span7">
             <label for="text">Tutorial</label>
             <textarea id="text" name="text" rows="25" class="tutorial-editor"><?=$page->getText()?></textarea>
+            <button class="markdown-test" type="button">Preview your Markdown!</button>
+            <br/><br/>
         </div>
         <div class="span4" style="padding-left: 17px; padding-top: 15px;">
             <h4>Markdown</h4>
