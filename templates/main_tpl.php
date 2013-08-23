@@ -32,9 +32,9 @@
     <div class="foot">
         <?php $this->foot(); ?>
         <div id="bottom">
-            <ul class="bottom-bar">
-                <li class="bottom-link"><a href="#">Creative Commons stuff</a></li>
-                <li class="bottom-link"><a href="#">We're on github!</a></li>
+            <ul class="bottom-bar row">
+                <li class="bottom-link"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Tutorials licensed under Creative Commons BY-NC-SA license.</a></li>
+                <li class="bottom-link"><a href="http://github.com/nasonfish/Tutorials/">Source code is available on GitHub</a></li>
             </ul>
         </div>
     </div>
