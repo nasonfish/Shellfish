@@ -1,4 +1,5 @@
 <?php
-foreach($tutorials->tagSearch(explode(',', $_GET['tags'])) as $result){
+
+foreach($tutorials->tagSearch($pass) as $result){
     $tutorials->html_printTutorial($tutorials->page($result));
 }

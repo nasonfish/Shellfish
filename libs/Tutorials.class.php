@@ -57,7 +57,7 @@ class Tutorials {
         $all = $all || strlen($tutorial->getText()) <= 150;
         print($this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial.php?id=%id%">%title%</a></h3>
+                <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial/%slug%/%id%/">%title%</a></h3>
                 <!--<span class="tutorial-description"><i>%desc%</i></span><br/>-->
                 <span class="tutorial-author">by %user%</span><hr/>
                 <div class="tutorial-text">
@@ -76,6 +76,7 @@ class Tutorials {
     private function doReplaces($string, Page $tutorial){
         $replaces = array(
             '%id%' => $tutorial->getId(),
+            '%slug%' => strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/','/[ -]+/','/^-|-$/'),array('','-',''),$tutorial->getTitle())),
             '%title%' => $tutorial->getTitle(),
             '%desc%' => $tutorial->getDescription(),
             '%user%' => $tutorial->getUsername(),
@@ -101,7 +102,7 @@ class Tutorials {
     public function html_printTags(Page $tutorial){
         $return = "<p>Tags: ";
         foreach($tutorial->getTags() as $tag){
-            $return .= '<a href="tagsearch.php?tags='.$tag.'">' . $tag . '</a>&nbsp;';
+            $return .= '<a href="/tagsearch/'.$tag.'/">' . $tag . '</a>&nbsp;';
         }
         $return .= "</p>";
         return $return;

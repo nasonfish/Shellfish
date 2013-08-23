@@ -1,10 +1,7 @@
 <?php
 
-function include_e($page = false, $pass = array()){
+function include_e($page = false, $pass = array(), $tutorials){
     if($page !== false && file_exists($page)){
-        foreach($pass as $key => $val){
-            $$key = $val;
-        }
         include($page);
     }
 }
@@ -13,6 +10,7 @@ class PageHandler {
 
     private $template;
     private $pass;
+    private $tutorials;
 
     /**
      * Handle the page.
@@ -24,28 +22,28 @@ class PageHandler {
         require('Predis_Page.class.php');
         require('PredisPageDoesNotExistException.php');
         $this->template = $template;
-        $pass['tutorials'] = new Tutorials;
+        $this->tutorials = new Tutorials;
         $this->pass = $pass;
         include('../templates/main_tpl.php');
     }
 
     public function head(){
-        include_e('../templates/' . $this->template . '_tpl.head.php', $this->pass);
+        include_e('../templates/' . $this->template . '_tpl.head.php', $this->pass, $this->tutorials);
     }
 
     public function foot(){
-        include_e('../templates/' . $this->template . '_tpl.foot.php', $this->pass);
+        include_e('../templates/' . $this->template . '_tpl.foot.php', $this->pass, $this->tutorials);
     }
 
     public function js(){
-        include_e('../templates/' . $this->template . '_tpl.js.php', $this->pass);
+        include_e('../templates/' . $this->template . '_tpl.js.php', $this->pass, $this->tutorials);
     }
 
     public function css(){
-        include_e('../templates/' . $this->template . '_tpl.css.php', $this->pass);
+        include_e('../templates/' . $this->template . '_tpl.css.php', $this->pass, $this->tutorials);
     }
 
     public function page(){
-        include_e('../templates/' . $this->template . '_tpl.php', $this->pass);
+        include_e('../templates/' . $this->template . '_tpl.php', $this->pass, $this->tutorials);
     }
 }
