@@ -51,26 +51,36 @@ class Tutorials {
      * Print out the nice HTML of a tutorial.
      *
      * @param Page $tutorial
-     * @param bool $all Show all of the tutorial, or truncate?
      */
-    public function html_printTutorial(Page $tutorial, $all = false){
-        $all = $all || strlen($tutorial->getText()) <= 150;
+    public function html_printTutorial(Page $tutorial){
         print($this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial/%slug%/%id%/">%title%</a></h3>
-                <!--<span class="tutorial-description"><i>%desc%</i></span><br/>-->
-                <span class="tutorial-author">by %user%</span><hr/>
+                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">-->%title%<!--</a>--></h3>
+                <span class="tutorial-description"><i>%desc%</i></span><br/>
+                <p class="tutorial-author">by %user%</p><hr/>
                 <div class="tutorial-text">
-                        '.($all ? '' : '
-                        <span class="truncated-text" id="tutorial-id-%id%-truncated">%ttext%</span>'
-                      .'<span class="dotdot" id="tutorial-id-%id%-dot">...</span>').'
-                      <span class="full-text'.($all?'-all':'').'" id="tutorial-id-%id%">%ftext%</span>
-                    '.($all ? '' : '<a class="showall" for="tutorial-id-%id%">Show full tutorial</a>').'
+                      <span class="full-text" id="tutorial-id-%id%">%ftext%</span>
                 </div>
                 <br/>
             </div>
             <br/><br/>
         ', $tutorial));
+    }
+
+    public function html_printTutorialLink(Page $tutorial){
+        print $this->doReplaces('
+            <div class="tutorial">
+                <h3 class="tutorial-header"><a class="tutorial-link" href="/tutorial/%slug%/%id%/">%title%</a></h3>
+                <span class="tutorial-description"><i>%desc%</i></span><br/>
+                <p class="tutorial-author">by %user%</p><hr/>
+                <div class="tutorial-text">
+                      <span class="truncated-text" id="tutorial-id-%id%">%ttext%...</span>
+                      <a href="/tutorial/%slug%/%id%/">See full tutorial</a>
+                </div>
+                <br/>
+            </div>
+            <br/><br/>
+        ', $tutorial);
     }
 
     private function doReplaces($string, Page $tutorial){
@@ -80,7 +90,7 @@ class Tutorials {
             '%title%' => $tutorial->getTitle(),
             '%desc%' => $tutorial->getDescription(),
             '%user%' => $tutorial->getUsername(),
-            '%ttext%' => $this->md->defaultTransform(substr($tutorial->getText(), 0, 150)),
+            '%ttext%' => $this->md->defaultTransform(substr($tutorial->getText(), 0, 200)),
             '%ftext%' => $this->md->defaultTransform($tutorial->getText())
         );
         foreach($replaces as $key => $val){

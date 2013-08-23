@@ -13,7 +13,7 @@
         <div class="title-bar">
             <h2 class="title pull-left">Tutorials</h2>
             <div class="pull-right right-things">
-                <form action="/tagsearch.php" method="get"><input name="tags" id="title-tag-search" placeholder="Search for tutorials!"/></form>
+                <form action="/tagsearch/" method="get"><input name="tags" id="title-tag-search" placeholder="Search for tutorials!"/></form>
             </div>
         </div>
         <div class="sub-bar">
@@ -31,6 +31,12 @@
     </div>
     <div class="foot">
         <?php $this->foot(); ?>
+        <div id="bottom">
+            <ul class="bottom-bar">
+                <li class="bottom-link"><a href="#">Creative Commons stuff</a></li>
+                <li class="bottom-link"><a href="#">We're on github!</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 <footer>

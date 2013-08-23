@@ -3,7 +3,9 @@
 function include_e($page = false, $pass = array(), $tutorials){
     if($page !== false && file_exists($page)){
         include($page);
+        return true;
     }
+    return false;
 }
 
 class PageHandler {
@@ -44,6 +46,9 @@ class PageHandler {
     }
 
     public function page(){
-        include_e('../templates/' . $this->template . '_tpl.php', $this->pass, $this->tutorials);
+        if(!include_e('../templates/' . $this->template . '_tpl.php', $this->pass, $this->tutorials)){
+            echo "I couldn't find the page you were looking for, sorry. Maybe you should head <a href='/'>home</a> and find your way back to where you were.";// Let nasonfish &lt;nasonfish [at] gmail {dot} com&gt; know if you believe this is a mistake.";
+        }
+
     }
 }
