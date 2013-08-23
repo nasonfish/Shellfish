@@ -1,4 +1,7 @@
-<?php $page = $tutorials->page($pass[0]); ?>
+<?php
+try {
+    $page = $tutorials->page($pass[0]);
+?>
 <form method="post" action="/edit_submit.php">
     <label for="id">ID</label>
     <input id="id" name="id" type="number" value="<?=$page->getId()?>" readonly>
@@ -42,3 +45,7 @@
     <br/>
     <button type="submit">Re-Submit!</button>
 </form>
+<?php
+} catch(PredisPageDoesNotExistException $e){
+    echo "Tutorial not found.";
+}

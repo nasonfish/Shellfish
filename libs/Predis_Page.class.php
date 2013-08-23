@@ -96,6 +96,10 @@ class Page{
         return $this->redis->executeCommand($cmd);
     }
 
+    public function getTitleSlug(){
+        return strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/','/[ -]+/','/^-|-$/'),array('','-',''), $this->getTitle()));
+    }
+
     public function getId(){
         return $this->id;
     }

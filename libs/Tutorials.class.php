@@ -76,7 +76,7 @@ class Tutorials {
     private function doReplaces($string, Page $tutorial){
         $replaces = array(
             '%id%' => $tutorial->getId(),
-            '%slug%' => strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/','/[ -]+/','/^-|-$/'),array('','-',''),$tutorial->getTitle())),
+            '%slug%' => $tutorial->getTitleSlug(),
             '%title%' => $tutorial->getTitle(),
             '%desc%' => $tutorial->getDescription(),
             '%user%' => $tutorial->getUsername(),
