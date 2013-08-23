@@ -298,6 +298,30 @@ class Tutorials {
         }
     }
 
+    public function delete($id){
+        $cmd = new Predis\Command\KeyDelete();
+        $cmd->setRawArguments(array('page:' . $id . ':title'));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':description'));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':download'));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':text'));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':username'));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':ip'));
+        $this->redis->executeCommand($cmd);
+        // Remove this tutorial from its old tags
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array('tags'));
+        foreach($this->redis->executeCommand($cmd) as $tag){
+            $cmd = new Predis\Command\SetRemove();
+            $cmd->setRawArguments(array('tag:' . $tag, $id));
+            $this->redis->executeCommand($cmd); // Maybe I shouldn't be doing this, but it doesn't care if it's not in the set already, it just gives me a return value of false.
+        }
+    }
+
     /*
      * Okay, so here's our schema.
      * "tags" SET(tagname, othertag, blah)
