@@ -20,21 +20,31 @@ textarea{
 }
 .sub-links{
     list-style: none;
-    height: 100%;
     color: #FFFFFF;
+    width: 100%;
+    display: table;
 }
 .sub-link{
-    height: 100%;
     text-align: center;
-    font-size: 15px;
-    padding-top: 3.25px;
-    width: 30px;
+    font-size: 16px;
+    height: 25px;
+    padding-top: 5px;
+    display: table-cell;
+}
+.sub-link-filler{
+    display: table-cell;
+}
+.sub-link.active{
+    background-color: #019cc3;
 }
 .sub-link a{
     color: #FFFFFF;
 }
 .sub-link:hover{
     background-color: #019cc3;
+}
+.sub-link.active:hover{
+    background-color: #0182a3;
 }
 .sub-link a:hover{
     color: #FFFFFF;
