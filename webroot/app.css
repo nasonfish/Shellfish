@@ -7,21 +7,17 @@ textarea{
 }
 
 .title-bar{
-    background-color: #2d3e50;
     height: 70px;
 }
 .sub-bar{
-    background-color: #01b8e2;
     height: 30px;
 }
 .sub-links{
     list-style: none;
-    color: #FFFFFF;
     width: 100%;
     display: table;
 }
 #bottom{
-    background-color: #6a7f94;
     position: relative;
     bottom: 0;
     margin-right: auto;
@@ -33,20 +29,17 @@ textarea{
 }
 .bottom-bar{
     display: table;
-    color: #FFFFFF;
     list-style: none;
     width: 100%;
 }
 .bottom-link{
     list-style: none;
     display: table-cell;
-    color: #FFFFFF;
     width: 50%;
 }
 .bottom-link a{
     display: block;
     text-align: center;
-    color: #FFFFFF;
     font-size: 16px;
 }
 .sub-link{
@@ -59,25 +52,9 @@ textarea{
 .sub-link-filler{
     display: table-cell;
 }
-.sub-link.active{
-    background-color: #019cc3;
-}
-.sub-link a{
-    color: #FFFFFF;
-}
-.sub-link:hover{
-    background-color: #019cc3;
-}
-.sub-link.active:hover{
-    background-color: #0182a3;
-}
-.sub-link a:hover{
-    color: #FFFFFF;
-}
 .title{
     text-align: left;
     padding-left: 35px;
-    color: #FFFFFF;
     font-family: Sansation,serif;
 }
 
@@ -86,14 +63,8 @@ textarea{
     padding-top: 20px;
 }
 
-body{
-    background-color: #f1f5f8;
-}
-
 .tutorial{
-    background-color: #FFFFFF;
     padding: 5px 25px 10px 15px;
-    border-color: #CECECE;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -113,9 +84,6 @@ hr{
     padding-top: 5px;
 }
 button.download{
-    color: #FFFFFF;
-    background-color: #41db5a;
-    border: groove #319a52;
     padding: 7px;
     border-radius: 3px;
     -moz-border-radius: 3px;
@@ -135,9 +103,7 @@ textarea.tutorial-editor{
 }
 
 #md-preview{
-    background-color: #FFFFFF;
     padding: 5px 25px 10px 15px;
-    border-color: #CECECE;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;

@@ -1,0 +1,61 @@
+#bottom{
+    background-color: #6a7f94;
+}
+
+.sub-bar{
+    background-color: #01b8e2;
+}
+
+.title-bar{
+    background-color: #2d3e50;
+}
+
+.sub-links{
+    color: #FFFFFF;
+}
+
+.bottom-link a{
+    color: #FFFFFF;
+}
+
+.sub-link.active{
+    background-color: #019cc3;
+}
+
+.sub-link a{
+    color: #FFFFFF;
+}
+
+.sub-link:hover{
+    background-color: #019cc3;
+}
+.sub-link.active:hover{
+    background-color: #0182a3;
+}
+.sub-link a:hover{
+    color: #FFFFFF;
+}
+
+.title{
+    color: #FFFFFF;
+}
+
+body{
+    background-color: #f1f5f8;
+}
+
+.tutorial{
+    background-color: #FFFFFF;
+    border-color: #CECECE;
+}
+
+button.download{
+    color: #FFFFFF;
+    background-color: #41db5a;
+    border: groove #319a52;
+}
+
+#md-preview{
+    background-color: #FFFFFF;
+    border-color: #CECECE;
+}
