@@ -9,11 +9,12 @@ $('.markdown-test').click(function(){
     var elem = $(this);
     var old = $('#md-preview');
     var displayNew = function(){
-        $.post('ajax_markdown.php', {text: $('#text').val()})
+        $.post('/ajax_markdown.php', {text: $('#text').val()})
             .done(function(data){
                 elem.after('<div id="md-preview" style="display: none;">' + data + '</div>');
                 $('#md-preview').slideDown("slow");
                 old.remove();
+                Rainbow.color();
             });
     };
     if(old.length != 0){ // Check if there are any md-preview elements on the page.
@@ -21,7 +22,6 @@ $('.markdown-test').click(function(){
     } else {
         displayNew();
     }
-    Rainbow.color();
 });
 
 $('.show-toggle').click(function(){

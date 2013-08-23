@@ -42,8 +42,8 @@
 </div>
 <footer>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="/app.js"></script>
     <script src="/Rainbow/rainbow-custom.min.js"></script>
+    <script src="/app.js"></script>
     <?php $this->js(); ?>
 </footer>
 </body>

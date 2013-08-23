@@ -17,6 +17,7 @@ if(empty($_POST)){
     exit;
 }
 require('../libs/Tutorials.class.php');
+require('../libs/Predis_Page.class.php');
 require('../Peregrine/Peregrine.php');
 $peregrine = new Peregrine;
 $peregrine->init();
@@ -26,4 +27,4 @@ $tutorials->edit($peregrine->post->getInt('id'), $peregrine->post->getRaw('title
     $peregrine->post->getRaw('text'), $peregrine->post->isEmpty('download') ? false : $peregrine->post->getRaw('download'),
     explode(', ', $peregrine->post->getRaw('tags')), $peregrine->post->getUsername('username'), $peregrine->server->getIP('REMOTE_ADDR'));
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
-header('Location: /tutorial/'.$tutorials->page($peregrine->post->getInt('id'))->getTitleSlug().$peregrine->post->getInt('id'));
+header('Location: /tutorial/'.$tutorials->page($peregrine->post->getInt('id'))->getTitleSlug().'/'.$peregrine->post->getInt('id').'/');
