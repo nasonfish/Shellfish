@@ -1,4 +1,4 @@
-<?php $page = $tutorials->page($_GET['id']); ?>
+<?php $page = $tutorials->page($pass[0]); ?>
 <form method="post" action="/edit_submit.php">
     <label for="id">ID</label>
     <input id="id" name="id" type="number" value="<?=$page->getId()?>" readonly>
@@ -29,7 +29,7 @@
                 <li>Ordered lists are similar, you can use <code> 1. item in list</code>, incrementing the number for each line.</li>
                 <li>Use headers (&lt;h1&gt;, &lt;h2&gt;, etc.) using <code># header1</code>, <code>## header2</code>, etc. Remember, h1 is bigger than h2, which is bigger than h3, not the other way around!</li>
                 <li>
-                    We also have syntax highlighting (using <a href="http://craig.is/making/rainbows">Rainbows</a>). Simply type &lt;pre data-language="yourlanguage"&gt;Your code goes here!&lt;/pre&gt; To use syntax highlighting for your code blocks! <span class="show-toggle" for="languages"><a>Languages supported.</a></span><ul id="languages" style="display: none"><li>c</li><li>shell</li><li>java</li><li>d</li><li>coffeescript</li><li>generic</li><li>scheme</li><li>javascript</li><li>r</li><li>haskell</li><li>python</li><li>html</li><li>smalltalk</li><li>csharp</li><li>go</li><li>php</li><li>ruby</li><li>lua</li><li>css</li></ul>
+                    We also have syntax highlighting (using <a href="http://craig.is/making/rainbows">Rainbows</a>). Simply use <code>&lt;pre data-language="yourlanguage"&gt;Your code goes here!&lt;/pre&gt;</code> to use syntax highlighting for your code blocks! <span class="show-toggle" for="languages"><a>Languages supported...</a></span><ul id="languages" style="display: none"><li>c</li><li>shell</li><li>java</li><li>d</li><li>coffeescript</li><li>generic</li><li>scheme</li><li>javascript</li><li>r</li><li>haskell</li><li>python</li><li>html</li><li>smalltalk</li><li>csharp</li><li>go</li><li>php</li><li>ruby</li><li>lua</li><li>css</li></ul>
                 </li>
             </ul>
         </div>
