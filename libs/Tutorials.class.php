@@ -230,7 +230,7 @@ class Tutorials {
         }
         return $return === false ? array() : $this->shorten($return, $limit, $pagination);
     }
-    
+
     public function getDistros(){
         return $this->getSet('distros');
     }
