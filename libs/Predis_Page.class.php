@@ -55,21 +55,15 @@ class Page{
     }
 
     public function getText(){
-        $cmd = new Predis\Command\StringGet();
-        $cmd->setRawArguments(array('page:' . $this->id . ':text'));
-        return $this->redis->executeCommand($cmd);
+        return $this->get('text');
     }
 
     public function getDescription(){
-        $cmd = new Predis\Command\StringGet();
-        $cmd->setRawArguments(array('page:' . $this->id . ':description'));
-        return $this->redis->executeCommand($cmd);
+        return $this->get('description');
     }
 
     public function getTitle(){
-        $cmd = new Predis\Command\StringGet();
-        $cmd->setRawArguments(array('page:' . $this->id . ':title'));
-        return $this->redis->executeCommand($cmd);
+        return $this->get('title');
     }
 
     public function getDownload(){
@@ -78,29 +72,37 @@ class Page{
         if(!$this->redis->executeCommand($cmd)){
             return false;
         }
-        $cmd = new Predis\Command\StringGet();
-        $cmd->setRawArguments(array('page:' . $this->id . ':download'));
-        return $this->redis->executeCommand($cmd);
+        return $this->get('download');
     }
 
     public function getUsername(){
-        $cmd = new Predis\Command\StringGet();
-        $cmd->setRawArguments(array('page:' . $this->id . ':username'));
-        return $this->redis->executeCommand($cmd);
+        return $this->get('username');
     }
 
     public function getIP(){
         // We probably won't use this, but it's good to have it, just in case bad things happen.
-        $cmd = new Predis\Command\StringGet();
-        $cmd->setRawArguments(array('page:' . $this->id . ':ip'));
-        return $this->redis->executeCommand($cmd);
+        return $this->get('ip');
     }
 
     public function getTitleSlug(){
         return strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/','/[ -]+/','/^-|-$/'),array('','-',''), $this->getTitle()));
     }
 
+    public function getDistro(){
+        return $this->get('distro');
+    }
+
+    public function getCompatible(){
+        return $this->get("compatible");
+    }
+
     public function getId(){
         return $this->id;
+    }
+
+    private function get($name){
+        $cmd = new Predis\Command\StringGet();
+        $cmd->setRawArguments(array('page:' . $this->id . ':' . $name));
+        return $this->redis->executeCommand($cmd);
     }
 }

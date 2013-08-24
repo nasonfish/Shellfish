@@ -25,6 +25,7 @@ $peregrine->init();
 $tutorials = new Tutorials;
 $tutorials->edit($peregrine->post->getInt('id'), $peregrine->post->getRaw('title'), $peregrine->post->getRaw('description'),
     $peregrine->post->getRaw('text'), $peregrine->post->isEmpty('download') ? false : $peregrine->post->getRaw('download'),
-    explode(', ', $peregrine->post->getRaw('tags')), $peregrine->post->getUsername('username'), $peregrine->server->getIP('REMOTE_ADDR'));
+    explode(', ', $peregrine->post->getRaw('tags')), $peregrine->post->getRaw('distro'), $peregrine->post->getRaw('compatible'),
+    $peregrine->post->getUsername('username'), $peregrine->server->getIP('REMOTE_ADDR'));
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
 header('Location: /tutorial/'.$tutorials->page($peregrine->post->getInt('id'))->getTitleSlug().'/'.$peregrine->post->getInt('id').'/');

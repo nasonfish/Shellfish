@@ -39,6 +39,10 @@ try {
     </div>
     <label for="download">Downloadable Script</label>
     <textarea id="download" name="download" rows="25"><?=$page->getDownload();?></textarea>
+    <label for="distro">Which distribution is this for?</label>
+    <input id="distro" name="distro" type="text" value="<?=$page->getDistro()?>"/>
+    <label for="compatible">What is this compatible with? (distribution wise, or whatever extra data you want to include)</label>
+    <input id="compatible" name="compatible" type="text" value="<?=$page->getCompatible()?>"/>
     <label for="tags">Tags (Separate with ', ')</label>
     <input id="tags" name="tags" type="text" value="<?=implode(', ', $page->getTags())?>"/>
     <!--<input id="ip" name="ip" value="<?//=$_SERVER['REMOTE_ADDR']?>">--> <!-- hidden, this will be the last edited person. -->

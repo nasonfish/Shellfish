@@ -19,9 +19,9 @@
         </div>
         <div class="sub-bar">
             <ul class="sub-links">
-                <li class="sub-link active span2"><a href="/">Home</a></li>
-                <li class="sub-link span2"><a href="/categories/">Categories</a></li>
-                <li class="sub-link span2"><a href="/about-us/">About Us</a></li>
+                <li class="sub-link span2 <?= $this->active('index'); ?>"><a href="/">Home</a></li>
+                <li class="sub-link span2 <?= $this->active('categories'); ?>"><a href="/categories/">Categories</a></li>
+                <li class="sub-link span2 <?= $this->active('about-us'); ?>"><a href="/about-us/">About Us</a></li>
                 <li class="sub-link-filler span6">&nbsp;</li>
             </ul>
         </div>
