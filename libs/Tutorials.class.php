@@ -55,8 +55,8 @@ class Tutorials {
     public function html_printTutorial(Page $tutorial){
         print($this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/t/%slug%/%id%/">-->%title%<!--</a>--></h3>
-                <span class="tutorial-description"><i>%desc%</i></span><br/>
+                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/t/%slug%/%id%/">--><b>%title%</b>%distro%<!--</a>--></h3>
+                <span class="tutorial-description"><i>%desc%</i>%compat%</span><br/>
                 <p class="tutorial-author">by %user%</p><hr/>
                 <div class="tutorial-text">
                       <span class="full-text" id="tutorial-id-%id%">%ftext%</span>
@@ -70,8 +70,8 @@ class Tutorials {
     public function html_printTutorialLink(Page $tutorial){
         print $this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><a class="tutorial-link" href="/t/%slug%/%id%/">%title%</a></h3>
-                <span class="tutorial-description"><i>%desc%</i></span><br/>
+                <h3 class="tutorial-header"><a class="tutorial-link" href="/t/%slug%/%id%/"><b>%title%</b>%distro%</a></h3>
+                <span class="tutorial-description"><i>%desc%</i>%compat%</span><br/>
                 <p class="tutorial-author">by %user%</p><hr/>
                 <div class="tutorial-text">
                       <span class="truncated-text" id="tutorial-id-%id%">%ttext%...</span>
@@ -90,8 +90,10 @@ class Tutorials {
             '%title%' => $tutorial->getTitle(),
             '%desc%' => $tutorial->getDescription(),
             '%user%' => $tutorial->getUsername(),
-            '%ttext%' => $this->md->defaultTransform(substr($tutorial->getText(), 0, 200)),
-            '%ftext%' => $this->md->defaultTransform($tutorial->getText())
+            '%ttext%' => $this->md->defaultTransform(substr($tutorial->getText(), 0, 250)),
+            '%ftext%' => $this->md->defaultTransform($tutorial->getText()),
+            '%distro%' => !($distro = $tutorial->getDistro()) ? '' : ', for ' . $distro,
+            '%compat%' => !($compat = $tutorial->getCompatible()) ? '' : ', compatible with ' . $compat
         );
         foreach($replaces as $key => $val){
             $string = str_replace($key, $val, $string);
@@ -258,13 +260,12 @@ class Tutorials {
 
         $cmd->setRawArguments(array('page:' . $id . ':distro', $distro));
         $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':compatible', $compatible));
+        $this->redis->executeCommand($cmd);
         $cmd = new Predis\Command\SetAdd();
         $cmd->setRawArguments(array('distros', $distro));
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('distro:' . $distro, $id));
-        $this->redis->executeCommand($cmd);
-
-        $cmd->setRawArguments(array('page:' . $id . ':compatible', $compatible));
         $this->redis->executeCommand($cmd);
 
         // Tags of the page

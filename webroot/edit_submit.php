@@ -28,4 +28,4 @@ $tutorials->edit($peregrine->post->getInt('id'), $peregrine->post->getRaw('title
     explode(', ', $peregrine->post->getRaw('tags')), $peregrine->post->getRaw('distro'), $peregrine->post->getRaw('compatible'),
     $peregrine->post->getUsername('username'), $peregrine->server->getIP('REMOTE_ADDR'));
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
-header('Location: /tutorial/'.$tutorials->page($peregrine->post->getInt('id'))->getTitleSlug().'/'.$peregrine->post->getInt('id').'/');
+header('Location: /t/'.$tutorials->page($peregrine->post->getInt('id'))->getTitleSlug().'/'.$peregrine->post->getInt('id').'/');

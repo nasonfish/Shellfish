@@ -28,4 +28,4 @@ $id = $tutorials->create($peregrine->post->getRaw('title'), $peregrine->post->ge
     explode(', ', $peregrine->post->getRaw('tags')), $peregrine->post->getRaw('distro'), $peregrine->post->getRaw('compatible'),
     $peregrine->server->getUsername('PHP_AUTH_USER'), $peregrine->server->getIP('REMOTE_ADDR'));
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
-header('Location: /tutorial/'.$tutorials->page($id)->getTitleSlug().'/'.$id.'/');
+header('Location: /t/'.$tutorials->page($id)->getTitleSlug().'/'.$id.'/');
