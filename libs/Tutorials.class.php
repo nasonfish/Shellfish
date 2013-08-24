@@ -172,15 +172,14 @@ class Tutorials {
     }
 
     /**
-     * Search for all tutorials with a tag
+     * Filter tutorials that have a certain [set of] tag[s]
      *
      * @param array $tags Array of strings, for the tags we search for
      * @param int $limit A limit to how many we should return. < 0 means return all. also per-page
      * @param int $pagination Pagination page.
      * @return array Array of integers, ids of pages that match all tags.
      */
-    public function tagSearch($tags = array(), $limit = -1, $pagination = 1){
-        $pages = $this->getAllPages();
+    public function tagSearch($pages, $tags = array(), $limit = -1, $pagination = 1){
         $results = array();
         foreach($tags as $tag){
             $results[$tag] = array();
@@ -206,6 +205,44 @@ class Tutorials {
             }
         }
         return $return === false ? array() : $this->shorten($return, $limit, $pagination);
+    }
+
+    public function distroSearch($pages, $distro, $limit=-1, $pagination=1){
+        $distros = array($distro, 'all');
+        $results = array();
+        foreach($distros as $d){
+            $results[$d] = array();
+            foreach($pages as $page){
+                $cmd = new Predis\Command\SetIsMember();
+                $cmd->setRawArguments(array('distro:' . $d, $page));
+                if($this->redis->executeCommand($cmd)){
+                    $results[$d][] = $page;
+                }
+            }
+        }
+        $return = false;
+        foreach($results as $pages){
+            if($return === false){
+                $return = $pages;
+            } else {
+                $return = array_intersect($return, $pages);
+            }
+        }
+        return $return === false ? array() : $this->shorten($return, $limit, $pagination);
+    }
+    
+    public function getDistros(){
+        return $this->getSet('distros');
+    }
+
+    public function getTags(){
+        return $this->getSet('tags');
+    }
+
+    public function getSet($type){
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array($type));
+        return $this->redis->executeCommand($cmd);
     }
 
     /**
@@ -315,6 +352,7 @@ class Tutorials {
         /* Distro */
         $cmd->setRawArguments(array('page:' . $id . ':distro', $distro));
         $this->redis->executeCommand($cmd);
+        $distro = explode(' ', $distro)[0];
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('distros'));
         foreach($this->redis->executeCommand($cmd) as $aDistro){
