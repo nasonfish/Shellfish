@@ -34,7 +34,11 @@ class Tutorials {
         require 'Predis/Autoloader.php';
         include '../Markdown/Michelf/MarkdownExtra.php';
         Predis\Autoloader::register();
+        $pass = trim(file_get_contents('../redispass.txt'));
         $this->redis = new Predis\Client();
+        $auth = new Predis\Command\ConnectionAuth();
+        $auth->setRawArguments(array($pass));
+        $this->redis->executeCommand($auth);
         $this->md = new \Michelf\MarkdownExtra();
     }
 
@@ -62,6 +66,8 @@ class Tutorials {
                       <span class="full-text" id="tutorial-id-%id%">%ftext%</span>
                 </div>
                 <br/>
+                <hr/>
+                <span><a href="/edit/%id%/">Edit this page! (admins only)</a></span>
             </div>
             <br/><br/>
         ', $tutorial));
@@ -90,8 +96,8 @@ class Tutorials {
             '%title%' => $tutorial->getTitle(),
             '%desc%' => $tutorial->getDescription(),
             '%user%' => $tutorial->getUsername(),
-            '%ttext%' => $this->md->defaultTransform(substr($tutorial->getText(), 0, 250)),
-            '%ftext%' => $this->md->defaultTransform($tutorial->getText()),
+            '%ttext%' => $this->md->defaultTransform($this->syntax(substr($tutorial->getText(), 0, 250))),
+            '%ftext%' => $this->md->defaultTransform($this->syntax($tutorial->getText())),
             '%distro%' => !($distro = $tutorial->getDistro()) ? '' : ', for ' . $distro,
             '%compat%' => !($compat = $tutorial->getCompatible()) ? '' : ', compatible with ' . $compat
         );
@@ -99,6 +105,17 @@ class Tutorials {
             $string = str_replace($key, $val, $string);
         }
         return $string;
+    }
+
+    private function syntax($text){
+        $text = str_replace('<', '&lt;', $text);
+        $text = str_replace('>', '&gt;', $text);
+        $langs = array('c', 'shell', 'java', 'd', 'coffeescript', 'generic', 'scheme', 'javascript', 'r', 'haskell', 'python', 'html', 'smalltalk', 'csharp', 'go', 'php', 'ruby', 'lua', 'css');
+        foreach($langs as $lang){
+            $text = str_replace('{'.$lang.'}', '<pre data-language="'.$lang.'">', $text);
+            $text = str_replace('{/'.$lang.'}', '</pre>', $text); // bad :/
+        }
+        return $text;
     }
 
     public function html_downloadLink(Page $tutorial){
@@ -352,7 +369,8 @@ class Tutorials {
         /* Distro */
         $cmd->setRawArguments(array('page:' . $id . ':distro', $distro));
         $this->redis->executeCommand($cmd);
-        $distro = explode(' ', $distro)[0];
+        $distro = explode(' ', $distro);
+        $distro = $distro[0];
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('distros'));
         foreach($this->redis->executeCommand($cmd) as $aDistro){
@@ -366,6 +384,7 @@ class Tutorials {
         $cmd->setRawArguments(array('distro:' . $distro, $id));
         $this->redis->executeCommand($cmd);
 
+        $cmd = new Predis\Command\StringSet();
         $cmd->setRawArguments(array('page:' . $id . ':compatible', $compatible));
         $this->redis->executeCommand($cmd);
         /* Tags */

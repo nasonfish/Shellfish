@@ -1,3 +1,6 @@
+<h3>Create a page</h3>
+<span>Currently, a password is needed to create a page on this site, however, you may be able to ask one of the owners of the site for it in <a href="http://webchat.esper.net/?channels=Shoals">an IRC channel we hang out in</a> if you would like to contribute.</span>
+<hr>
 <form method="post" action="/create_submit.php">
     <!--<label for="username">Enter your username</label>
     <input id="username" name="username" type="text" value="<?//=$username?>"/>-->
@@ -26,7 +29,7 @@
                 <li>Ordered lists are similar, you can use <code> 1. item in list</code>, incrementing the number for each line.</li>
                 <li>Use headers (&lt;h1&gt;, &lt;h2&gt;, etc.) using <code># header1</code>, <code>## header2</code>, etc. Remember, h1 is bigger than h2, which is bigger than h3, not the other way around!</li>
                 <li>
-                    We also have syntax highlighting (using <a href="http://craig.is/making/rainbows">Rainbows</a>). Simply use <code>&lt;pre data-language="yourlanguage"&gt;Your code goes here!&lt;/pre&gt;</code> to use syntax highlighting for your code blocks! <span class="show-toggle" for="languages"><a>Languages supported...</a></span><ul id="languages" style="display: none"><li>c</li><li>shell</li><li>java</li><li>d</li><li>coffeescript</li><li>generic</li><li>scheme</li><li>javascript</li><li>r</li><li>haskell</li><li>python</li><li>html</li><li>smalltalk</li><li>csharp</li><li>go</li><li>php</li><li>ruby</li><li>lua</li><li>css</li></ul>
+                    We also have syntax highlighting (using <a href="http://craig.is/making/rainbows">Rainbows</a>). Simply use <code>{language}Your code goes here!{/language}</code> to use syntax highlighting for your code blocks! (For example, <code>{python}print "Hello!"{/python}</code>)<span class="show-toggle" for="languages"><a>Languages supported...</a></span><ul id="languages" style="display: none"><li>c</li><li>shell</li><li>java</li><li>d</li><li>coffeescript</li><li>generic</li><li>scheme</li><li>javascript</li><li>r</li><li>haskell</li><li>python</li><li>html</li><li>smalltalk</li><li>csharp</li><li>go</li><li>php</li><li>ruby</li><li>lua</li><li>css</li></ul>
                 </li>
             </ul>
         </div>

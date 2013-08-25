@@ -22,7 +22,8 @@
                 <li class="sub-link span2 <?= $this->active('index'); ?>"><a href="/">Home</a></li>
                 <li class="sub-link span2 <?= $this->active('categories'); ?>"><a href="/categories/">Categories</a></li>
                 <li class="sub-link span2 <?= $this->active('about-us'); ?>"><a href="/about-us/">About Us</a></li>
-                <li class="sub-link-filler span6">&nbsp;</li>
+                <li class="sub-link span2 <?= $this->active('about-us'); ?>"><a href="/create/">Create a page</a></li>
+                <li class="sub-link-filler span4">&nbsp;</li>
             </ul>
         </div>
         <?php $this->head(); ?>
@@ -35,6 +36,7 @@
         <div id="bottom">
             <ul class="bottom-bar row">
                 <li class="bottom-link"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Tutorials licensed under Creative Commons BY-NC-SA license.</a></li>
+                <!--<li class="bottom-link"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</li>-->
                 <li class="bottom-link"><a href="http://github.com/nasonfish/Tutorials/">Source code is available on GitHub</a></li>
             </ul>
         </div>
