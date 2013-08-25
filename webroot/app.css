@@ -2,6 +2,11 @@ textarea{
     font-family: monospace;
 }
 
+.container {
+    width: 980px;
+    margin: 0 auto !important;
+}
+
 #ip{
     display: none;
 }
