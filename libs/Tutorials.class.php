@@ -115,6 +115,12 @@ class Tutorials {
             $text = str_replace('{'.$lang.'}', '<pre data-language="'.$lang.'">', $text);
             $text = str_replace('{/'.$lang.'}', '</pre>', $text); // bad :/
         }
+        foreach(array('info', 'error', 'success', 'danger') as $div){
+            $text = str_replace('{'.$div.'}', '<div class="alert alert-'.$div.'">', $text);
+            $text = str_replace('{/'.$div.'}', '</div>', $text);
+        }
+        $text = str_replace('{alert}', '<div class="alert">', $text);
+        $text = str_replace('{/alert}', '</div>', $text);
         return $text;
     }
 

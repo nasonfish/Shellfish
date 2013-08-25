@@ -108,6 +108,12 @@ textarea.tutorial-editor{
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
+ul#color-boxes li{
+    padding-top: 15px;
+}
+ul#color-boxes{
+    display: none;
+}
 /*.tutorial-header{
     color: #2d3e50;
 }*/

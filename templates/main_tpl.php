@@ -14,7 +14,7 @@
         <div class="title-bar">
             <h2 class="title pull-left">Tutorials</h2>
             <div class="pull-right right-things">
-                <form action="/tagsearch/" method="get"><input name="tags" id="title-tag-search" placeholder="Search for tutorials!"/></form>
+                <form action="/search/" method="get"><input name="q" id="title-tag-search" placeholder="Search for tutorials!"/></form>
             </div>
         </div>
         <div class="sub-bar">
@@ -22,7 +22,7 @@
                 <li class="sub-link span2 <?= $this->active('index'); ?>"><a href="/">Home</a></li>
                 <li class="sub-link span2 <?= $this->active('categories'); ?>"><a href="/categories/">Categories</a></li>
                 <li class="sub-link span2 <?= $this->active('about-us'); ?>"><a href="/about-us/">About Us</a></li>
-                <li class="sub-link span2 <?= $this->active('about-us'); ?>"><a href="/create/">Create a page</a></li>
+                <li class="sub-link span2 <?= $this->active('create'); ?>"><a href="/create/">Create a page</a></li>
                 <li class="sub-link-filler span4">&nbsp;</li>
             </ul>
         </div>
