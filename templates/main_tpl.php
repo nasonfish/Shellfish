@@ -11,13 +11,13 @@
 <body>
 <div class="content">
     <div class="head">
-        <div class="title-bar">
+        <div class="title-bar container">
             <h2 class="title pull-left">Tutorials</h2>
             <div class="pull-right right-things">
                 <form action="/search/" method="get"><input name="q" id="title-tag-search" placeholder="Search for tutorials!"/></form>
             </div>
         </div>
-        <div class="sub-bar">
+        <div class="sub-bar container">
             <ul class="sub-links">
                 <li class="sub-link span2 <?= $this->active('index'); ?>"><a href="/">Home</a></li>
                 <li class="sub-link span2 <?= $this->active('categories'); ?>"><a href="/categories/">Categories</a></li>
@@ -28,13 +28,13 @@
         </div>
         <?php $this->head(); ?>
     </div>
-    <div class="body row-fluid">
+    <div class="body row-fluid container">
         <?php $this->page(); ?>
     </div>
     <div class="foot">
         <?php $this->foot(); ?>
         <div id="bottom">
-            <ul class="bottom-bar row">
+            <ul class="bottom-bar row container">
                 <li class="bottom-link"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Tutorials licensed under Creative Commons BY-NC-SA license.</a></li>
                 <!--<li class="bottom-link"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</li>-->
                 <li class="bottom-link"><a href="http://github.com/nasonfish/Tutorials/">Source code is available on GitHub</a></li>
