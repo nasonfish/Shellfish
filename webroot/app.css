@@ -7,6 +7,41 @@ textarea{
     margin: 0 auto !important;
 }
 
+.bar{
+    width: 1160px;
+    margin: 0 auto !important;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+.welcome{
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.welcome *{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*body{
+    background: url('http://0.s3.envato.com/files/43625974/Rubber_Duck_11.jpg');
+}  We'll save that for another day. ;p */
+.mid-boxes{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.mid-button{
+    height: 40px;
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
 #ip{
     display: none;
 }
@@ -19,8 +54,10 @@ textarea{
 }
 .sub-links{
     list-style: none;
-    width: 90%;
+    width: 100%;
     display: table;
+    padding-left: 0;
+    margin-left: 0;
 }
 #bottom{
     position: relative;
@@ -79,6 +116,8 @@ textarea{
 }
 .body{
     z-index: -10;
+    padding-top: 30px;
+    padding-bottom: 50px;
 }
 hr{
     border-width: 3px;
@@ -119,6 +158,24 @@ ul#color-boxes li{
 ul#color-boxes{
     display: none;
 }
+
+.categories{
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding-top: 8px;
+    padding-bottom: 20px;
+    padding-left: 9px;
+}
+.categories-left ul li{
+    list-style: none;
+}
+
+.categories-h{
+    margin-right: auto;
+    margin-left: auto;
+}
+
 /*.tutorial-header{
     color: #2d3e50;
 }*/

@@ -59,8 +59,8 @@ class Tutorials {
     public function html_printTutorial(Page $tutorial){
         print($this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/t/%slug%/%id%/">--><b>%title%</b>%distro%<!--</a>--></h3>
-                <span class="tutorial-description"><i>%desc%</i>%compat%</span><br/>
+                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/t/%slug%/%id%/">-->[%category%] <b>%title%</b><!--</a>--></h3>
+                <span class="tutorial-description"><i>%desc%</i></span><br/>
                 <p class="tutorial-author">by %user%</p><hr/>
                 <div class="tutorial-text">
                       <span class="full-text" id="tutorial-id-%id%">%ftext%</span>
@@ -76,14 +76,15 @@ class Tutorials {
     public function html_printTutorialLink(Page $tutorial){
         print $this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><a class="tutorial-link" href="/t/%slug%/%id%/"><b>%title%</b>%distro%</a></h3>
-                <span class="tutorial-description"><i>%desc%</i>%compat%</span><br/>
+                <h3 class="tutorial-header">[%category%] <a class="tutorial-link" href="/t/%slug%/%id%/"><b>%title%</b></a></h3>
+                <span class="tutorial-description"><i>%desc%</i></span><br/>
                 <p class="tutorial-author">by %user%</p><hr/>
                 <div class="tutorial-text">
                       <span class="truncated-text" id="tutorial-id-%id%">%ttext%...</span>
                       <a href="/t/%slug%/%id%/">See full tutorial</a>
                 </div>
                 <br/>
+
             </div>
             <br/><br/>
         ', $tutorial);
@@ -98,8 +99,7 @@ class Tutorials {
             '%user%' => $tutorial->getUsername(),
             '%ttext%' => $this->md->defaultTransform($this->syntax(substr($tutorial->getText(), 0, 250))),
             '%ftext%' => $this->md->defaultTransform($this->syntax($tutorial->getText())),
-            '%distro%' => !($distro = $tutorial->getDistro()) ? '' : ', for ' . $distro,
-            '%compat%' => !($compat = $tutorial->getCompatible()) ? '' : ', compatible with ' . $compat
+            '%category%' => $tutorial->getCategory()
         );
         foreach($replaces as $key => $val){
             $string = str_replace($key, $val, $string);
@@ -230,14 +230,14 @@ class Tutorials {
         return $return === false ? array() : $this->shorten($return, $limit, $pagination);
     }
 
-    public function distroSearch($pages, $distro, $limit=-1, $pagination=1){
+    public function categorySearch($pages, $distro, $limit=-1, $pagination=1){
         $distros = array($distro, 'all');
         $results = array();
         foreach($distros as $d){
             $results[$d] = array();
             foreach($pages as $page){
                 $cmd = new Predis\Command\SetIsMember();
-                $cmd->setRawArguments(array('distro:' . $d, $page));
+                $cmd->setRawArguments(array('category:' . $d, $page));
                 if($this->redis->executeCommand($cmd)){
                     $results[$d][] = $page;
                 }
@@ -254,8 +254,8 @@ class Tutorials {
         return $return === false ? array() : $this->shorten($return, $limit, $pagination);
     }
 
-    public function getDistros(){
-        return $this->getSet('distros');
+    public function getCategories(){
+        return $this->getSet('categories');
     }
 
     public function getTags(){
@@ -281,7 +281,7 @@ class Tutorials {
      * @param string $ip The ip of the user who submitted it. We can use this if bad things happen.
      * @return int|mixed|\Predis\ResponseObjectInterface Integer, the id of the page we just created.
      */
-    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $distro = "all", $compatible = "Unknown", $username = "Anonymous", $ip = "Unknown"){
+    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $distro = "all", $username = "Anonymous", $ip = "Unknown"){
 
         // First, let's just initialize the database. This is pretty simple, but you can comment it out after there are things in the database.
         // I'll do that later
@@ -318,14 +318,12 @@ class Tutorials {
         $cmd->setRawArguments(array('page:' . $id . ':ip', $ip));
         $this->redis->executeCommand($cmd);
 
-        $cmd->setRawArguments(array('page:' . $id . ':distro', $distro));
-        $this->redis->executeCommand($cmd);
-        $cmd->setRawArguments(array('page:' . $id . ':compatible', $compatible));
+        $cmd->setRawArguments(array('page:' . $id . ':category', $distro));
         $this->redis->executeCommand($cmd);
         $cmd = new Predis\Command\SetAdd();
-        $cmd->setRawArguments(array('distros', $distro));
+        $cmd->setRawArguments(array('categories', $distro));
         $this->redis->executeCommand($cmd);
-        $cmd->setRawArguments(array('distro:' . $distro, $id));
+        $cmd->setRawArguments(array('category:' . $distro, $id));
         $this->redis->executeCommand($cmd);
 
         // Tags of the page
@@ -343,7 +341,7 @@ class Tutorials {
         return $id;
     }
 
-    public function edit($id, $title, $description, $text, $download, $tags, $distro, $compatible, $username, $ip){ // TODO add defaults.
+    public function edit($id, $title, $description, $text, $download, $tags, $distro, $username, $ip){ // TODO add defaults.
         // String data of the tutorial
         $cmd = new Predis\Command\StringSet();
 
@@ -372,26 +370,22 @@ class Tutorials {
         $cmd->setRawArguments(array('page:' . $id . ':ip', $ip));
         $this->redis->executeCommand($cmd);
 
-        /* Distro */
-        $cmd->setRawArguments(array('page:' . $id . ':distro', $distro));
+        /* Category */
+        $cmd->setRawArguments(array('page:' . $id . ':category', $distro));
         $this->redis->executeCommand($cmd);
         $distro = explode(' ', $distro);
         $distro = $distro[0];
         $cmd = new Predis\Command\SetMembers();
-        $cmd->setRawArguments(array('distros'));
+        $cmd->setRawArguments(array('categories'));
         foreach($this->redis->executeCommand($cmd) as $aDistro){
             $cmd = new Predis\Command\SetRemove();
-            $cmd->setRawArguments(array('distro:' . $aDistro, $id));
+            $cmd->setRawArguments(array('category:' . $aDistro, $id));
             $this->redis->executeCommand($cmd); // Maybe I shouldn't be doing this, but it doesn't care if it's not in the set already, it just gives me a return value of false.
         }
         $cmd = new Predis\Command\SetAdd();
-        $cmd->setRawArguments(array('distros', $distro));
+        $cmd->setRawArguments(array('categories', $distro));
         $this->redis->executeCommand($cmd);
-        $cmd->setRawArguments(array('distro:' . $distro, $id));
-        $this->redis->executeCommand($cmd);
-
-        $cmd = new Predis\Command\StringSet();
-        $cmd->setRawArguments(array('page:' . $id . ':compatible', $compatible));
+        $cmd->setRawArguments(array('category:' . $distro, $id));
         $this->redis->executeCommand($cmd);
         /* Tags */
         // Remove this tutorial from its old tags
@@ -426,9 +420,7 @@ class Tutorials {
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':ip'));
         $this->redis->executeCommand($cmd);
-        $cmd->setRawArguments(array('page:' . $id . ':compatible'));
-        $this->redis->executeCommand($cmd);
-        $cmd->setRawArguments(array('page:' . $id . ':distro'));
+        $cmd->setRawArguments(array('page:' . $id . ':category'));
         $this->redis->executeCommand($cmd);
         // Remove this tutorial from its old tags
         $cmd = new Predis\Command\SetMembers();
@@ -438,10 +430,10 @@ class Tutorials {
             $rem->setRawArguments(array('tag:' . $tag, $id));
             $this->redis->executeCommand($rem); // Maybe I shouldn't be doing this, but it doesn't care if it's not in the set already, it just gives me a return value of false.
         }
-        $cmd->setRawArguments(array('distros'));
+        $cmd->setRawArguments(array('categories'));
         foreach($this->redis->executeCommand($cmd) as $distro){
             $rem = new Predis\Command\SetRemove();
-            $rem->setRawArguments(array('distro:' . $distro, $id));
+            $rem->setRawArguments(array('category:' . $distro, $id));
             $this->redis->executeCommand($rem);
         }
         $cmd = new Predis\Command\SetRemove();
@@ -455,11 +447,11 @@ class Tutorials {
      * "tag:<tagname>" SET(1, 2, 3, 4, ids_of_pages)
      *
      * "pages" SET(1, 2, 3, 4, ids_of_all_the_pages)
-     * "page:<pageid>:(title|description|download|text|username|ip|distro|compatible[-with])" string(the specified thing in a string.)
+     * "page:<pageid>:(title|description|download|text|username|ip|cat)" string(the specified thing in a string.)
      *
-     * "distros" SET(distroname, anotherdistro, onemoredistro)
-     * "distro:<distroname>" SET(5, 2, 3, 5, ids_of_pages) // Distro Version not included here.
-     * // We might be able to have distro:<distroname>:pic link to a picture of the logo of that distro. "none"/"all" can be used as well.
+     * "categories" SET(distroname, anotherdistro, onemoredistro, softwaare, blah)
+     * "category:<catname>" SET(5, 2, 3, 5, ids_of_pages)
+     * // We might be able to have category:<catname>:pic link to a picture of the logo of that category. "none"/"all"
      *
      * "next_id" string(id of the next page we will add)
      */

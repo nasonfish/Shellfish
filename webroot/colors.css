@@ -59,3 +59,11 @@ button.download{
     background-color: #FFFFFF;
     border-color: #CECECE;
 }
+
+.mid-button:active{
+    background-color: #57e1ff;
+}
+
+.categories{
+    background-color: white;
+}

@@ -37,10 +37,8 @@
     </div>
     <label for="download">Optionally, you can create a downloadable script for the user.</label>
     <textarea id="download" name="download" placeholder="#!/bin/bash" rows="25"></textarea>
-    <label for="distro">Which distributions is this for?</label>
-    <input id="distro" name="distro" type="text" placeholder="CentOS 6.4"/>
-    <label for="compatible">What is this compatible with? (distribution wise, or whatever extra data you want to include)</label>
-    <input id="compatible" name="compatible" type="text" placeholder="CentOS 6.4, Ubuntu 10.8"/>
+    <label for="category">What would you categorize this under? (Choose a broad term and tag more specific terms)</label>
+    <input id="category" name="category" type="text" placeholder="CentOS 6.4"/>
     <label for="tags">Pick some tags so people can find your tutorial! (Separate with ', ')</label>
     <input id="tags" name="tags" type="text" placeholder="puppies, cheese, swords, ham"/>
     <!--<input id="ip" name="ip" value="<?//=$ip?>">--> <!-- hidden -->

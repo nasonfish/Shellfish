@@ -27,3 +27,7 @@ $('.markdown-test').click(function(){
 $('.show-toggle').click(function(){
     $('#' + $(this).attr('for')).slideToggle();
 });
+
+$('.link').click(function(){
+    window.location.href = $(this).attr('data-href');
+});

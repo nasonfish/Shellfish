@@ -88,12 +88,8 @@ class Page{
         return strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/','/[ -]+/','/^-|-$/'),array('','-',''), $this->getTitle()));
     }
 
-    public function getDistro(){
-        return $this->get('distro');
-    }
-
-    public function getCompatible(){
-        return $this->get("compatible");
+    public function getCategory(){
+        return $this->get('category');
     }
 
     public function getId(){
