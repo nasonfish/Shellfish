@@ -30,6 +30,8 @@ class Tutorials {
 
     private $md;
 
+    private $peregrine;
+
     public function __construct(){
         require 'Predis/Autoloader.php';
         include '../Markdown/Michelf/MarkdownExtra.php';
@@ -40,6 +42,13 @@ class Tutorials {
         $auth->setRawArguments(array($pass));
         $this->redis->executeCommand($auth);
         $this->md = new \Michelf\MarkdownExtra();
+        include("../Peregrine/Peregrine.php");
+        $this->peregrine = new Peregrine;
+        $this->peregrine->init();
+    }
+
+    public function getPeregrine(){
+        return $this->peregrine;
     }
 
     /**
