@@ -1,7 +1,7 @@
-body{
-    padding-left: 30px;
-    padding-right: 30px;
-}
+/*.body{
+    margin-left: 30px;
+    margin-right: 30px;
+}*/
 
 textarea{
     font-family: monospace;
@@ -181,6 +181,15 @@ ul#color-boxes{
     margin-left: auto;
 }
 
+ul.tags, ol.tags{
+    margin: 0;
+}
 /*.tutorial-header{
     color: #2d3e50;
 }*/
+
+hr.tag-hr{
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+}

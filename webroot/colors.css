@@ -76,3 +76,12 @@ button.download:active{
 .categories{
     background-color: white;
 }
+
+hr.tag-hr{
+    color: #b8b8b8;
+    border-color: #b8b8b8;
+}
+
+h4.tag-header{
+    color: #848484;
+}

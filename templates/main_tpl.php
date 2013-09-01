@@ -3,10 +3,10 @@
 <head>
     <title>Tutorials, by pufferfi.sh</title>
     <link href="/bootstrap.css" rel="stylesheet" media="all">
-    <link href="/app.css" rel="stylesheet" media="all">
-    <link href="/colors.css" rel="stylesheet" media="all">
     <link href="/Rainbow/solarized-dark.css" rel="stylesheet" media="all">
     <link href="/sliding-tags/12-sliding-tags/css/style.css" rel="stylesheet" media="all">
+    <link href="/app.css" rel="stylesheet" media="all">
+    <link href="/colors.css" rel="stylesheet" media="all">
     <?php $this->css(); ?>
 </head>
 <body>

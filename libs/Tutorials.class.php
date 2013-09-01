@@ -93,7 +93,6 @@ class Tutorials {
                       <a href="/tutorial/%slug%/%id%/">See full tutorial</a>
                 </div>
                 <br/>
-
             </div>
             <br/><br/>
         ', $tutorial);
@@ -137,17 +136,17 @@ class Tutorials {
         // <a target="_blank" href="/dl.php?id='.$tutorial->getId().'"
         if($tutorial){
             if($tutorial->getDownload()){
-                return sprintf('<button class="download" onclick="location.href=\'/download/%s/%s.sh\'">Do it for me!</button>', $tutorial->getId(), $tutorial->getTitleSlug());
+                return sprintf('<button class="download" onclick="location.href=\'/download/%s/%s.sh\'">Do it for me!</button><br/><br/>', $tutorial->getId(), $tutorial->getTitleSlug());
             }
         }
         return '';
     }
 
     public function html_printTags(Page $tutorial){
-        $return = "<h4>Tags</h4><hr>";
+        $return = "<h4 class='tag-header'>Tags</h4><hr class='tag-hr'/>";
         $return .= '<ul class="tags blue">';
         foreach($tutorial->getTags() as $tag){
-            $return .= sprintf('<li><a href="/tagsearch/%s/">%s <span>%s</span></a></li>', $tag, $tag, sizeof($this->tagged($tag)));
+            $return .= sprintf('<li><a href="/tag/%s/">%s <span>%s</span></a></li>', $tag, $tag, sizeof($this->tagged($tag)));
         }
         $return .= "</ul>";
         return $return;
@@ -157,6 +156,28 @@ class Tutorials {
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('tag:' . $tag));
         return $this->redis->executeCommand($cmd);
+    }
+
+    public function categorized($category){
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array('category:' . $category));
+        return $this->redis->executeCommand($cmd);
+    }
+
+    public function search($terms/*, $limit = -1, $pagination = 1*/){
+        $terms = preg_replace('/[^A-Za-z0-9 ]/', ' ', $terms); // Replace weird characters with a " ".
+        $words = explode(' ', $terms);
+        $categorized = array();
+        $tagged = array();
+        foreach($words as $word){
+            $categorized = array_merge($categorized, $this->categorized($word));
+            $tagged = array_merge($tagged, $this->tagged($word));
+        }
+        $categorized = array_reverse($categorized); // Flip these guys so categorized gets the best say, and is in front.
+        $tagged = array_reverse($tagged);
+        $result = array_merge($tagged, $categorized);
+        $result = array_reverse($result);
+        return /*$this->shorten(*/$result/*, $limit, $pagination)*/;
     }
 
     /**

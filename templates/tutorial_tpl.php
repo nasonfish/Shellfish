@@ -10,7 +10,6 @@ try{
 </div>
 <div class="span3 pull-right">
     <?=($tutorials->html_downloadLink($tutorials->page($pass[1]))); ?>
-    <br/><br/>
     <?=($tutorials->html_printTags($tutorials->page($pass[1]))); ?>
 </div>
 <?php
