@@ -107,7 +107,7 @@ class Tutorials {
             '%user%' => $tutorial->getUsername(),
             '%ttext%' => $this->md->defaultTransform($this->syntax(substr($tutorial->getText(), 0, 250))),
             '%ftext%' => $this->md->defaultTransform($this->syntax($tutorial->getText())),
-            '%category%' => $tutorial->getCategory()
+            '%category%' => ucwords($tutorial->getCategory())
         );
         foreach($replaces as $key => $val){
             $string = str_replace($key, $val, $string);
@@ -146,6 +146,7 @@ class Tutorials {
         $return = "<h4 class='tag-header'>Tags</h4><hr class='tag-hr'/>";
         $return .= '<ul class="tags blue">';
         foreach($tutorial->getTags() as $tag){
+            $tag = ucwords($tag);
             $return .= sprintf('<li><a href="/tag/%s/">%s <span>%s</span></a></li>', $tag, $tag, sizeof($this->tagged($tag)));
         }
         $return .= "</ul>";
@@ -154,19 +155,19 @@ class Tutorials {
 
     public function tagged($tag){
         $cmd = new Predis\Command\SetMembers();
-        $cmd->setRawArguments(array('tag:' . $tag));
+        $cmd->setRawArguments(array('tag:' . strtolower($tag)));
         return $this->redis->executeCommand($cmd);
     }
 
     public function categorized($category){
         $cmd = new Predis\Command\SetMembers();
-        $cmd->setRawArguments(array('category:' . $category));
+        $cmd->setRawArguments(array('category:' . strtolower($category)));
         return $this->redis->executeCommand($cmd);
     }
 
     public function search($terms/*, $limit = -1, $pagination = 1*/){
         $terms = preg_replace('/[^A-Za-z0-9 ]/', ' ', $terms); // Replace weird characters with a " ".
-        $words = explode(' ', $terms);
+        $words = explode(' ', strtolower($terms));
         $categorized = array();
         $tagged = array();
         foreach($words as $word){
@@ -242,6 +243,7 @@ class Tutorials {
     public function tagSearch($pages, $tags = array(), $limit = -1, $pagination = 1){
         $results = array();
         foreach($tags as $tag){
+            $tag = strtolower($tag);
             $results[$tag] = array();
             $command = new Predis\Command\SetIsMember();
             $command->setRawArguments(array('tags', $tag));
@@ -267,28 +269,15 @@ class Tutorials {
         return $return === false ? array() : $this->shorten($return, $limit, $pagination);
     }
 
-    public function categorySearch($pages, $distro, $limit=-1, $pagination=1){
-        $distros = array($distro, 'all');
-        $results = array();
-        foreach($distros as $d){
-            $results[$d] = array();
-            foreach($pages as $page){
-                $cmd = new Predis\Command\SetIsMember();
-                $cmd->setRawArguments(array('category:' . $d, $page));
-                if($this->redis->executeCommand($cmd)){
-                    $results[$d][] = $page;
-                }
+    public function categorySearch($pages, $category, $limit=-1, $pagination=1){
+        foreach($pages as $id => $page){
+            $cmd = new Predis\Command\SetIsMember();
+            $cmd->setRawArguments(array('category:' . $category, $page));
+            if(!$this->redis->executeCommand($cmd)){
+                unset($pages[$id]);
             }
         }
-        $return = false;
-        foreach($results as $pages){
-            if($return === false){
-                $return = $pages;
-            } else {
-                $return = array_intersect($return, $pages);
-            }
-        }
-        return $return === false ? array() : $this->shorten($return, $limit, $pagination);
+        return $this->shorten($pages, $limit, $pagination);
     }
 
     public function getCategories(){

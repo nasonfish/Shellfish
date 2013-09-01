@@ -23,7 +23,7 @@ $tutorials = new Tutorials;
 $peregrine = $tutorials->getPeregrine();
 $id = $tutorials->create($peregrine->post->getRaw('title'), $peregrine->post->getRaw('description'),
     $peregrine->post->getRaw('text'), $peregrine->post->isEmpty('download') ? false : $peregrine->post->getRaw('download'),
-    explode(', ', $peregrine->post->getRaw('tags')), $peregrine->post->getRaw('category'),
+    explode(', ', strtolower($peregrine->post->getRaw('tags'))), strtolower($peregrine->post->getRaw('category')),
     $peregrine->server->getUsername('PHP_AUTH_USER'), $peregrine->server->getIP('REMOTE_ADDR'));
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
 header('Location: /t/'.$tutorials->page($id)->getTitleSlug().'/'.$id.'/');
