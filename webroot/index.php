@@ -9,4 +9,8 @@ foreach($uri as $id => $dir){
 $page = isset($uri[1]) ? $uri[1] : 'index';
 array_shift($uri);
 $args = $uri === NULL ? array() : $uri;
-new PageHandler($page, $args);
+if($page == "download"){
+    include 'dl.php'; // eh, kind of bad, but oh well.
+} else {
+    new PageHandler($page, $args);
+}

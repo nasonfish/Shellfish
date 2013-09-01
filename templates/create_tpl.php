@@ -1,5 +1,5 @@
 <h3>Create a page</h3>
-<span>Currently, a password is needed to create a page on this site, however, you may be able to ask one of the owners of the site for it in <a href="http://webchat.esper.net/?channels=Shoals">an IRC channel we hang out in</a> if you would like to contribute.</span>
+<span>Currently, a password is needed to create pages on this site, however, you may be able to ask one of the owners of the site for the password in a form (coming soon!) if you would like to contribute.</span>
 <hr>
 <form method="post" action="/create_submit.php">
     <!--<label for="username">Enter your username</label>

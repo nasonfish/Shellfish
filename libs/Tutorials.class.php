@@ -137,7 +137,7 @@ class Tutorials {
         // <a target="_blank" href="/dl.php?id='.$tutorial->getId().'"
         if($tutorial){
             if($tutorial->getDownload()){
-                return sprintf('<button class="download" onclick="location.href=\'/dl.php?id=%s\'">Do it for me!</button>', $tutorial->getId());
+                return sprintf('<button class="download" onclick="location.href=\'/download/%s/%s.sh\'">Do it for me!</button>', $tutorial->getId(), $tutorial->getTitleSlug());
             }
         }
         return '';

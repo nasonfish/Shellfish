@@ -10,7 +10,6 @@
  * filtering functions.
  */
 
-debug_print_backtrace();
 /**
  * @package Peregrine
  */

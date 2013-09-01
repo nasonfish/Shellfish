@@ -3,7 +3,7 @@ try {
     $page = $tutorials->page($pass[0]);
 ?>
 <h3>Edit a page</h3>
-<span>Currently, a password is needed to edit pages on this site, however, you may be able to ask one of the owners of the site for the password in <a href="http://webchat.esper.net/?channels=Shoals">an IRC channel we hang out in</a> if you would like to contribute.</span>
+<span>Currently, a password is needed to edit pages on this site, however, you may be able to ask one of the owners of the site for the password in a form (coming soon!) if you would like to contribute.</span>
 <form method="post" action="/edit_submit.php">
     <label for="id">ID</label>
     <input id="id" name="id" type="number" value="<?=$page->getId()?>" readonly>
