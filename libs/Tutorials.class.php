@@ -23,6 +23,23 @@
  * Class Tutorials
  */
 
+/* These are pretty bad... */
+
+function include_d($file){
+    if(file_exists($file)){
+        include($file);
+    } else {
+        include('../' . $file);
+    }
+}
+
+function file_get_contents_d($file){
+    if(file_exists($file)){
+        return file_get_contents($file);
+    } else {
+        return file_get_contents('../' . $file);
+    }
+}
 
 class Tutorials {
 
@@ -34,15 +51,15 @@ class Tutorials {
 
     public function __construct(){
         require 'Predis/Autoloader.php';
-        include '../Markdown/Michelf/MarkdownExtra.php';
+        include_d('../Markdown/Michelf/MarkdownExtra.php');
         Predis\Autoloader::register();
-        $pass = trim(file_get_contents('../redispass.txt'));
+        $pass = trim(file_get_contents_d('../redispass.txt'));
         $this->redis = new Predis\Client();
         $auth = new Predis\Command\ConnectionAuth();
         $auth->setRawArguments(array($pass));
         $this->redis->executeCommand($auth);
         $this->md = new \Michelf\MarkdownExtra();
-        include("../Peregrine/Peregrine.php");
+        include_d("../Peregrine/Peregrine.php");
         $this->peregrine = new Peregrine;
         $this->peregrine->init();
     }

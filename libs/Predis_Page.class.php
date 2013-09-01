@@ -101,4 +101,19 @@ class Page{
         $cmd->setRawArguments(array('page:' . $this->id . ':' . $name));
         return $this->redis->executeCommand($cmd);
     }
+
+    public function __toString(){
+        $data = array('success' => 1,
+              'id' => $this->getId(),
+              'title' => $this->getTitle(),
+              'description' => $this->getDescription(),
+              'tags' => $this->getTags(),
+              'category' => $this->getCategory(),
+              'title-slug' => $this->getTitleSlug(),
+              //'ip' => $this->getIP(),
+              'username' => $this->getUsername(),
+              'download' => $this->getDownload(),
+              'text' => $this->getText());
+        return json_encode($data);
+    }
 }
