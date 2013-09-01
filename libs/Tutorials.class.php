@@ -147,10 +147,16 @@ class Tutorials {
         $return = "<h4>Tags</h4><hr>";
         $return .= '<ul class="tags blue">';
         foreach($tutorial->getTags() as $tag){
-            $return .= sprintf('<li><a href="/tagsearch/%s/">%s <span>%s</span></a></li>', $tag, $tag, 123); // TODO amount
+            $return .= sprintf('<li><a href="/tagsearch/%s/">%s <span>%s</span></a></li>', $tag, $tag, sizeof($this->tagged($tag)));
         }
         $return .= "</ul>";
         return $return;
+    }
+
+    public function tagged($tag){
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array('tag:' . $tag));
+        return $this->redis->executeCommand($cmd);
     }
 
     /**
