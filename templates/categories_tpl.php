@@ -12,6 +12,6 @@ $categories = $tutorials->getCategories();
     </ul>
 </div>
 <div class="span7 categories categories-right">
-    <h1>LOUD SPOKEN GREETINGS IN CAPITOL LETTERS</h1>
+    <h6>We can load in a list of tutorials here. :-)</h6>
 </div>
 <div class="span1">&nbsp;</div>

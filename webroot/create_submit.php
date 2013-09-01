@@ -18,11 +18,9 @@ if(empty($_POST)){
 }
 require('../libs/Tutorials.class.php');
 require('../libs/Predis_Page.class.php');
-require('../Peregrine/Peregrine.php');
-$peregrine = new Peregrine;
-$peregrine->init();
 
 $tutorials = new Tutorials;
+$peregrine = $tutorials->getPeregrine();
 $id = $tutorials->create($peregrine->post->getRaw('title'), $peregrine->post->getRaw('description'),
     $peregrine->post->getRaw('text'), $peregrine->post->isEmpty('download') ? false : $peregrine->post->getRaw('download'),
     explode(', ', $peregrine->post->getRaw('tags')), $peregrine->post->getRaw('category'),
