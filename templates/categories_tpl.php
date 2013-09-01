@@ -5,9 +5,10 @@ $categories = $tutorials->getCategories();
 <div class="span1">&nbsp;</div>
 <div class="span3 categories categories-left">
     <h4>Categories</h4>
-    <ul>
+    <ul class="tags red">
         <?php foreach($categories as $category): ?>
-            <li class="categories-item" data-for="<?=$category?>"><!--<a href="/category/<?=$category?>">--><?=$category?><!--</a>--></li>
+            <li class="categories-item" data-for="<?=strtolower($category)?>"><a><?=$category?> <span><?=sizeof($tutorials->categorized($category));?></span></a></li>
+            <br/><br/>
         <?php endforeach; ?>
     </ul>
 </div>
@@ -15,3 +16,4 @@ $categories = $tutorials->getCategories();
     <h6>We can load in a list of tutorials here. :-)</h6>
 </div>
 <div class="span1">&nbsp;</div>
+<br class="pad-bottom"/>

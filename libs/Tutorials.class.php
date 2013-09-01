@@ -57,6 +57,9 @@ class Tutorials {
      * @return Page the page object so we can get information.
      */
     public function page($id){
+        if(!class_exists('Page')){
+            include('Predis_Page.class.php');
+        }
         return new Page($id, $this);
     }
 
@@ -146,7 +149,6 @@ class Tutorials {
         $return = "<h4 class='tag-header'>Tags</h4><hr class='tag-hr'/>";
         $return .= '<ul class="tags blue">';
         foreach($tutorial->getTags() as $tag){
-            $tag = ucwords($tag);
             $return .= sprintf('<li><a href="/tag/%s/">%s <span>%s</span></a></li>', $tag, $tag, sizeof($this->tagged($tag)));
         }
         $return .= "</ul>";

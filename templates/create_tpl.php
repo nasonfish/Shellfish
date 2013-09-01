@@ -39,8 +39,11 @@
     <textarea id="download" name="download" placeholder="#!/bin/bash" rows="25"></textarea>
     <label for="category">What would you categorize this under? (Choose a broad term and tag more specific terms)</label>
     <input id="category" name="category" type="text" placeholder="CentOS 6.4"/>
-    <label for="tags">Pick some tags so people can find your tutorial! (Separate with ', ')</label>
+    <label for="tags">Pick some tags so people can find your tutorial! (Separate with ',')</label>
     <input id="tags" name="tags" type="text" placeholder="puppies, cheese, swords, ham"/>
+    <ul id="tutorial-tags" class="tags blue">
+    </ul>
+    <span id="tags-data" style="display: none;"></span>
     <!--<input id="ip" name="ip" value="<?//=$ip?>">--> <!-- hidden -->
     <br/>
     <button type="submit">Create!</button>

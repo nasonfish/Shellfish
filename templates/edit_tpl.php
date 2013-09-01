@@ -45,10 +45,16 @@ try {
     <label for="category">What would you categorize this under? (Choose a broad term and tag more specific terms)</label>
     <input id="category" name="category" type="text" value="<?=$page->getCategory()?>"/>
     <label for="tags">Tags (Separate with ', ')</label>
-    <input id="tags" name="tags" type="text" value="<?=implode(', ', $page->getTags())?>"/>
+    <input id="tags" name="tags" type="text"/>
+    <ul id="tutorial-tags" class="tags blue">
+        <?php foreach($page->getTags() as $tag): ?>
+        <li class="add-tag" data-tag="<?=$tag?>"><a><?=$tag?> <span>X</span></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <span id="tags-data" style="display: none;"><?=implode(',', $page->getTags());?></span>
     <!--<input id="ip" name="ip" value="<?//=$_SERVER['REMOTE_ADDR']?>">--> <!-- hidden, this will be the last edited person. -->
     <br/>
-    <button type="submit">Re-Submit!</button>
+    <button id="submit-tutorial" type="submit">Re-Submit!</button>
 </form>
 <?php
 } catch(PredisPageDoesNotExistException $e){

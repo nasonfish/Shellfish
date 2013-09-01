@@ -74,6 +74,19 @@ textarea{
     padding-bottom: 1px;
     padding-top: 9px;
 }
+/* Some testing stuff
+#bottom{
+    position: fixed;
+    bottom: 0;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 1px;
+    padding-top: 9px;
+    z-index: 100;
+}
+end of that */
 .bottom-bar{
     display: table;
     list-style: none;
