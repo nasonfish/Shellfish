@@ -53,6 +53,15 @@ button.download{
     color: #FFFFFF;
     background-color: #41db5a;
     border: groove #319a52;
+    /*padding-bottom: 20px;*/
+}
+
+button.download:hover{
+    background-color: #3ac052;
+}
+
+button.download:active{
+    background-color: #309846;
 }
 
 #md-preview{

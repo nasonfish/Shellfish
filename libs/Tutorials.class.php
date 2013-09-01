@@ -68,7 +68,7 @@ class Tutorials {
     public function html_printTutorial(Page $tutorial){
         print($this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/t/%slug%/%id%/">-->[%category%] <b>%title%</b><!--</a>--></h3>
+                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">-->[%category%] <b>%title%</b><!--</a>--></h3>
                 <span class="tutorial-description"><i>%desc%</i></span><br/>
                 <p class="tutorial-author">by %user%</p><hr/>
                 <div class="tutorial-text">
@@ -85,12 +85,12 @@ class Tutorials {
     public function html_printTutorialLink(Page $tutorial){
         print $this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header">[%category%] <a class="tutorial-link" href="/t/%slug%/%id%/"><b>%title%</b></a></h3>
+                <h3 class="tutorial-header">[%category%] <a class="tutorial-link" href="/tutorial/%slug%/%id%/"><b>%title%</b></a></h3>
                 <span class="tutorial-description"><i>%desc%</i></span><br/>
                 <p class="tutorial-author">by %user%</p><hr/>
                 <div class="tutorial-text">
                       <span class="truncated-text" id="tutorial-id-%id%">%ttext%...</span>
-                      <a href="/t/%slug%/%id%/">See full tutorial</a>
+                      <a href="/tutorial/%slug%/%id%/">See full tutorial</a>
                 </div>
                 <br/>
 
@@ -144,11 +144,12 @@ class Tutorials {
     }
 
     public function html_printTags(Page $tutorial){
-        $return = "<p>Tags: ";
+        $return = "<h4>Tags</h4><hr>";
+        $return .= '<ul class="tags blue">';
         foreach($tutorial->getTags() as $tag){
-            $return .= '<a href="/tagsearch/'.$tag.'/">' . $tag . '</a>&nbsp;';
+            $return .= sprintf('<li><a href="/tagsearch/%s/">%s <span>%s</span></a></li>', $tag, $tag, 123); // TODO amount
         }
-        $return .= "</p>";
+        $return .= "</ul>";
         return $return;
     }
 
