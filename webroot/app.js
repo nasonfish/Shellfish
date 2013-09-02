@@ -40,6 +40,9 @@ $('.categories-item').click(function(){
 $('#tags').keydown(function(event){
     if(event.keyCode == 188){
         event.preventDefault();
+        if($(this).val == ""){
+            return;
+        }
         var tag = $(this).val();
         var data = $('#tags-data');
         var oldtags = data.html();
@@ -71,8 +74,31 @@ $('#tutorial-tags').on('click', '.add-tag', function(){
     data.html(tags.join(','));
 });
 
-$('#submit-tutorial').click(function(){
+$('#submit-tutorial').click(function(event){
+    $('#form-errors').remove();
     $('#tags').val($('#tags-data').html());
+    // Places: title, description, text, category
+    var errors = [];
+    if($('#title').val() == ""){
+        errors.push('Title field is blank.');
+    }
+    if($('#description').val() == ""){
+        errors.push('Description field is blank.');
+    }
+    if($('#text').val() == ""){
+        errors.push('Tutorial is blank. There\'s got to be something the user has to do!');
+    }
+    if($('#category').val() == ""){
+        errors.push('Category field is blank.');
+    }
+    if(errors.length != 0){
+        event.preventDefault();
+        var error = "";
+        for(var i = 0; i < errors.length; i++){
+            error += "<li>" + errors[i] + "</li>";
+        }
+        $(this).after('<div class="alert alert-error" id="form-errors"><ul>'+error+'</ul></alert>');
+    }
 });
 
 $('.show-toggle').click(function(){
