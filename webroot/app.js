@@ -33,6 +33,7 @@ $('.categories-item').click(function(){
             var right = $('.categories-right');
             right.html(data);
             right.slideDown();
+            Rainbow.color();
         });
     });
 });

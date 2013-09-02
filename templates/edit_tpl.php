@@ -2,6 +2,7 @@
 try {
     $page = $tutorials->page($pass[0]);
 ?>
+<div class="margined">
 <h3>Edit a page</h3>
 <span>Currently, a password is needed to edit pages on this site, however, you may be able to ask one of the owners of the site for the password in a form (coming soon!) if you would like to contribute.</span>
 <form method="post" action="/edit_submit.php">
@@ -56,6 +57,7 @@ try {
     <br/>
     <button id="submit-tutorial" type="submit">Re-Submit!</button>
 </form>
+</div>
 <?php
 } catch(PredisPageDoesNotExistException $e){
     echo "Tutorial not found.";

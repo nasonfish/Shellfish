@@ -11,6 +11,8 @@ array_shift($uri);
 $args = $uri === NULL ? array() : $uri;
 if($page == "download"){
     include 'dl.php'; // eh, kind of bad, but oh well.
+} elseif($page == "r") {
+    include 'r.php';
 } else {
     new PageHandler($page, $args);
 }

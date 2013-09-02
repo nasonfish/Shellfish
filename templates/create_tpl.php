@@ -1,3 +1,4 @@
+<div class="margined">
 <h3>Create a page</h3>
 <span>Currently, a password is needed to create pages on this site, however, you may be able to ask one of the owners of the site for the password in a form (coming soon!) if you would like to contribute.</span>
 <hr>
@@ -48,3 +49,4 @@
     <br/>
     <button type="submit" id="submit-tutorial">Create!</button>
 </form>
+</div>
