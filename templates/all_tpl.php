@@ -1,3 +1,4 @@
+<div class="margined">
 <?php
 $page = $tutorials->getPeregrine()->get->getInt('page');
 $page = $page ? $page : 1;

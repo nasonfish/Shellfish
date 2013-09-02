@@ -1,6 +1,7 @@
 <?php
 $categories = $tutorials->getCategories();
 ?>
+
 <h4 class="categories-h">Click on a category on the left to see all tutorials tagged with that category!</h4>
 <div class="span1">&nbsp;</div>
 <div class="span3 categories categories-left">

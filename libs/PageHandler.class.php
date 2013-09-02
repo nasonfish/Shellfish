@@ -29,6 +29,10 @@ class PageHandler {
         include('../templates/main_tpl.php');
     }
 
+    public function title(){
+        return file_exists('../templates/' . $this->template . '_tpl.php') ? ucwords($this->template) : '404';
+    }
+
     public function head(){
         include_e('../templates/' . $this->template . '_tpl.head.php', $this->pass, $this->tutorials);
     }

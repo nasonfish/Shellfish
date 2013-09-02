@@ -3,6 +3,10 @@
     margin-right: 30px;
 }
 
+.categories-h{
+    text-align: center;
+}
+
 textarea{
     font-family: monospace;
 }
