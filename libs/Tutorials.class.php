@@ -401,6 +401,7 @@ class Tutorials {
 
         // Tags of the page
         foreach($tags as $tag){
+            if($tag == "") continue;
             $cmd = new Predis\Command\SetAdd();
             $cmd->setRawArguments(array('tags', $tag)); // We can use this because if it already exists, it is not added, it returns 0.
             $this->redis->executeCommand($cmd);
@@ -471,6 +472,7 @@ class Tutorials {
         }
         // Tags of the page
         foreach($tags as $tag){
+            if($tag == "") continue;
             $cmd = new Predis\Command\SetAdd();
             $cmd->setRawArguments(array('tags', $tag)); // We can use this because if it already exists, it is not added, it returns 0.
             $this->redis->executeCommand($cmd);

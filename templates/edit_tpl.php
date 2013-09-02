@@ -52,7 +52,7 @@ try {
         <li class="add-tag" data-tag="<?=$tag?>"><a><?=$tag?> <span>X</span></a></li>
         <?php endforeach; ?>
     </ul>
-    <span id="tags-data" style="display: none;"><?=implode(',', $page->getTags());?></span>
+    <span id="tags-data" style="display: none;"><?=sizeof($page->getTags()) < 1 ? '' : implode(',', $page->getTags());?></span>
     <!--<input id="ip" name="ip" value="<?//=$_SERVER['REMOTE_ADDR']?>">--> <!-- hidden, this will be the last edited person. -->
     <br/>
     <button id="submit-tutorial" type="submit">Re-Submit!</button>

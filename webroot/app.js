@@ -58,7 +58,7 @@ $('#tags').keydown(function(event){
         }
         $('#tutorial-tags').append('<li class="add-tag" data-tag="'+tag+'"><a>'+tag+' <span>X</span></a></li>');
         $(this).val('');
-        var tags = oldtags.split(',');
+        var tags = oldtags.length == 0 ? oldtags.split(',') : [];
         tags.push(tag);
         data.html(tags.join(','));
     }
