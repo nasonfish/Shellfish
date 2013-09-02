@@ -25,7 +25,7 @@ $id = $tutorials->create($peregrine->post->getRaw('title'),
     $peregrine->post->getRaw('description'),
     $peregrine->post->getRaw('text'),
     $peregrine->post->isEmpty('download') ? false : $peregrine->post->getRaw('download'),
-    $peregrine->post->isEmpty('tags') ? array() : explode(', ', strtolower($peregrine->post->getRaw('tags'))),
+    $peregrine->post->isEmpty('tags') ? array() : explode(',', strtolower($peregrine->post->getRaw('tags'))),
     strtolower($peregrine->post->getRaw('category')),
     $peregrine->server->getUsername('PHP_AUTH_USER'),
     $peregrine->server->getIP('REMOTE_ADDR'));

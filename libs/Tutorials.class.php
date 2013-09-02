@@ -90,7 +90,7 @@ class Tutorials {
             <div class="tutorial">
                 <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">-->[%category%] <b>%title%</b><!--</a>--></h3>
                 <span class="tutorial-description"><i>%desc%</i></span><br/>
-                <p class="tutorial-author">by %user%</p><hr/>
+                <code class="tutorial-author">by %user%</code><hr/>
                 <div class="tutorial-text">
                       <span class="full-text" id="tutorial-id-%id%">%ftext%</span>
                 </div>
@@ -117,7 +117,7 @@ class Tutorials {
             <div class="tutorial">
                 <h3 class="tutorial-header">[%category%] <a class="tutorial-link" href="/tutorial/%slug%/%id%/"><b>%title%</b></a></h3>
                 <span class="tutorial-description"><i>%desc%</i></span><br/>
-                <p class="tutorial-author">by %user%</p><hr/>
+                <code class="tutorial-author">by %user%</code><hr/>
                 <div class="tutorial-text">
                       <span class="truncated-text" id="tutorial-id-%id%">%ttext%...</span>
                       <a href="/tutorial/%slug%/%id%/">See full tutorial</a>
@@ -262,7 +262,7 @@ class Tutorials {
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('pages'));
         $pages = $this->redis->executeCommand($cmd);
-        $pages = $reverse ? array_reverse($pages) : $reverse;
+        $pages = $reverse ? array_reverse($pages) : $pages;
         return $this->shorten($pages, $limit, $pagination);
     }
 
