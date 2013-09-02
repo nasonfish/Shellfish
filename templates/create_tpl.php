@@ -46,5 +46,5 @@
     <span id="tags-data" style="display: none;"></span>
     <!--<input id="ip" name="ip" value="<?//=$ip?>">--> <!-- hidden -->
     <br/>
-    <button type="submit">Create!</button>
+    <button type="submit" id="submit-tutorial">Create!</button>
 </form>

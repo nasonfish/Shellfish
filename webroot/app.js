@@ -38,9 +38,12 @@ $('.categories-item').click(function(){
 });
 
 $('#tags').keydown(function(event){
+    while($(this).val().indexOf(',') != -1){
+        $(this).val($(this).val().replace(',',''));
+    }
     if(event.keyCode == 188){
         event.preventDefault();
-        if($(this).val == ""){
+        if($(this).val() == ""){
             return;
         }
         var tag = $(this).val();
