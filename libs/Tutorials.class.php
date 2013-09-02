@@ -455,6 +455,13 @@ class Tutorials {
             $cmd = new Predis\Command\SetRemove();
             $cmd->setRawArguments(array('category:' . $aDistro, $id));
             $this->redis->executeCommand($cmd); // Maybe I shouldn't be doing this, but it doesn't care if it's not in the set already, it just gives me a return value of false.
+            $rem = new Predis\Command\SetMembers();
+            $rem->setRawArguments(array('category:' . $distro));
+            if(sizeof($this->redis->executeCommand($rem)) == 0){
+                $rem = new Predis\Command\SetRemove();
+                $rem->setRawArguments(array('categories', $distro));
+                $this->redis->executeCommand($rem);
+            }
         }
         $cmd = new Predis\Command\SetAdd();
         $cmd->setRawArguments(array('categories', $distro));
@@ -469,6 +476,13 @@ class Tutorials {
             $cmd = new Predis\Command\SetRemove();
             $cmd->setRawArguments(array('tag:' . $tag, $id));
             $this->redis->executeCommand($cmd); // Maybe I shouldn't be doing this, but it doesn't care if it's not in the set already, it just gives me a return value of false.
+            $rem = new Predis\Command\SetMembers();
+            $rem->setRawArguments(array('tag:' . $tag));
+            if(sizeof($this->redis->executeCommand($rem)) == 0){
+                $rem = new Predis\Command\SetRemove();
+                $rem->setRawArguments(array('tags', $tag));
+                $this->redis->executeCommand($rem);
+            }
         }
         // Tags of the page
         foreach($tags as $tag){
@@ -519,7 +533,7 @@ class Tutorials {
             $this->redis->executeCommand($rem);
             $rem = new Predis\Command\SetMembers();
             $rem->setRawArguments(array('category:' . $distro));
-            if($this->redis->executeCommand($rem)){
+            if(sizeof($this->redis->executeCommand($rem)) == 0){
                 $rem = new Predis\Command\SetRemove();
                 $rem->setRawArguments(array('categories', $distro));
                 $this->redis->executeCommand($rem);

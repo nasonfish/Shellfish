@@ -58,7 +58,7 @@ $('#tags').keydown(function(event){
         }
         $('#tutorial-tags').append('<li class="add-tag" data-tag="'+tag+'"><a>'+tag+' <span>X</span></a></li>');
         $(this).val('');
-        var tags = oldtags.length == 0 ? oldtags.split(',') : [];
+        var tags = oldtags.split(',');
         tags.push(tag);
         data.html(tags.join(','));
     }
@@ -116,7 +116,7 @@ $('.link').click(function(){
 var resize = function(){
 //    var height = ($(window).height() - ($('.body').height() + $('.head').height()));
     if($(window).height() < $('body').height()){// - $('.footer').height();
-        $('#bottom').css('position', 'relative').css('bottom', '0');
+        $('#bottom').css('position', 'relative').css('bottom');
     } else {
         $('#bottom').css('position', 'absolute').css('bottom', '0');
     }
