@@ -21,16 +21,10 @@ textarea{
 }
 
 .welcome{
-    width: 100%;
     margin-right: auto;
     margin-left: auto;
+    text-align: center;
 }
-
-.welcome *{
-    margin-right: auto;
-    margin-left: auto;
-}
-
 /*body{
     background: url('http://0.s3.envato.com/files/43625974/Rubber_Duck_11.jpg');
 }  We'll save that for another day. ;p */
@@ -160,6 +154,12 @@ input[type="text"],
 textarea{
     width: 800px;
 }
+
+input.main-tag-search{
+    text-align: center;
+    font-size: 16px;
+}
+
 textarea.tutorial-editor{
     width: 100%;
 }

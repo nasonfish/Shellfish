@@ -13,15 +13,11 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     }
 }
 
-if(empty($_POST)){
+if(empty($_GET)){
     exit;
 }
 require('../libs/Tutorials.class.php');
-require('../Peregrine/Peregrine.php');
-$peregrine = new Peregrine;
-$peregrine->init();
-
 $tutorials = new Tutorials;
-$id = $peregrine->post->getInt('id');
-$tutorials->delete('id');
+$id = $tutorials->getPeregrine()->get->getInt('id');
+$tutorials->delete($id);
 header('Location: /');

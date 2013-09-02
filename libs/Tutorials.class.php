@@ -197,6 +197,7 @@ class Tutorials {
         $tagged = array_reverse($tagged);
         $result = array_merge($tagged, $categorized);
         $result = array_reverse($result);
+        $result = array_unique($result);
         return /*$this->shorten(*/$result/*, $limit, $pagination)*/;
     }
 
@@ -474,12 +475,26 @@ class Tutorials {
             $rem = new Predis\Command\SetRemove();
             $rem->setRawArguments(array('tag:' . $tag, $id));
             $this->redis->executeCommand($rem); // Maybe I shouldn't be doing this, but it doesn't care if it's not in the set already, it just gives me a return value of false.
+            $rem = new Predis\Command\SetMembers();
+            $rem->setRawArguments(array('tag:' . $tag));
+            if($this->redis->executeCommand($rem)){
+                $rem = new Predis\Command\SetRemove();
+                $rem->setRawArguments(array('tags', $tag));
+                $this->redis->executeCommand($rem);
+            }
         }
         $cmd->setRawArguments(array('categories'));
         foreach($this->redis->executeCommand($cmd) as $distro){
             $rem = new Predis\Command\SetRemove();
             $rem->setRawArguments(array('category:' . $distro, $id));
             $this->redis->executeCommand($rem);
+            $rem = new Predis\Command\SetMembers();
+            $rem->setRawArguments(array('category:' . $distro));
+            if($this->redis->executeCommand($rem)){
+                $rem = new Predis\Command\SetRemove();
+                $rem->setRawArguments(array('categories', $distro));
+                $this->redis->executeCommand($rem);
+            }
         }
         $cmd = new Predis\Command\SetRemove();
         $cmd->setRawArguments(array('pages', $id));
