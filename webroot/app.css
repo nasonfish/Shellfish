@@ -1,41 +1,135 @@
+/* General Cross-Page Stuff */
 .margined{
     margin-left: 5%;
     margin-right: 5%;
 }
 
+.body{
+    z-index: -10;
+    padding-top: 30px;
+    /*padding-bottom: 40px;*/
+}
+
+hr{
+    border-width: 3px;
+}
+
+ul.tags, ol.tags{
+    margin: 0;
+}
+/* /categories/ page */
 .categories-h{
     text-align: center;
 }
+/* Main_tpl page */
+.title-bar{
+    height: 70px;
+}
 
+.title{
+    text-align: left;
+    padding-left: 35px;
+    font-family: Sansation,serif;
+}
+
+.right-search{
+    padding-right: 30px;
+    padding-top: 20px;
+}
+
+.sub-bar{
+    height: 30px;
+}
+
+.sub-links{
+    list-style: none;
+    width: 100%;
+    display: table;
+    padding-left: 0;
+    margin-left: 0;
+}
+.sub-link{
+    text-align: center;
+    font-size: 16px;
+    height: 25px;
+    padding-top: 5px;
+    display: table-cell;
+}
+.sub-link-filler{
+    display: table-cell;
+}
+
+.body{
+    padding-bottom: 45px;
+}
+
+#bottom{
+    position: relative;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 1px;
+    padding-top: 9px;
+}
+.bottom-bar{
+    display: table;
+    list-style: none;
+    width: 100%;
+}
+.bottom-link{
+    list-style: none;
+    display: table-cell;
+    width: 50%;
+}
+.bottom-link a{
+    display: block;
+    text-align: center;
+    font-size: 16px;
+}
+/* Edit/Create Pages */
 textarea{
     font-family: monospace;
 }
 
-/*.container {
-    width: 980px;
-    margin: 0 auto !important;
-}*/
+#ip{
+    display: none;
+}
 
-.bar{
-   /* width: 1160px;
-    margin: 0 auto !important;*/
+#md-preview{
+    padding: 5px 25px 10px 15px;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
 
+input[type="text"],
+textarea{
+    width: 800px;
+}
+
+textarea.tutorial-editor{
+    width: 100%;
+}
+
+ul#color-boxes li{
+    padding-top: 15px;
+}
+
+ul#color-boxes{
+    display: none;
+}
+/* Index Page Stuff */
 .welcome{
     margin-right: auto;
     margin-left: auto;
     text-align: center;
 }
-/*.pusher{
-    visibility: hidden;
-    position: static;
-}*/
-/*body{
-    background: url('http://0.s3.envato.com/files/43625974/Rubber_Duck_11.jpg');
-}  We'll save that for another day. ;p */
+
+input.main-tag-search{
+    text-align: center;
+    font-size: 16px;
+}
+
 .mid-boxes{
     margin-right: auto;
     margin-left: auto;
@@ -62,82 +156,7 @@ textarea{
     margin-left: auto;
 }
 
-#ip{
-    display: none;
-}
-
-.title-bar{
-    height: 70px;
-}
-.sub-bar{
-    height: 30px;
-}
-.sub-links{
-    list-style: none;
-    width: 100%;
-    display: table;
-    padding-left: 0;
-    margin-left: 0;
-}
-#bottom{
-    position: relative;
-    bottom: 0;
-    text-align: center;
-    width: 100%;
-    padding-bottom: 1px;
-    padding-top: 9px;
-}
-.body{
-    padding-bottom: 45px;
-}
-/* Some testing stuff
-#bottom{
-    position: fixed;
-    bottom: 0;
-    margin-right: auto;
-    margin-left: auto;
-    text-align: center;
-    width: 100%;
-    padding-bottom: 1px;
-    padding-top: 9px;
-    z-index: 100;
-}
-end of that */
-.bottom-bar{
-    display: table;
-    list-style: none;
-    width: 100%;
-}
-.bottom-link{
-    list-style: none;
-    display: table-cell;
-    width: 50%;
-}
-.bottom-link a{
-    display: block;
-    text-align: center;
-    font-size: 16px;
-}
-.sub-link{
-    text-align: center;
-    font-size: 16px;
-    height: 25px;
-    padding-top: 5px;
-    display: table-cell;
-}
-.sub-link-filler{
-    display: table-cell;
-}
-.title{
-    text-align: left;
-    padding-left: 35px;
-    font-family: Sansation,serif;
-}
-
-.right-things{
-    padding-right: 30px;
-    padding-top: 20px;
-}
+/* Tutorial displaying */
 
 .tutorial{
     padding: 5px 25px 10px 15px;
@@ -145,36 +164,17 @@ end of that */
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
-.tutorial-sample{
-    text-align: left;
-    padding-right: 8px;
-    padding-left: 8px;
-    padding-bottom: 4px;
-}
+
 .tutorial-description{
     font-size: 16px;
 }
 
-.tutorial-description-sample{
-    font-size: 14px;
-    padding-left: 5px;
-}
-.tutorial-author-sample{
-    padding-left: 5px;
-}
-.body{
-    z-index: -10;
-    padding-top: 30px;
-    /*padding-bottom: 40px;*/
-}
-hr{
-    border-width: 3px;
-}
 .tutorial-author{
     font-size: 14px;
     padding-left: 6px;
     padding-top: 5px;
 }
+
 button.download{
     padding: 7px;
     border-radius: 3px;
@@ -183,36 +183,32 @@ button.download{
     font-size: 19px;
     font-weight: bold;
 }
+
 botton.download:active{
     border-style: ridge;
 }
-input[type="text"],
-textarea{
-    width: 800px;
+
+hr.tag-hr{
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
 }
 
-input.main-tag-search{
-    text-align: center;
-    font-size: 16px;
+.tutorial-sample{
+    text-align: left;
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-bottom: 4px;
 }
 
-textarea.tutorial-editor{
-    width: 100%;
+.tutorial-description-sample{
+    font-size: 14px;
+    padding-left: 8px;
 }
-
-#md-preview{
-    padding: 5px 25px 10px 15px;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
+.tutorial-author-sample{
+    padding-left: 8px;
 }
-ul#color-boxes li{
-    padding-top: 15px;
-}
-ul#color-boxes{
-    display: none;
-}
-
+/* Categories Page */
 .categories{
     border-radius: 3px;
     -moz-border-radius: 3px;
@@ -229,16 +225,6 @@ ul#color-boxes{
     margin-right: auto;
     margin-left: auto;
 }
-
-ul.tags, ol.tags{
-    margin: 0;
-}
 /*.tutorial-header{
     color: #2d3e50;
 }*/
-
-hr.tag-hr{
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-}
