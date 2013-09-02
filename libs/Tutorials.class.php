@@ -102,6 +102,16 @@ class Tutorials {
         ', $tutorial));
     }
 
+    public function html_printSample(Page $tutorial){
+        print($this->doSimpleReplaces('
+            <div class="tutorial-sample">
+                <h4>[%category%] <a class="tutorial-link-sample" href="/tutorial/%slug%/%id%/"><b>%title%</b></a></h4>
+                <span class="tutorial-description-sample"><i>%desc%</i></span><br/>
+                <code class="tutorial-author-sample">by %user%</code>
+            </div>
+        ', $tutorial));
+    }
+
     public function html_printTutorialLink(Page $tutorial){
         print $this->doReplaces('
             <div class="tutorial">
@@ -127,6 +137,21 @@ class Tutorials {
             '%user%' => $tutorial->getUsername(),
             '%ttext%' => $this->md->defaultTransform($this->syntax(substr($tutorial->getText(), 0, 250))),
             '%ftext%' => $this->md->defaultTransform($this->syntax($tutorial->getText())),
+            '%category%' => ucwords($tutorial->getCategory())
+        );
+        foreach($replaces as $key => $val){
+            $string = str_replace($key, $val, $string);
+        }
+        return $string;
+    }
+
+    private function doSimpleReplaces($string, Page $tutorial){
+        $replaces = array(
+            '%id%' => $tutorial->getId(),
+            '%slug%' => $tutorial->getTitleSlug(),
+            '%title%' => $tutorial->getTitle(),
+            '%desc%' => $tutorial->getDescription(),
+            '%user%' => $tutorial->getUsername(),
             '%category%' => ucwords($tutorial->getCategory())
         );
         foreach($replaces as $key => $val){
@@ -233,10 +258,12 @@ class Tutorials {
      * @param int $pagination What page are we on?
      * @return array Page ids
      */
-    public function getAllPages($limit = -1, $pagination = 1){
+    public function getAllPages($limit = -1, $pagination = 1, $reverse = false){
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('pages'));
-        return $this->shorten($this->redis->executeCommand($cmd), $limit, $pagination);
+        $pages = $this->redis->executeCommand($cmd);
+        $pages = $reverse ? array_reverse($pages) : $reverse;
+        return $this->shorten($pages, $limit, $pagination);
     }
 
     /*

@@ -69,10 +69,6 @@ button.download:active{
     border-color: #CECECE;
 }
 
-.mid-button:active{
-    background-color: #57e1ff;
-}
-
 .categories{
     background-color: white;
 }
@@ -92,4 +88,19 @@ h4.tag-header{
 
 .sub-header{
     color: #0192b6;
+}
+
+.mid-sample-box{
+    background-color: white;
+    border: 2px #333333;
+}
+
+.mid-button{
+    background-color: #d3dadf;
+    border: groove #b8b8b8;
+}
+
+.mid-button:active{
+    border: ridge #b0b0b0;
+    background-color: #97a8a9;
 }
