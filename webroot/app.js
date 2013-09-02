@@ -112,3 +112,16 @@ $('.show-toggle').click(function(){
 $('.link').click(function(){
     window.location.href = $(this).attr('data-href');
 });
+
+var resize = function(){
+//    var height = ($(window).height() - ($('.body').height() + $('.head').height()));
+    if($(window).height() < $('body').height()){// - $('.footer').height();
+        $('#bottom').css('position', 'relative').css('bottom', '0');
+    } else {
+        $('#bottom').css('position', 'absolute').css('bottom', '0');
+    }
+};
+
+//$(document).ready(resize);
+$(document).ready(resize);
+$(window).resize(resize);
