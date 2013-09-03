@@ -15,6 +15,7 @@ $('.markdown-test').click(function(){
                 $('#md-preview').slideDown("slow");
                 old.remove();
                 Rainbow.color();
+                resize();
             });
     };
     if(old.length != 0){ // Check if there are any md-preview elements on the page.
@@ -34,6 +35,7 @@ $('.categories-item').click(function(){
             right.html(data);
             right.slideDown();
             Rainbow.color();
+            resize();
         });
     });
 });
@@ -62,6 +64,17 @@ $('#tags').keydown(function(event){
         tags.push(tag);
         data.html(tags.join(','));
     }
+});
+
+$('#category-filter').keyup(function(event){
+    var filter = $(this).val();
+    $('.categories-item').each(function(){
+        if($(this).attr('data-for').indexOf(filter) == -1){
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
 });
 
 $('#tutorial-tags').on('click', '.add-tag', function(){
@@ -124,4 +137,5 @@ var resize = function(){
 
 //$(document).ready(resize);
 $(document).ready(resize);
-$(window).resize(resize);
+//$(window).resize(resize);
+$(window).scroll(resize);

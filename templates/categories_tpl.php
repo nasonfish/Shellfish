@@ -6,6 +6,7 @@ $categories = $tutorials->getCategories();
 <div class="span1">&nbsp;</div>
 <div class="span3 categories categories-left">
     <h4>Categories</h4>
+    <input type="text" placeholder="Filter categories..." id="category-filter"/>
     <ul class="tags red">
         <?php foreach($categories as $category): ?>
             <li class="categories-item" data-for="<?=strtolower($category)?>"><a><?=$category?> <span><?=sizeof($tutorials->categorized($category));?></span></a></li>

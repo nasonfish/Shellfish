@@ -1,4 +1,5 @@
 <?php
+include('../libs/Config.php');
 require '../libs/PageHandler.class.php';
 $uri = explode('/', strpos($_SERVER['REQUEST_URI'], '?') ? strstr($_SERVER['REQUEST_URI'], '?', true) : $_SERVER['REQUEST_URI']);
 foreach($uri as $id => $dir){

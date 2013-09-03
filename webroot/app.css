@@ -107,6 +107,10 @@ textarea{
     width: 800px;
 }
 
+#category-filter{
+    width: 200px;
+}
+
 textarea.tutorial-editor{
     width: 100%;
 }
@@ -154,6 +158,11 @@ input.main-tag-search{
     padding-bottom: 8px;
     margin-right: auto;
     margin-left: auto;
+}
+
+.small{
+    width: 50%;
+    padding-top: 15px;
 }
 
 /* Tutorial displaying */

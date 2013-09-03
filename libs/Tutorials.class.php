@@ -520,7 +520,7 @@ class Tutorials {
             $this->redis->executeCommand($rem); // Maybe I shouldn't be doing this, but it doesn't care if it's not in the set already, it just gives me a return value of false.
             $rem = new Predis\Command\SetMembers();
             $rem->setRawArguments(array('tag:' . $tag));
-            if($this->redis->executeCommand($rem)){
+            if(sizeof($this->redis->executeCommand($rem))){
                 $rem = new Predis\Command\SetRemove();
                 $rem->setRawArguments(array('tags', $tag));
                 $this->redis->executeCommand($rem);
