@@ -362,7 +362,7 @@ class Tutorials {
         $cmd->setRawArguments(array('next_id'));
         if(!$this->redis->executeCommand($cmd)){
             $cmd = new Predis\Command\StringSet();
-            $cmd->setRawArguments(array('next_id', 0)); // There's no current page, so we start at 0.
+            $cmd->setRawArguments(array('next_id', 1)); // There's no current page, so we start at 0.
             $this->redis->executeCommand($cmd);
             $id = 0;
         } else {
