@@ -9,3 +9,8 @@ function get($key){
     }
     return "";
 }
+
+function has($key){
+    global $_CONFIG;
+    return isset($_CONFIG[$key]);
+}

@@ -25,8 +25,7 @@
                 <ul class="tags red">
                     <?php $categories = $tutorials->getCategories() ?>
                     <?php foreach($categories as $category): ?>
-                        <li><a href="/category/<?=$category?>/"><?=$category?> <span><?=sizeof($tutorials->categorized($category));?></span></a></li>
-                        <br/><br/>
+                        <li class="index-tag"><a href="/category/<?=$category?>/"><?=$category?> <span><?=sizeof($tutorials->categorized($category));?></span></a></li>
                     <?php endforeach; ?>
                     <?php if(sizeof($categories) < 1): ?>
                         <h4>No categories found.</h4>

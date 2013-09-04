@@ -30,7 +30,17 @@ class PageHandler {
     }
 
     public function title(){
-        return file_exists('../templates/' . $this->template . '_tpl.php') ? ucwords($this->template) : '404';
+        if(!file_exists('../templates/' . $this->template . '_tpl.php')){
+            return "404 - Page Not Found";
+        }
+        if(file_exists('../templates/' . $this->template . '_tpl.title.php')){
+            include_e('../templates/' . $this->template . '_tpl.title.php', $this->pass, $this->tutorials);
+            return "";
+        }
+        if(has('title:' . $this->template)){
+            return get('title:' . $this->template);
+        }
+        return ucwords(str_replace('-', ' ', $this->template));
     }
 
     public function head(){

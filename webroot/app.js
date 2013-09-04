@@ -70,9 +70,9 @@ $('#category-filter').keyup(function(event){
     var filter = $(this).val();
     $('.categories-item').each(function(){
         if($(this).attr('data-for').indexOf(filter) == -1){
-            $(this).hide();
+            $(this).css('display', 'none');
         } else {
-            $(this).show();
+            $(this).css('display', 'block');
         }
     });
 });
@@ -129,7 +129,7 @@ $('.link').click(function(){
 var resize = function(){
 //    var height = ($(window).height() - ($('.body').height() + $('.head').height()));
     if($(window).height() < $('body').height()){// - $('.footer').height();
-        $('#bottom').css('position', 'relative').css('bottom');
+        $('#bottom').css('position', 'relative').css('bottom', '0');
     } else {
         $('#bottom').css('position', 'absolute').css('bottom', '0');
     }
