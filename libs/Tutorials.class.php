@@ -132,12 +132,12 @@ class Tutorials {
         $replaces = array(
             '%id%' => $tutorial->getId(),
             '%slug%' => $tutorial->getTitleSlug(),
-            '%title%' => $tutorial->getTitle(),
-            '%desc%' => $tutorial->getDescription(),
-            '%user%' => $tutorial->getUsername(),
+            '%title%' => htmlspecialchars($tutorial->getTitle()),
+            '%desc%' => htmlspecialchars($tutorial->getDescription()),
+            '%user%' => htmlspecialchars($tutorial->getUsername()),
             '%ttext%' => $this->md->defaultTransform($this->syntax(substr($tutorial->getText(), 0, 250))),
             '%ftext%' => $this->md->defaultTransform($this->syntax($tutorial->getText())),
-            '%category%' => ucwords($tutorial->getCategory())
+            '%category%' => ucwords(htmlspecialchars($tutorial->getCategory()))
         );
         foreach($replaces as $key => $val){
             $string = str_replace($key, $val, $string);
@@ -149,10 +149,10 @@ class Tutorials {
         $replaces = array(
             '%id%' => $tutorial->getId(),
             '%slug%' => $tutorial->getTitleSlug(),
-            '%title%' => $tutorial->getTitle(),
-            '%desc%' => $tutorial->getDescription(),
-            '%user%' => $tutorial->getUsername(),
-            '%category%' => ucwords($tutorial->getCategory())
+            '%title%' => htmlspecialchars($tutorial->getTitle()),
+            '%desc%' => htmlspecialchars($tutorial->getDescription()),
+            '%user%' => htmlspecialchars($tutorial->getUsername()),
+            '%category%' => htmlspecialchars(ucwords($tutorial->getCategory()))
         );
         foreach($replaces as $key => $val){
             $string = str_replace($key, $val, $string);

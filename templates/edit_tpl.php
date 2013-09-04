@@ -7,17 +7,17 @@ try {
 <span>Currently, a password is needed to edit pages on this site, however, you may be able to ask one of the owners of the site for the password in a form (coming soon!) if you would like to contribute.</span>
 <form method="post" action="/edit_submit.php">
     <label for="id">ID</label>
-    <input id="id" name="id" type="number" value="<?=$page->getId()?>" readonly>
+    <input id="id" name="id" type="number" value="<?=htmlspecialchars($page->getId())?>" readonly>
     <label for="username">Your username</label>
-    <input id="username" name="username" type="text" value="<?=$page->getUsername()?>"/>
+    <input id="username" name="username" type="text" value="<?=htmlspecialchars($page->getUsername())?>"/>
     <label for="title">Title</label>
-    <input id="title" name="title" type="text" value="<?=$page->getTitle()?>"/>
+    <input id="title" name="title" type="text" value="<?=htmlspecialchars($page->getTitle())?>"/>
     <label for="description">Description/Subtitle</label>
-    <input id="description" name="description" type="text" value="<?=$page->getDescription()?>"/>
+    <input id="description" name="description" type="text" value="<?=htmlspecialchars($page->getDescription())?>"/>
     <div class="row-fluid">
         <div class="span7">
             <label for="text">Tutorial</label>
-            <textarea id="text" name="text" rows="25" class="tutorial-editor"><?=$page->getText()?></textarea>
+            <textarea id="text" name="text" rows="25" class="tutorial-editor"><?=htmlspecialchars($page->getText())?></textarea>
             <button class="markdown-test" type="button">Preview your Markdown!</button>
             <br/><br/>
         </div>
@@ -42,14 +42,14 @@ try {
         </div>
     </div>
     <label for="download">Downloadable Script</label>
-    <textarea id="download" name="download" rows="25"><?=$page->getDownload();?></textarea>
+    <textarea id="download" name="download" rows="25"><?=htmlspecialchars($page->getDownload());?></textarea>
     <label for="category">What would you categorize this under? (Choose a broad term and tag more specific terms)</label>
-    <input id="category" name="category" type="text" value="<?=$page->getCategory()?>"/>
+    <input id="category" name="category" type="text" value="<?=htmlspecialchars($page->getCategory())?>"/>
     <label for="tags">Tags (Separate with ', ')</label>
     <input id="tags" name="tags" type="text"/>
     <ul id="tutorial-tags" class="tags blue">
         <?php foreach($page->getTags() as $tag): ?>
-        <li class="add-tag" data-tag="<?=$tag?>"><a><?=$tag?> <span>X</span></a></li>
+        <li class="add-tag" data-tag="<?=htmlspecialchars($tag)?>"><a><?=htmlspecialchars($tag)?> <span>X</span></a></li>
         <?php endforeach; ?>
     </ul>
     <span id="tags-data" style="display: none;"><?=sizeof($page->getTags()) < 1 ? '' : implode(',', $page->getTags());?></span>
