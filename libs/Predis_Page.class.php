@@ -85,7 +85,7 @@ class Page{
     }
 
     public function getTitleSlug(){
-        return strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/','/[ -]+/','/^-|-$/'),array('','-',''), $this->getTitle()));
+        return ($slug = strtolower(preg_replace(array('/[^a-zA-Z0-9 -]/','/[ -]+/','/^-|-$/'),array('-','-','-'), $this->getTitle()))) == '' ? 'Untitled' : $slug;
     }
 
     public function getCategory(){
