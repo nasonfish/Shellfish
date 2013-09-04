@@ -1,25 +1,25 @@
-$('.showall').click(function(){
-    $('#' + $(this).attr('for') + '-dot').hide();
-    $('#' + $(this).attr('for') + '-truncated').hide();
-    $('#' + $(this).attr('for')).show();
-    $(this).hide();
+simpleDOM('.showall').attachEvent('click', function(){
+    simpleDOM('#' + simpleDOM(this).attr('for') + '-dot').hide();
+    simpleDOM('#' + simpleDOM(this).attr('for') + '-truncated').hide();
+    simpleDOM('#' + simpleDOM(this).attr('for')).show();
+    simpleDOM(this).hide();
 });
 
-$('.markdown-test').click(function(){
-    var elem = $(this);
-    var old = $('#md-preview');
+simpleDOM('.markdown-test').click(function(){
+    var elem = simpleDOM(this);
+    var old = simpleDOM('#md-preview');
     var displayNew = function(){
-        $.post('/ajax_markdown.php', {text: $('#text').val()})
+        /*$.post('/ajax_markdown.php', {text: $('#text').val()})
             .done(function(data){
                 elem.after('<div id="md-preview" style="display: none;">' + data + '</div>');
                 $('#md-preview').slideDown("slow");
                 old.remove();
                 Rainbow.color();
                 resize();
-            });
+            }); Sadly, this will not work with simpleDOM... yet */
     };
     if(old.length != 0){ // Check if there are any md-preview elements on the page.
-        old.slideUp("slow", displayNew);
+        old.slideIn(0/*, displayNew*/);
     } else {
         displayNew();
     }
@@ -118,12 +118,12 @@ $('#submit-tutorial').click(function(event){
     }
 });
 
-$('.show-toggle').click(function(){
-    $('#' + $(this).attr('for')).slideToggle();
+simpleDOM('.show-toggle').attachEvent('click', function(){
+    simpleDOM('#' + simpleDOM(this).attr('for')).slideIn(0);
 });
 
-$('.link').click(function(){
-    window.location.href = $(this).attr('data-href');
+simpleDOM('.link').attachEvent('click', function(){
+    window.location.href = simpleDOM(this).attr('data-href');
 });
 
 var resize = function(){
