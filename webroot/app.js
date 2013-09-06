@@ -83,7 +83,7 @@ simpleDOM('#tags').bind('keydown', function(event){
         }
         simpleDOM('#tutorial-tags').append('<li class="add-tag" data-tag="'+tag+'"><a>'+tag+' <span>X</span></a></li>');
         reattach();
-        simpleDOM(this).setVal('');
+        simpleDOM(this).val('');
         var tags = oldtags.split(',');
         tags.push(tag);
         data.html(tags.join(','));

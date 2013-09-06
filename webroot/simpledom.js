@@ -121,7 +121,7 @@ simpleDOM = function( selector ){
          * @returns simpleDOM
          */
         css: function( att, val ){
-            if(val){
+            if(val !== false && val !== undefined){
                 for( var n = 0, l = _matches.length; n < l; n++ ){
                     _matches[n].style[att] = val;
                 }
@@ -137,7 +137,7 @@ simpleDOM = function( selector ){
          * @returns innerHTML
          */
         html: function(html){
-            if(!html){
+            if(html === false || html === undefined){
                 return this.get(0).innerHTML;
             } else {
                 for( var n = 0, l = _matches.length; n < l; n++){
@@ -226,13 +226,13 @@ simpleDOM = function( selector ){
          * @returns simpleDOM | string
          */
         val: function(value){
-            if(!value){
-                return this.get(0).value;
-            } else {
+            if(value !== false && value !== undefined){
                 for( var n = 0, l = _matches.length; n < l; n++){
                     _matches[n].value = value;
                 }
                 return this;
+            } else {
+                return this.get(0).value;
             }
         },
 
