@@ -121,27 +121,29 @@ simpleDOM = function( selector ){
          * @returns simpleDOM
          */
         css: function( att, val ){
-            for( var n = 0, l = _matches.length; n < l; n++ ){
-                _matches[n].style[att] = val;
+            if(val){
+                for( var n = 0, l = _matches.length; n < l; n++ ){
+                    _matches[n].style[att] = val;
+                }
+                return this;
+            } else {
+                return this.get(0).style[att]; // does this work?
             }
-            return this;
-        },
-
-        getCss: function(attr){
-            return this.get(0).style[attr];
         },
 
         /**
-         * Get the inner HTML of an object
+         * Get the inner HTML of an object, or, with the optional
+         * html argument specified, sets the inner HTML of an object.
          * @returns innerHTML
          */
-        html: function(){
-            return this.get(0).innerHTML;
-        },
-
-        setHtml: function(html){
-            for( var n = 0, l = _matches.length; n < l; n++){
-                _matches[n].innerHTML = html;
+        html: function(html){
+            if(!html){
+                return this.get(0).innerHTML;
+            } else {
+                for( var n = 0, l = _matches.length; n < l; n++){
+                    _matches[n].innerHTML = html;
+                }
+                return this;
             }
         },
 
@@ -218,17 +220,28 @@ simpleDOM = function( selector ){
             return _matches[k];
         },
 
-        val: function(){
-            return this.get(0).value;
-        },
-
-        setVal: function(value){
-            for( var n = 0, l = _matches.length; n < l; n++){
-                _matches[n].value = value;
+        /**
+         * Get the value of an object, or, with the optional
+         * value argument, set the value.
+         * @returns simpleDOM | string
+         */
+        val: function(value){
+            if(!value){
+                return this.get(0).value;
+            } else {
+                for( var n = 0, l = _matches.length; n < l; n++){
+                    _matches[n].value = value;
+                }
+                return this;
             }
-            return this;
         },
 
+        /**
+         * Loop through all found elements and execute a function
+         * for each element.
+         * @param func
+         * @returns simpleDOM
+         */
         each: function(func){
             for( var n = 0, l = _matches.length; n < l; n++ ){
                 func(_matches[n]);
@@ -236,12 +249,22 @@ simpleDOM = function( selector ){
             return this;
         },
 
+        /**
+         * Remove elements from the page.
+         * @returns simpleDOM
+         */
         remove: function(){
             for (var n = 0, l = _matches.length; n < l; n++){
                 _matches[n].parentNode.removeChild(_matches[n]);
             }
             return this;
         },
+
+        /**
+         * Insert HTML after a certain element
+         * @param html HTML in text format to insert
+         * @returns simpleDOM
+         */
         after: function(html){
             var element = document.createElement('div');
             element.innerHTML = html;
@@ -256,6 +279,12 @@ simpleDOM = function( selector ){
             return this;
         },
 
+        /**
+         * Add HTML at the end of the inside of
+         * a certain element (append it)
+         * @param html HTML to append
+         * @returns simpleDOM
+         */
         append: function(html){
             // This is sort of hacky. not sure how else to do this.
             var element = document.createElement('div');
@@ -267,8 +296,6 @@ simpleDOM = function( selector ){
         }
     }
 };
-
-//TODO .after(), .remove()
 
 // function stopPropagation( e ){
 //     if (!e) var e = window.event;

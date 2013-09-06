@@ -25,11 +25,8 @@ simpleDOM('.markdown-test').bind('click', function(){
                 resize();
             }); Sadly, this will not work with simpleDOM... yet */
     };
-    if(old.length != 0){ // Check if there are any md-preview elements on the page.
-        old.slideIn(0/*, displayNew*/);
-    } else {
-        displayNew();
-    }
+    old.each(function(){old.hide()});//old.slideIn(0/*, displayNew*/);
+    displayNew();
 });
 
 simpleDOM('.categories-item').bind('click', function(){
@@ -60,7 +57,7 @@ var reattach = function(){
                 tags.splice(i, i == 0 ? 1 : i);
             }
         }
-        data.setHtml(tags.join(','));
+        data.html(tags.join(','));
     });
 };
 
@@ -68,7 +65,7 @@ reattach();
 
 simpleDOM('#tags').bind('keydown', function(event){
     while(simpleDOM(this).val().indexOf(',') != -1){
-        simpleDOM(this).setVal(simpleDOM(this).val().replace(',',''));
+        simpleDOM(this).val(simpleDOM(this).val().replace(',',''));
     }
     if(event.keyCode == 188){
         event.preventDefault();
@@ -89,7 +86,7 @@ simpleDOM('#tags').bind('keydown', function(event){
         simpleDOM(this).setVal('');
         var tags = oldtags.split(',');
         tags.push(tag);
-        data.setHtml(tags.join(','));
+        data.html(tags.join(','));
     }
 });
 
@@ -128,7 +125,7 @@ simpleDOM('#submit-tutorial').bind('click', function(event){
         }
         simpleDOM(this).after('<div class="alert alert-error" id="form-errors"><ul>'+error+'</ul></alert>');
     } else {
-        simpleDOM('#tags').setVal(simpleDOM('#tags-data').html());
+        simpleDOM('#tags').val(simpleDOM('#tags-data').html());
     }
 });
 
