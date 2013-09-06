@@ -146,38 +146,6 @@ simpleDOM = function( selector ){
         },
 
 
-        slideIn: function( direction){
-            var x;
-            var y;
-            // 0=>right, 1=>up, 2=>left, 3=>down
-            switch(direction){
-                case 0:
-                    x = 1;
-                    y = 0;
-                    break;
-                case 1:
-                    x = 0;
-                    y = 1;
-                    break;
-                case 2:
-                    x = -1;
-                    y = 0;
-                    break;
-                case 3:
-                    x = 0;
-                    y = -1;
-                    break;
-                default:
-                    x = 1;
-                    y = 0;
-                    break;
-            }
-            for(var n = 0, l = _matches.length; n < l; n++ ){
-                animateSingle(x, y, _matches[n]);
-            }
-        },
-
-
         /**
          * Short-cut for hiding an element
          *
@@ -299,22 +267,6 @@ simpleDOM = function( selector ){
         }
     }
 };
-
-function animateSingle(x, y, obj){
-    obj.style['width'] = x == 0 ? '100%' : '0';
-    obj.style['height'] = y == 0 ? '100%' : '0';
-    obj.style['right'] = x < 0 ? '0' : 'auto';
-    obj.style['left'] = x > 0 ? '0' : 'auto';
-    obj.style['top'] = y > 0 ? '0' : 'auto';
-    obj.style['bottom'] = y < 0 ? '0' : 'auto';
-    var id = setInterval(function(){
-        obj.style['width'] = (parseInt(obj.style['width'].replace('%', '')) + Math.abs(x)) + "%";
-        obj.style['height'] = (parseInt(obj.style['height'].replace('%', '')) + Math.abs(y)) + "%";
-        if(obj.style['width']=="100%" && obj.style['height']=="100%"){
-            clearInterval(id);
-        }
-    }, 10);
-}
 
 //TODO .after(), .remove()
 

@@ -1,3 +1,10 @@
+// This will actually happen, not bound to an event.
+if(document.height > ("innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight)){// - $('.footer').height();
+    simpleDOM('#bottom').css('position', 'relative').css('bottom', '0');
+} else {
+    simpleDOM('#bottom').css('position', 'absolute').css('bottom', '0');
+}
+
 simpleDOM('.showall').bind('click', function(){
     simpleDOM('#' + simpleDOM(this).attr('for') + '-dot').hide();
     simpleDOM('#' + simpleDOM(this).attr('for') + '-truncated').hide();
@@ -126,23 +133,16 @@ simpleDOM('#submit-tutorial').bind('click', function(event){
 });
 
 simpleDOM('.show-toggle').bind('click', function(){
-    simpleDOM('#' + simpleDOM(this).attr('for')).slideIn(0);
+    var target = simpleDOM('#' + simpleDOM(this).attr('for'));
+    if(target.hasClass('displayed')){
+        target.hide();
+        target.removeClass('displayed');
+    } else {
+        target.show();
+        target.addClass('displayed');
+    }//.slideIn(0);
 });
 
 simpleDOM('.link').bind('click', function(){
     window.location.href = simpleDOM(this).attr('data-href');
 });
-
-var resize = function(){
-//    var height = ($(window).height() - ($('.body').height() + $('.head').height()));
-    if(simpleDOM(window).getCss('height') < simpleDOM('body').getCss('height')){// - $('.footer').height();
-        simpleDOM('#bottom').css('position', 'relative').css('bottom', '0');
-    } else {
-        simpleDOM('#bottom').css('position', 'absolute').css('bottom', '0');
-    }
-};
-
-//$(document).ready(resize);
-simpleDOM(document).bind('ready', resize);
-//$(window).resize(resize);
-simpleDOM(window).bind('scroll', resize);
