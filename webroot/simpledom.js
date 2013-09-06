@@ -127,6 +127,24 @@ simpleDOM = function( selector ){
             return this;
         },
 
+        getCss: function(attr){
+            return this.get(0).style[attr];
+        },
+
+        /**
+         * Get the inner HTML of an object
+         * @returns innerHTML
+         */
+        html: function(){
+            return this.get(0).innerHTML;
+        },
+
+        setHtml: function(html){
+            for( var n = 0, l = _matches.length; n < l; n++){
+                _matches[n].innerHTML = html;
+            }
+        },
+
 
         slideIn: function( direction){
             var x;
@@ -230,6 +248,54 @@ simpleDOM = function( selector ){
          */
         get: function(k){
             return _matches[k];
+        },
+
+        val: function(){
+            return this.get(0).value;
+        },
+
+        setVal: function(value){
+            for( var n = 0, l = _matches.length; n < l; n++){
+                _matches[n].value = value;
+            }
+            return this;
+        },
+
+        each: function(func){
+            for( var n = 0, l = _matches.length; n < l; n++ ){
+                func(_matches[n]);
+            }
+            return this;
+        },
+
+        remove: function(){
+            for (var n = 0, l = _matches.length; n < l; n++){
+                _matches[n].parentNode.removeChild(_matches[n]);
+            }
+            return this;
+        },
+        after: function(html){
+            var element = document.createElement('div');
+            element.innerHTML = html;
+            for(var n = 0, l = _matches.length; n < l; n++){
+                var parent = _matches[n].parentNode;
+                if (parent.lastChild == _matches[n]) {
+                    parent.appendChild(element.firstChild);
+                } else {
+                    parent.insertBefore(element.firstChild, _matches[n].nextSibling);
+                }
+            }
+            return this;
+        },
+
+        append: function(html){
+            // This is sort of hacky. not sure how else to do this.
+            var element = document.createElement('div');
+            element.innerHTML = html;
+            for(var n = 0, l = _matches.length; n < l; n++){
+                _matches[n].appendChild(element.firstChild);
+            }
+            return this;
         }
     }
 };
@@ -250,6 +316,7 @@ function animateSingle(x, y, obj){
     }, 10);
 }
 
+//TODO .after(), .remove()
 
 // function stopPropagation( e ){
 //     if (!e) var e = window.event;

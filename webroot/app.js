@@ -1,11 +1,11 @@
-simpleDOM('.showall').attachEvent('click', function(){
+simpleDOM('.showall').bind('click', function(){
     simpleDOM('#' + simpleDOM(this).attr('for') + '-dot').hide();
     simpleDOM('#' + simpleDOM(this).attr('for') + '-truncated').hide();
     simpleDOM('#' + simpleDOM(this).attr('for')).show();
     simpleDOM(this).hide();
 });
 
-simpleDOM('.markdown-test').click(function(){
+simpleDOM('.markdown-test').bind('click', function(){
     var elem = simpleDOM(this);
     var old = simpleDOM('#md-preview');
     var displayNew = function(){
@@ -25,32 +25,51 @@ simpleDOM('.markdown-test').click(function(){
     }
 });
 
-$('.categories-item').click(function(){
-    var category = $(this).attr('data-for');
-    $('.categories-right').slideUp("slow", function(){
-        $(this).empty();
-        $.post('/ajax_category.php', {category: category})
+simpleDOM('.categories-item').bind('click', function(){
+    var category = simpleDOM(this).attr('data-for');
+    //simpleDOM('.categories-right').slideUp("slow", function(){
+        //simpleDOM(this).empty();
+        /*$.post('/ajax_category.php', {category: category})
         .done(function(data){
             var right = $('.categories-right');
             right.html(data);
             right.slideDown();
             Rainbow.color();
             resize();
-        });
-    });
+        });*/
+    //});
 });
 
-$('#tags').keydown(function(event){
-    while($(this).val().indexOf(',') != -1){
-        $(this).val($(this).val().replace(',',''));
+
+var reattach = function(){
+    simpleDOM('.add-tag').bind('click', function(){
+        var remove = simpleDOM(this).attr('data-tag');
+        simpleDOM(this).remove();
+        var data = simpleDOM('#tags-data');
+        var oldtags = data.html();
+        var tags = oldtags.split(',');
+        for(var i = 0; i < tags.length; i++){
+            if(tags[i] == remove){
+                tags.splice(i, i == 0 ? 1 : i);
+            }
+        }
+        data.setHtml(tags.join(','));
+    });
+};
+
+reattach();
+
+simpleDOM('#tags').bind('keydown', function(event){
+    while(simpleDOM(this).val().indexOf(',') != -1){
+        simpleDOM(this).setVal(simpleDOM(this).val().replace(',',''));
     }
     if(event.keyCode == 188){
         event.preventDefault();
-        if($(this).val() == ""){
+        if(simpleDOM(this).val() == ""){
             return;
         }
-        var tag = $(this).val();
-        var data = $('#tags-data');
+        var tag = simpleDOM(this).val();
+        var data = simpleDOM('#tags-data');
         var oldtags = data.html();
         for(var i = 0; i < oldtags.split(',').length; i++){
             if(oldtags.split(',')[i] == tag){
@@ -58,54 +77,40 @@ $('#tags').keydown(function(event){
                 return;
             }
         }
-        $('#tutorial-tags').append('<li class="add-tag" data-tag="'+tag+'"><a>'+tag+' <span>X</span></a></li>');
-        $(this).val('');
+        simpleDOM('#tutorial-tags').append('<li class="add-tag" data-tag="'+tag+'"><a>'+tag+' <span>X</span></a></li>');
+        reattach();
+        simpleDOM(this).setVal('');
         var tags = oldtags.split(',');
         tags.push(tag);
-        data.html(tags.join(','));
+        data.setHtml(tags.join(','));
     }
 });
 
-$('#category-filter').keyup(function(event){
-    var filter = $(this).val();
-    $('.categories-item').each(function(){
-        if($(this).attr('data-for').indexOf(filter) == -1){
-            $(this).css('display', 'none');
+simpleDOM('#category-filter').bind('keyup', function(event){
+    var filter = simpleDOM(this).val();
+    $('.categories-item').each(function(elem){
+        if(simpleDOM(elem).attr('data-for').indexOf(filter) == -1){
+            simpleDOM(elem).css('display', 'none');
         } else {
-            $(this).css('display', 'block');
+            simpleDOM(elem).css('display', 'block');
         }
     });
 });
 
-$('#tutorial-tags').on('click', '.add-tag', function(){
-    var remove = $(this).attr('data-tag');
-    $(this).remove();
-    var data = $('#tags-data');
-    var oldtags = data.html();
-    var tags = oldtags.split(',');
-    for(var i = 0; i < tags.length; i++){
-        if(tags[i] == remove){
-            tags.splice(i, i == 0 ? 1 : i);
-        }
-    }
-    data.html(tags.join(','));
-});
-
-$('#submit-tutorial').click(function(event){
-    $('#form-errors').remove();
-    $('#tags').val($('#tags-data').html());
+simpleDOM('#submit-tutorial').bind('click', function(event){
+    simpleDOM('#form-errors').remove();
     // Places: title, description, text, category
     var errors = [];
-    if($('#title').val() == ""){
+    if(simpleDOM('#title').val() == ""){
         errors.push('Title field is blank.');
     }
-    if($('#description').val() == ""){
+    if(simpleDOM('#description').val() == ""){
         errors.push('Description field is blank.');
     }
-    if($('#text').val() == ""){
+    if(simpleDOM('#text').val() == ""){
         errors.push('Tutorial is blank. There\'s got to be something the user has to do!');
     }
-    if($('#category').val() == ""){
+    if(simpleDOM('#category').val() == ""){
         errors.push('Category field is blank.');
     }
     if(errors.length != 0){
@@ -114,28 +119,30 @@ $('#submit-tutorial').click(function(event){
         for(var i = 0; i < errors.length; i++){
             error += "<li>" + errors[i] + "</li>";
         }
-        $(this).after('<div class="alert alert-error" id="form-errors"><ul>'+error+'</ul></alert>');
+        simpleDOM(this).after('<div class="alert alert-error" id="form-errors"><ul>'+error+'</ul></alert>');
+    } else {
+        simpleDOM('#tags').setVal(simpleDOM('#tags-data').html());
     }
 });
 
-simpleDOM('.show-toggle').attachEvent('click', function(){
+simpleDOM('.show-toggle').bind('click', function(){
     simpleDOM('#' + simpleDOM(this).attr('for')).slideIn(0);
 });
 
-simpleDOM('.link').attachEvent('click', function(){
+simpleDOM('.link').bind('click', function(){
     window.location.href = simpleDOM(this).attr('data-href');
 });
 
 var resize = function(){
 //    var height = ($(window).height() - ($('.body').height() + $('.head').height()));
-    if($(window).height() < $('body').height()){// - $('.footer').height();
-        $('#bottom').css('position', 'relative').css('bottom', '0');
+    if(simpleDOM(window).getCss('height') < simpleDOM('body').getCss('height')){// - $('.footer').height();
+        simpleDOM('#bottom').css('position', 'relative').css('bottom', '0');
     } else {
-        $('#bottom').css('position', 'absolute').css('bottom', '0');
+        simpleDOM('#bottom').css('position', 'absolute').css('bottom', '0');
     }
 };
 
 //$(document).ready(resize);
-$(document).ready(resize);
+simpleDOM(document).bind('ready', resize);
 //$(window).resize(resize);
-$(window).scroll(resize);
+simpleDOM(window).bind('scroll', resize);
