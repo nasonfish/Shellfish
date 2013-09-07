@@ -1,9 +1,12 @@
-// This will actually happen, not bound to an event.
-if(document.height > ("innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight)){// - $('.footer').height();
-    simpleDOM('#bottom').css('position', 'relative').css('bottom', '0');
-} else {
-    simpleDOM('#bottom').css('position', 'absolute').css('bottom', '0');
-}
+var bottomBar = function(){
+    // This will actually happen, not bound to an event.
+    if(document.height > ("innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight)){// - $('.footer').height();
+        simpleDOM('#bottom').css('position', 'relative').css('bottom', '0');
+    } else {
+        simpleDOM('#bottom').css('position', 'absolute').css('bottom', '0');
+    }
+};
+bottomBar();
 
 simpleDOM('.showall').bind('click', function(){
     simpleDOM('#' + simpleDOM(this).attr('for') + '-dot').hide();
@@ -31,17 +34,10 @@ simpleDOM('.markdown-test').bind('click', function(){
 
 simpleDOM('.categories-item').bind('click', function(){
     var category = simpleDOM(this).attr('data-for');
-    //simpleDOM('.categories-right').slideUp("slow", function(){
-        //simpleDOM(this).empty();
-        /*$.post('/ajax_category.php', {category: category})
-        .done(function(data){
-            var right = $('.categories-right');
-            right.html(data);
-            right.slideDown();
-            Rainbow.color();
-            resize();
-        });*/
-    //});
+    simpleDOM('.category-sample').hide();
+    simpleDOM('.category-sample-' + category).show();
+    Rainbow.color();
+    bottomBar();
 });
 
 
@@ -92,11 +88,11 @@ simpleDOM('#tags').bind('keydown', function(event){
 
 simpleDOM('#category-filter').bind('keyup', function(event){
     var filter = simpleDOM(this).val();
-    $('.categories-item').each(function(elem){
+    simpleDOM('.categories-item').each(function(elem){
         if(simpleDOM(elem).attr('data-for').indexOf(filter) == -1){
-            simpleDOM(elem).css('display', 'none');
+            simpleDOM(elem).hide();
         } else {
-            simpleDOM(elem).css('display', 'block');
+            simpleDOM(elem).show();
         }
     });
 });

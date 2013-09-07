@@ -1,7 +1,7 @@
 <div class="margined">
 <h3>Create a page</h3>
 <span>Currently, a password is needed to create pages on this site, however, you may be able to ask one of the owners of the site for the password in a form (coming soon!) if you would like to contribute.</span>
-<hr>
+<hr/>
 <form method="post" action="/create_submit.php">
     <!--<label for="username">Enter your username</label>
     <input id="username" name="username" type="text" value="<?//=$username?>"/>-->
@@ -13,7 +13,7 @@
         <div class="span7">
             <label for="text">Create your tutorial!</label>
             <textarea id="text" name="text" rows="25" class="tutorial-editor"  placeholder="# First, we need to install..."></textarea>
-            <button class="markdown-test" type="button">Preview your Markdown!</button>
+            <button class="markdown-test btn btn-small disabled" type="button">Preview your Markdown! (Currently disabled, sorry)</button>
             <br/><br/>
         </div>
         <div class="span4" style="padding-left: 17px; padding-top: 15px;">

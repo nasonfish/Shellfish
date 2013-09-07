@@ -9,13 +9,22 @@ $categories = $tutorials->getCategories();
     <input type="text" placeholder="Filter categories..." id="category-filter"/>
     <ul class="tags red">
         <?php foreach($categories as $category): ?>
-            <li class="categories-item" data-for="<?=strtolower($category)?>"><a><?=$category?> <span><?=sizeof($tutorials->categorized($category));?></span></a></li>
-            <br/><br/>
+            <div class="categories-item" data-for="<?=strtolower($category)?>"><li><a><?=$category?> <span><?=sizeof($tutorials->categorized($category));?></span></a></li><br/><br/></div>
         <?php endforeach; ?>
     </ul>
 </div>
 <div class="span7 categories categories-right">
-    <h6>We can load in a list of tutorials here. :-)</h6>
+    <?php
+    foreach($categories as $category){
+        print '<div class="category-sample category-sample-'.$category.'" data-category="'.$category.'">';
+        print '<h3><a href="/category/'.$category.'/">See all tutorials with that category!</a></h3>';
+        foreach($tutorials->categorySearch($tutorials->getAllPages(), $category, 6) as $tutorial){
+            print "<hr/>";
+            $tutorials->html_printSample($tutorials->page($tutorial));
+        }
+        print '</div>';
+    }
+    ?>
 </div>
 <div class="span1">&nbsp;</div>
 <br class="pad-bottom"/>

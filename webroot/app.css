@@ -229,6 +229,10 @@ hr.tag-hr{
     margin-right: auto;
     margin-left: auto;
 }
+
+.category-sample{
+    display: none;
+}
 /*.tutorial-header{
     color: #2d3e50;
 }*/
