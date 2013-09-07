@@ -456,10 +456,10 @@ class Tutorials {
             $cmd->setRawArguments(array('category:' . $aDistro, $id));
             $this->redis->executeCommand($cmd); // Maybe I shouldn't be doing this, but it doesn't care if it's not in the set already, it just gives me a return value of false.
             $rem = new Predis\Command\SetMembers();
-            $rem->setRawArguments(array('category:' . $distro));
+            $rem->setRawArguments(array('category:' . $aDistro));
             if(sizeof($this->redis->executeCommand($rem)) == 0){
                 $rem = new Predis\Command\SetRemove();
-                $rem->setRawArguments(array('categories', $distro));
+                $rem->setRawArguments(array('categories', $aDistro));
                 $this->redis->executeCommand($rem);
             }
         }
