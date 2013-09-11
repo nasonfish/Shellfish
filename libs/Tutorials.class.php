@@ -104,8 +104,8 @@ class Tutorials {
 
     public function html_printSample(Page $tutorial){
         print($this->doSimpleReplaces('
-            <div class="tutorial-sample">
-                <h4>[%category%] <a class="tutorial-link-sample" href="/tutorial/%slug%/%id%/"><b>%title%</b></a></h4>
+            <div class="tutorial-sample link" data-href="/tutorial/%slug%/%id%/">
+                <h4 class="tutorial-link-sample tutorial-header">[%category%] <b>%title%</b></h4>
                 <span class="tutorial-description-sample"><i>%desc%</i></span><br/>
                 <code class="tutorial-author-sample">by %user%</code>
             </div>
@@ -114,13 +114,12 @@ class Tutorials {
 
     public function html_printTutorialLink(Page $tutorial){
         print $this->doReplaces('
-            <div class="tutorial">
-                <h3 class="tutorial-header">[%category%] <a class="tutorial-link" href="/tutorial/%slug%/%id%/"><b>%title%</b></a></h3>
+            <div class="tutorial link" data-href="/tutorial/%slug%/%id%/">
+                <h3 class="tutorial-header">[%category%] <b class="tutorial-link">%title%</b></h3>
                 <span class="tutorial-description"><i>%desc%</i></span><br/>
                 <code class="tutorial-author">by %user%</code><hr/>
                 <div class="tutorial-text">
                       <span class="truncated-text" id="tutorial-id-%id%">%ttext%...</span>
-                      <a href="/tutorial/%slug%/%id%/">See full tutorial</a>
                 </div>
                 <br/>
             </div>
@@ -554,7 +553,7 @@ class Tutorials {
      *
      * "categories" SET(distroname, anotherdistro, onemoredistro, softwaare, blah)
      * "category:<catname>" SET(5, 2, 3, 5, ids_of_pages)
-     * // We might be able to have category:<catname>:pic link to a picture of the logo of that category. "none"/"all"
+     * // We might be able to have category:<catname>:pic link to a picture of the logo of that category.
      *
      * "next_id" string(id of the next page we will add)
      */

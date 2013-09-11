@@ -302,3 +302,52 @@ simpleDOM = function( selector ){
 //     e.cancelBubble = true;
 //     if (e.stopPropagation) e.stopPropagation();
 // }
+
+
+// http://www.javascriptkit.com/dhtmltutors/ajaxgetpost.shtml
+
+var ajaxObj = function(){
+    var activexmodes=["Msxml2.XMLHTTP", "Microsoft.XMLHTTP"]; //activeX versions to check for in IE
+    if (window.ActiveXObject){ //Test for support for ActiveXObject in IE first (as XMLHttpRequest in IE7 is broken)
+        for (var i=0; i<activexmodes.length; i++){
+            try{
+                return new ActiveXObject(activexmodes[i])
+            }
+            catch(e){
+                //suppress error
+            }
+        }
+    }
+    else if (window.XMLHttpRequest) // if Mozilla, Safari etc
+        return new XMLHttpRequest();
+    else {
+        return false;
+    }
+};
+
+var simpleAJAX = function(location, type, parameters, callback){
+    var ajax = ajaxObj();
+    ajax.onreadystatechange = function(){
+        if(ajax.readyState == 4){
+            if(ajax.status == 200 || window.location.href.indexOf("http") == -1){
+                callback(ajax.responseText);
+            } else{
+                alert("An error occurred while attempting a " + type + " AJAX request on " + location + ": " + ajax.statusText);
+            }
+        }
+    };
+    var newParams = "";
+    for(var key in parameters){
+        parameters[key] = encodeURIComponent(parameters[key]);
+        newParams += key + "=" + parameters[key] + "&";
+    }
+    newParams = newParams.substr(0, newParams.length - 1);
+    if(type.toUpperCase() == "GET"){
+        ajax.open("GET", location + "?" + newParams, true);
+        ajax.send(null);
+    } else if(type.toUpperCase() == "POST"){
+        ajax.open("POST", location, true);
+        ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        ajax.send(newParams);
+    }
+};

@@ -1,14 +1,12 @@
-<?php
-$categories = $tutorials->getCategories();
-?>
-
-<h4 class="categories-h">Click on a category on the left to see all tutorials tagged with that category!</h4>
+<div class="white">
+    <h4 class="categories-h">Click on a category on the left to see all tutorials tagged with that category!</h4>
+</div>
 <div class="span1">&nbsp;</div>
 <div class="span3 categories categories-left">
     <h4>Categories</h4>
     <input type="text" placeholder="Filter categories..." id="category-filter"/>
     <ul class="tags red">
-        <?php foreach($categories as $category): ?>
+        <?php $categories = $tutorials->getCategories(); foreach($categories as $category): ?>
             <div class="categories-item" data-for="<?=strtolower($category)?>"><li><a><?=$category?> <span><?=sizeof($tutorials->categorized($category));?></span></a></li><br/><br/></div>
         <?php endforeach; ?>
     </ul>

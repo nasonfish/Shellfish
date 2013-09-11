@@ -19,14 +19,11 @@ simpleDOM('.markdown-test').bind('click', function(){
     var elem = simpleDOM(this);
     var old = simpleDOM('#md-preview');
     var displayNew = function(){
-        /*$.post('/ajax_markdown.php', {text: $('#text').val()})
-            .done(function(data){
-                elem.after('<div id="md-preview" style="display: none;">' + data + '</div>');
-                $('#md-preview').slideDown("slow");
+        simpleAJAX('/ajax_markdown.php', "POST", {text: simpleDOM('#text').val()}, function(data){
+                elem.after('<div id="md-preview">' + data + '</div>');
                 old.remove();
                 Rainbow.color();
-                resize();
-            }); Sadly, this will not work with simpleDOM... yet */
+            });
     };
     old.each(function(){old.hide()});//old.slideIn(0/*, displayNew*/);
     displayNew();

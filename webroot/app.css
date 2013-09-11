@@ -10,6 +10,28 @@
     /*padding-bottom: 40px;*/
 }
 
+a, .link{
+    color: rgb(37, 93, 135);
+}
+
+h1,h2,h3,h4,h5,h6{
+    color: rgba(39, 103, 147, 0.60);
+}
+
+a:hover, .link:hover{
+    text-decoration-line: none;
+    cursor: pointer;
+    color: #1d4d6f;
+}
+
+.tutorial-header{
+    color: #135696;
+}
+
+.white{
+    padding-bottom: 10px;
+}
+
 hr{
     border-width: 3px;
 }
@@ -233,6 +255,3 @@ hr.tag-hr{
 .category-sample{
     display: none;
 }
-/*.tutorial-header{
-    color: #2d3e50;
-}*/
