@@ -1,3 +1,7 @@
+.sub-link{
+    color: #FFFFFF;
+}
+
 #bottom{
     background-color: #6a7f94;
 }
@@ -27,10 +31,10 @@
 }
 
 .sub-link:hover{
-    background-color: #019cc3;
+    background-color: #0184a8;
 }
 .sub-link.active:hover{
-    background-color: #0182a3;
+    background-color: #016c8d;
 }
 .sub-link a:hover{
     color: #FFFFFF;

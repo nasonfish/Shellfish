@@ -10,7 +10,7 @@
     /*padding-bottom: 40px;*/
 }
 
-a, .link{
+a{
     color: rgb(37, 93, 135);
 }
 
@@ -21,6 +21,9 @@ h1,h2,h3,h4,h5,h6{
 a:hover, .link:hover{
     text-decoration-line: none;
     cursor: pointer;
+}
+
+a:hover{
     color: #1d4d6f;
 }
 

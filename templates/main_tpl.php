@@ -20,10 +20,10 @@
         </div>
         <div class="sub-bar">
             <ul class="sub-links">
-                <li class="sub-link span2 <?= $this->active('index'); ?>"><a href="/">Home</a></li>
-                <li class="sub-link span2 <?= $this->active('categories'); ?>"><a href="/categories/">Categories</a></li>
-                <li class="sub-link span2 <?= $this->active('about-us'); ?>"><a href="/about-us/">About Us</a></li>
-                <li class="sub-link span2 <?= $this->active('create'); ?>"><a href="/create/">Create a page</a></li>
+                <li class="link sub-link span2 <?= $this->active('index'); ?>" data-href="/">Home</li>
+                <li class="link sub-link span2 <?= $this->active('categories'); ?>" data-href="/categories/">Categories</li>
+                <li class="link sub-link span2 <?= $this->active('about-us'); ?>" data-href="/about-us/">About Us</li>
+                <li class="link sub-link span2 <?= $this->active('create'); ?>" data-href="/create/">Create a page</li>
                 <li class="sub-link-filler span4">&nbsp;</li>
             </ul>
         </div>
