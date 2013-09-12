@@ -1,6 +1,6 @@
 var bottomBar = function(){
     // This will actually happen, not bound to an event.
-    if(document.height > ("innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight)){// - $('.footer').height();
+    if(document.body.clientHeight > ("innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight)){// - $('.footer').height();
         simpleDOM('#bottom').css('position', 'relative').css('bottom', '0');
     } else {
         simpleDOM('#bottom').css('position', 'absolute').css('bottom', '0');
