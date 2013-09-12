@@ -1,4 +1,5 @@
 <?php
+if(isset($pass[0])):
 try {
     $page = $tutorials->page($pass[0]);
 ?>
@@ -62,3 +63,9 @@ try {
 } catch(PredisPageDoesNotExistException $e){
     echo "Tutorial not found.";
 }
+else: ?>
+    <div class="margined">
+        <h3>No tutorial found to edit</h3>
+        <p>I don't know which tutorial you're trying to edit, there's no ID in the title or this site is not set up correctly.</p>
+    </div>
+<?php endif; ?>

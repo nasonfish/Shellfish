@@ -1,4 +1,5 @@
 <?php
+if(isset($args[0])){
 include('../libs/Predis_Page.class.php');
 include('../libs/Tutorials.class.php');
 $id = $args[0];
@@ -19,3 +20,6 @@ $content = $page->getDownload();
 header('Content-Length: ' . strlen($content));
 
 print $content;
+} else {
+    echo "Error - that page does not exist.";
+}
