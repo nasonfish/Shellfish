@@ -13,7 +13,7 @@
         <div class="span7">
             <label for="text">Create your tutorial!</label>
             <textarea id="text" name="text" rows="25" class="tutorial-editor"  placeholder="# First, we need to install..."></textarea>
-            <button class="markdown-test btn btn-small" type="button">Preview your Markdown! (Currently disabled, sorry)</button>
+            <button class="markdown-test btn btn-small" type="button">Preview your Markdown!</button>
             <br/><br/>
         </div>
         <div class="span4" style="padding-left: 17px; padding-top: 15px;">

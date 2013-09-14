@@ -27,16 +27,18 @@ class Page{
 
     private $id;
     private $redis;
+    private $tutorials;
 
     /**
      * Create a new page! WE'RE JUST AN INTEGER!
      */
-    public function __construct($id = false, Tutorials $predis){
-        if(!$predis->exists($id)){
+    public function __construct($id = false, Tutorials $tutorials){
+        if(!$tutorials->exists($id)){
             throw new PredisPageDoesNotExistException($id, "Predis Page Construct");
         }
         $this->id = $id;
-        $this->redis = $predis->getPredis();
+        $this->redis = $tutorials->getPredis();
+        $this->tutorials = $tutorials;
     }
 
     public function getTags(){
@@ -104,16 +106,19 @@ class Page{
 
     public function __toString(){
         $data = array('success' => 1,
-              'id' => $this->getId(),
-              'title' => $this->getTitle(),
-              'description' => $this->getDescription(),
-              'tags' => $this->getTags(),
-              'category' => $this->getCategory(),
-              'title-slug' => $this->getTitleSlug(),
-              //'ip' => $this->getIP(),
-              'username' => $this->getUsername(),
-              'download' => $this->getDownload(),
-              'text' => $this->getText());
+              'data' => array(
+                  'id' => $this->getId(),
+                  'title' => $this->getTitle(),
+                  'description' => $this->getDescription(),
+                  'tags' => $this->getTags(),
+                  'category' => $this->getCategory(),
+                  'title-slug' => $this->getTitleSlug(),
+                  //'ip' => $this->getIP(),
+                  'username' => $this->getUsername(),
+                  'download' => $this->getDownload(),
+                  'text' => $this->tutorials->getMarkdown()->defaultTransform($this->getText())
+              )
+        );
         return json_encode($data);
     }
 }

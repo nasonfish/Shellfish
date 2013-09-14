@@ -15,7 +15,7 @@ a{
 }
 
 h1,h2,h3,h4,h5,h6{
-    color: rgba(39, 103, 147, 0.60);
+    color: #135696;
 }
 
 a:hover, .link:hover{
@@ -28,7 +28,8 @@ a:hover{
 }
 
 .tutorial-header{
-    color: #135696;
+    color: #103a6a;
+    /*color: rgba(39, 103, 147, 0.75);*/
 }
 
 .white{
@@ -237,6 +238,7 @@ hr.tag-hr{
 .tutorial-author-sample{
     padding-left: 8px;
 }
+
 /* Categories Page */
 .categories{
     border-radius: 3px;

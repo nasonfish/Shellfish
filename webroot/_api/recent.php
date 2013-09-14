@@ -1,0 +1,13 @@
+<?php
+include '../../libs/Tutorials.class.php';
+include '../../libs/Predis_Page.class.php';
+include '../../libs/PredisPageDoesNotExistException.php';
+$tutorials = new Tutorials;
+$page = $tutorials->getAllPages(1, 1, true);
+try{
+    $page = $tutorials->page($page[0]);
+} catch (PredisPageDoesNotExistException $e){
+    print json_encode(array('success' => 0, 'message' => 'No tutorials were found.'));
+    exit;
+}
+print $page->__toString();

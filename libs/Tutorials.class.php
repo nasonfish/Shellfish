@@ -88,7 +88,7 @@ class Tutorials {
     public function html_printTutorial(Page $tutorial){
         print($this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">-->[%category%] <b>%title%</b><!--</a>--></h3>
+                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">--><a href="/category/%category%/">[%category%]</a> <b>%title%</b><!--</a>--></h3>
                 <span class="tutorial-description"><i>%desc%</i></span><br/>
                 <code class="tutorial-author">by %user%</code><hr/>
                 <div class="tutorial-text">
@@ -119,7 +119,7 @@ class Tutorials {
                 <span class="tutorial-description"><i>%desc%</i></span><br/>
                 <code class="tutorial-author">by %user%</code><hr/>
                 <div class="tutorial-text">
-                      <span class="truncated-text" id="tutorial-id-%id%">%ttext%...</span>
+                      <span class="truncated-text" id="tutorial-id-%id%">%ttext%</span>
                 </div>
                 <br/>
             </div>
@@ -128,14 +128,15 @@ class Tutorials {
     }
 
     private function doReplaces($string, Page $tutorial){
+        $text = $tutorial->getText();
         $replaces = array(
             '%id%' => $tutorial->getId(),
             '%slug%' => $tutorial->getTitleSlug(),
             '%title%' => htmlspecialchars($tutorial->getTitle()),
             '%desc%' => htmlspecialchars($tutorial->getDescription()),
             '%user%' => htmlspecialchars($tutorial->getUsername()),
-            '%ttext%' => $this->md->defaultTransform($this->syntax(substr($tutorial->getText(), 0, 250))),
-            '%ftext%' => $this->md->defaultTransform($this->syntax($tutorial->getText())),
+            '%ttext%' => $this->md->defaultTransform($this->syntax(strlen($text) > 250 ? substr($text, 0, 250) . '...' : $text)),
+            '%ftext%' => $this->md->defaultTransform($this->syntax($text)),
             '%category%' => ucwords(htmlspecialchars($tutorial->getCategory()))
         );
         foreach($replaces as $key => $val){
@@ -159,7 +160,7 @@ class Tutorials {
         return $string;
     }
 
-    private function syntax($text){
+    public function syntax($text){
         $text = str_replace('<', '&lt;', $text);
         $text = str_replace('>', '&gt;', $text);
         $langs = array('c', 'shell', 'java', 'd', 'coffeescript', 'generic', 'scheme', 'javascript', 'r', 'haskell', 'python', 'html', 'smalltalk', 'csharp', 'go', 'php', 'ruby', 'lua', 'css');
@@ -176,11 +177,15 @@ class Tutorials {
         return $text;
     }
 
+    public function getMarkdown(){
+        return $this->md;
+    }
+
     public function html_downloadLink(Page $tutorial){
-        // <a target="_blank" href="/dl.php?id='.$tutorial->getId().'"
+        // <a target="_blank" href="/_download.php?id='.$tutorial->getId().'"
         if($tutorial){
             if($tutorial->getDownload()){
-                return sprintf('<button class="download" onclick="location.href=\'/download/%s/%s.sh\'">Do it for me!</button><br/><br/>', $tutorial->getId(), $tutorial->getTitleSlug());
+                return sprintf('<button class="download link" data-href="/_download/%s/%s.sh">Do it for me!</button><br/><br/>', $tutorial->getId(), $tutorial->getTitleSlug());
             }
         }
         return '';

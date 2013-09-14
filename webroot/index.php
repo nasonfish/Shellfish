@@ -10,10 +10,8 @@ foreach($uri as $id => $dir){
 $page = isset($uri[1]) ? $uri[1] : 'index';
 array_shift($uri);
 $args = $uri === NULL ? array() : $uri;
-if($page == "download"){
-    include 'dl.php'; // eh, kind of bad, but oh well.
-} elseif($page == "r") {
-    include 'r.php';
+if(strpos($page, '_') === 0){
+    include $page.'.php'; // BE WEARY OF INJECTION!!!
 } else {
     new PageHandler($page, $args);
 }
