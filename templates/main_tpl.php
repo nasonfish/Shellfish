@@ -2,7 +2,8 @@
 <html>
 <head>
     <title><?=$this->title()?> - <?=get('main:title');?></title>
-    <link href="/bootstrap.css" rel="stylesheet" media="all">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="/Rainbow/solarized-dark.css" rel="stylesheet" media="all">
     <link href="/sliding-tags/12-sliding-tags/css/style.css" rel="stylesheet" media="all">
     <link href="/app.css" rel="stylesheet" media="all">
@@ -15,7 +16,7 @@
         <div class="title-bar">
             <h2 class="title pull-left"><?=get('main:bar-title');?></h2>
             <div class="pull-right right-search">
-                <form action="/search/" method="get"><input name="q" id="title-tag-search" placeholder="<?=get('main:bar-search');?>"/></form>
+                <form action="/search/" method="get"><i class="icon-search" style="color: black; background-color: white; padding: 5px; margin-right: 3px;"></i><input name="q" id="title-tag-search" placeholder="<?=get('main:bar-search');?>"/></form>
             </div>
         </div>
         <div class="sub-bar">
