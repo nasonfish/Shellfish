@@ -41,6 +41,34 @@ class Page{
         $this->tutorials = $tutorials;
     }
 
+    public function view(){
+        $views = $this->getViews();
+        $cmd = new Predis\Command\SetAdd();
+        $cmd->setRawArguments(array('page:' . $this->id . ':views', $this->tutorials->getPeregrine()->server->getIP('REMOTE_ADDR')));
+        if($this->redis->executeCommand($cmd) === 0){
+            return;
+        }
+        $cmd->setRawArguments(array('views', $views+1));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('view:' . ($views+1), $this->id));
+        $this->redis->executeCommand($cmd);
+        $cmd = new Predis\Command\SetRemove();
+        $cmd->setRawArguments(array('view:' . $views, $this->id));
+        $this->redis->executeCommand($cmd);
+        $card = new Predis\Command\SetCardinality();
+        $card->setRawArguments(array('view:' . $views));
+        if($this->redis->executeCommand($card) === 0){
+            $cmd->setRawArguments(array('views', $views)); // Still SetRemove
+            $this->redis->executeCommand($cmd);
+        }
+    }
+
+    public function getViews(){
+        $cmd = new Predis\Command\SetCardinality();
+        $cmd->setRawArguments(array('page:' . $this->id . ':views'));
+        return $this->redis->executeCommand($cmd);
+    }
+
     public function getTags(){
         $return = array();
         $cmd = new Predis\Command\SetMembers();

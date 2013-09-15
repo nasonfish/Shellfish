@@ -87,7 +87,7 @@ class Tutorials {
      */
     public function html_printTutorial(Page $tutorial){
         print($this->doReplaces('
-            <div class="tutorial">
+            <div class="tutorial">DEBUG: %views%
                 <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">--><a href="/category/%category%/">[%category%]</a> <b>%title%</b><!--</a>--></h3>
                 <span class="tutorial-description"><i>%desc%</i></span><br/>
                 <code class="tutorial-author">by %user%</code><hr/>
@@ -104,17 +104,17 @@ class Tutorials {
 
     public function html_printSample(Page $tutorial){
         print($this->doSimpleReplaces('
-            <div class="tutorial-sample link" data-href="/tutorial/%slug%/%id%/">
+            <div class="tutorial-sample link" data-href="/tutorial/%slug%/%id%/">DEBUG: %views%
                 <h4 class="tutorial-link-sample tutorial-header">[%category%] <b>%title%</b></h4>
                 <span class="tutorial-description-sample"><i>%desc%</i></span><br/>
-                <code class="tutorial-author-sample">by %user%</code>
+                <!--<code class="tutorial-author-sample">by %user%</code>-->
             </div>
         ', $tutorial));
     }
 
     public function html_printTutorialLink(Page $tutorial){
         print $this->doReplaces('
-            <div class="tutorial link" data-href="/tutorial/%slug%/%id%/">
+            <div class="tutorial link" data-href="/tutorial/%slug%/%id%/">DEBUG: %views%
                 <h3 class="tutorial-header">[%category%] <b class="tutorial-link">%title%</b></h3>
                 <span class="tutorial-description"><i>%desc%</i></span><br/>
                 <code class="tutorial-author">by %user%</code><hr/>
@@ -137,7 +137,8 @@ class Tutorials {
             '%user%' => htmlspecialchars($tutorial->getUsername()),
             '%ttext%' => $this->md->defaultTransform($this->syntax(strlen($text) > 250 ? substr($text, 0, 250) . '...' : $text)),
             '%ftext%' => $this->md->defaultTransform($this->syntax($text)),
-            '%category%' => ucwords(htmlspecialchars($tutorial->getCategory()))
+            '%category%' => ucwords(htmlspecialchars($tutorial->getCategory())),
+            '%views%' => $tutorial->getViews()
         );
         foreach($replaces as $key => $val){
             $string = str_replace($key, $val, $string);
@@ -152,7 +153,8 @@ class Tutorials {
             '%title%' => htmlspecialchars($tutorial->getTitle()),
             '%desc%' => htmlspecialchars($tutorial->getDescription()),
             '%user%' => htmlspecialchars($tutorial->getUsername()),
-            '%category%' => htmlspecialchars(ucwords($tutorial->getCategory()))
+            '%category%' => htmlspecialchars(ucwords($tutorial->getCategory())),
+            '%views%' => $tutorial->getViews()
         );
         foreach($replaces as $key => $val){
             $string = str_replace($key, $val, $string);
@@ -281,6 +283,39 @@ class Tutorials {
             return $pages;
         }
         return array_slice($pages, $limit * ($pagination-1), $limit);
+    }
+
+    public function popular($limit = -1, $pagination = 1){
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array('views'));
+        $array = $this->redis->executeCommand($cmd);
+        rsort($array, SORT_NUMERIC);
+        $result = array();
+        foreach($array as $amt){
+            $cmd->setRawArguments('view:' . $amt);
+            foreach($this->redis->executeCommand($cmd) as $id){
+                $result[] = $id;
+            }
+        }
+        return $this->shorten($result, $limit, $pagination);
+    }
+
+    public function quickPopular($limit = 5){
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array('views'));
+        $array = $this->redis->executeCommand($cmd);
+        rsort($array, SORT_NUMERIC);
+        $result = array();
+        foreach($array as $amt){
+            $cmd->setRawArguments(array('view:' . $amt));
+            foreach($this->redis->executeCommand($cmd) as $id){
+                $result[] = $id;
+                if(sizeof($result) >= $limit){
+                    return $result;
+                }
+            }
+        }
+        return $result;
     }
 
     /**
@@ -415,6 +450,10 @@ class Tutorials {
         $cmd = new Predis\Command\SetAdd();
         $cmd->setRawArguments(array('pages', $id));
         $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('views', 0));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('view:0', $id));
+        $this->redis->executeCommand($cmd);
 
         return $id;
     }
@@ -542,6 +581,18 @@ class Tutorials {
                 $rem->setRawArguments(array('categories', $distro));
                 $this->redis->executeCommand($rem);
             }
+        }
+        $cmd = new Predis\Command\SetCardinality();
+        $cmd->setRawArguments(array('page:' . $id . ':views'));
+        $views = $this->redis->executeCommand($cmd);
+        $cmd = new Predis\Command\SetRemove();
+        $cmd->setRawArguments(array('view:' . $views, $id));
+        $this->redis->executeCommand($cmd);
+        $card = new Predis\Command\SetCardinality();
+        $card->setRawArguments(array('view:' . $views));
+        if($this->redis->executeCommand($card) === 0){
+            $cmd->setRawArguments(array('views', $views)); // Still SetRemove
+            $this->redis->executeCommand($cmd);
         }
         $cmd = new Predis\Command\SetRemove();
         $cmd->setRawArguments(array('pages', $id));
