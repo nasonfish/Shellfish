@@ -6,39 +6,42 @@
     <p>To access the api, send a GET request with the intended parameters to /_api/&lt;filename&gt;.php.</p>
     <p>For example, to access the <code>search</code> page with the parameter <code>q</code>, send a request to <code>https://nasonfish.com/_api/search.php?q=your+query</code>.</p>
     <div class="margined group-sample">
-        <h4>Search</h4>
+        <h4 id="pg-search">Search</h4>
         <p>This will search the site for tutorials and return the first result. Searching uses tags and categories, and prioritizes them as such.</p>
         <p>File: <code>/_api/search.php</code></p>
         <p>Parameters: <ul>
             <li><code>q</code>: Your Search Query.</li>
         </ul>
         <p><a href="/_api/search.php?q=tutorials">Example</a></p>
+        <p>Data Structure: <a href="#ds-tutorial">Tutorial</a></p>
     </div>
     <br/>
     <div class="margined group-sample">
-        <h4>Data</h4>
+        <h4 id="pg-data">Data</h4>
         <p>This will simply return all the data for a certain tutorial.</p>
         <p>File: <code>/_api/data.php</code></p>
         <p>Parameters: <ul>
             <li><code>id</code>: The id of the tutorial.</li>
         </ul>
         <p><a href="/_api/data.php?id=0">Example</a></p>
+        <p>Data Structure: <a href="#ds-tutorial">Tutorial</a></p>
     </div>
     <br/>
     <div class="margined group-sample">
-        <h4>Recent</h4>
+        <h4 id="pg-recent">Recent</h4>
         <p>This will return the most recent tutorial created.</p>
         <p>File: <code>/_api/recent.php</code></p>
         <p>Parameters: <ul>
             <li>None are needed.</li>
         </ul>
         <p><a href="/_api/recent.php">Example</a></p>
+        <p>Data Structure: <a href="#ds-tutorial">Tutorial</a></p>
     </div>
     <hr/>
     <h2>JSON data</h2>
-    <h3>Errors</h3>
+    <h3 id="ds-error">Errors</h3>
     <p>First, check if you've run into an error. Errors are conveyed by a "success" key in the JSON data returned.</p>
-    <pre data-language="generic">
+    <pre data-language="javascript">
 {
     "success": 0,
     "message": "No tutorials were found matching your terms."
@@ -49,21 +52,21 @@
     <h3>Data Models</h3>
     <p>Comments are signified by a double-slash <code>//</code>.</p>
     <div class="margined group-sample">
-        <h4>Tutorial</h4>
+        <h4 id="ds-tutorial">Tutorial</h4>
         <p>Currently, our only model is a Tutorial. This returns all the data we have about a certain tutorial.</p>
-        <pre data-language="generic">
+        <pre data-language="javascript">
 {
-    "success":1,
+    "success": 1,
     "data":{
-        "id":"0",
-        "title":"The title of the tutorial",
-        "description":"A small description of the tutorial",
-        "tags":["tagname","moretags","blah","blahblah"],
-        "category":"theMainCategory",
-        "title-slug":"a-tutorial-title-with-no-special-characters-for-the-link", // http://nasonfish.com:81/tutorial/this-slug/id/
-        "username":"author",
-        "download":"The Downloadable File, if there is one",
-        "text":"The text of the actual tutorial."
+        "id": "0",
+        "title": "The title of the tutorial",
+        "description": "A small description of the tutorial",
+        "tags": [ "tagname", "moretags", "blah", "blahblah" ],
+        "category": "theMainCategory",
+        "title-slug": "a-tutorial-title-with-no-special-characters-for-the-link", // http://nasonfish.com:81/tutorial/this-slug/id/
+        "username": "author",
+        "download": "The Downloadable File, if there is one",
+        "text": "The text of the actual tutorial."
     }
 }
         </pre>

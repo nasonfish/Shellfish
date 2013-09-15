@@ -45,6 +45,10 @@ class PageHandler {
 
     public function head(){
         include_e('../templates/' . $this->template . '_tpl.head.php', $this->pass, $this->tutorials);
+        if(!file_exists('../templates/' . $this->template . '_tpl.php')){
+            return '<link rel="canonical" href="/404/" />';
+        }
+        return "";
     }
 
     public function foot(){
