@@ -10,3 +10,5 @@ $_CONFIG['index:category-button'] = 'View by Category';
 $_CONFIG['main:title'] = 'Tutorials, by pufferfi.sh';
 $_CONFIG['main:bar-title'] = 'Tutorials';
 $_CONFIG['main:bar-search'] = 'Search for tutorials!';
+
+$_CONFIG['backend:ssl:self-signed'] = true; // This will append --no-check-certificate to the wget command for "Do it for me!".

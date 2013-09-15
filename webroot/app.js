@@ -83,6 +83,10 @@ simpleDOM('#tags').bind('keydown', function(event){
     }
 });
 
+simpleDOM('.download-script').bind('keydown', function(event){
+    event.preventDefault();
+});
+
 simpleDOM('#category-filter').bind('keyup', function(event){
     var filter = simpleDOM(this).val();
     simpleDOM('.categories-item').each(function(elem){
@@ -123,7 +127,7 @@ simpleDOM('#submit-tutorial').bind('click', function(event){
 });
 
 simpleDOM('.show-toggle').bind('click', function(){
-    var target = simpleDOM('#' + simpleDOM(this).attr('for'));
+    var target = simpleDOM('#' + simpleDOM(this).attr('data-for'));
     if(target.hasClass('displayed')){
         target.hide();
         target.removeClass('displayed');

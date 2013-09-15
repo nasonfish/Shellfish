@@ -74,6 +74,15 @@ ul.tags, ol.tags{
     padding-left: 0;
     margin-left: 0;
 }
+
+#get-script{
+    padding: 7px;
+    background-color: white;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
 .sub-link{
     text-align: center;
     font-size: 16px;

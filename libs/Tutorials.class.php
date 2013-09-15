@@ -187,10 +187,33 @@ class Tutorials {
         // <a target="_blank" href="/_download.php?id='.$tutorial->getId().'"
         if($tutorial){
             if($tutorial->getDownload()){
-                return sprintf('<button class="download link" data-href="/_download/%s/%s.sh">Do it for me!</button><br/><br/>', $tutorial->getId(), $tutorial->getTitleSlug());
+                return '<button class="download show-toggle" data-for="get-script"><!-- data-href="/_download/%s/%s.sh"-->Do it for me!</button>
+                <br/><br/>
+                <div id="get-script" style="display: none;">
+                    <p>To download this script, use these commands: </p>
+                    <textarea style="width: 90%" class="download-script" rows=3>'.$this->getDownloadCommand($tutorial).'</textarea>
+                </div>';
             }
         }
         return '';
+    }
+
+    public function getDownloadCommand(Page $tutorial){
+        $return = "wget ";
+        if(get('backend:ssl:self-signed') && $this->peregrine->server->getRaw('HTTPS') == "on"){
+            $return .= '--no-check-certificate '; // wget --no-check-certificate
+        }
+        if($this->peregrine->server->getRaw('HTTPS') == "on"){
+            $return .= 'https://'; // wget [--no-check-certificate] https://
+        } else {
+            $return .= 'http://'; // wget http://
+        }
+        $return .= gethostname(); // wget [--no-check-certificate] http[s]://nasonfish.com. It's not perfect but it's not "localhost" either.
+        $return .= ($port = $this->peregrine->server->getInt('SERVER_PORT')) == "80" || $port == "443" ? '' : ':' . $port; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]
+        $slug = substr($tutorial->getTitleSlug(), 0, 14);
+        $return .= sprintf('/_download/%s/%s.sh', $tutorial->getId(), $slug);
+        $return .= sprintf('; chmod +x %s.sh; ./%s.sh', $slug, $slug);
+        return $return; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]/_download/0/this-is-a-tutorial.sh
     }
 
     public function html_printTags(Page $tutorial){
