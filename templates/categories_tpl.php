@@ -1,5 +1,5 @@
 <div class="white">
-    <h4 class="categories-h">Click on a category on the left to see all tutorials tagged with that category!</h4>
+    <h4 class="categories-h">Click on a category on the left to see tutorials tagged with that category!</h4>
 </div>
 <div class="span1">&nbsp;</div>
 <div class="span3 categories categories-left">
@@ -15,7 +15,7 @@
     <?php
     foreach($categories as $category){
         print '<div class="category-sample category-sample-'.$category.'" data-category="'.$category.'">';
-        print '<h3><a href="/category/'.$category.'/">See all tutorials with that category!</a></h3>';
+        print '<h4><a href="/category/'.$category.'/">See all tutorials under the category <code>'.$category.'</code>!</a></h4>';
         foreach($tutorials->categorySearch($tutorials->getAllPages(), $category, 6) as $tutorial){
             print "<hr/>";
             $tutorials->html_printSample($tutorials->page($tutorial));
