@@ -5,7 +5,7 @@
     <form method="GET" action="/search/"><input name="q" class="main-tag-search" type="text" placeholder="Search the site for information!"/></form>
     <div class="mid-boxes">
         <div class="span6 mid-box">
-            <button class="mid-button link" data-href="/all/"><?=get('index:all-button');?></button>
+            <button class="mid-button link button button-blue" data-href="/all/"><?=get('index:all-button');?></button>
             <br/><br/>
             <div class="mid-sample-box">
                 <h3>Recent Tutorials</h3>
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="span6 mid-box">
-            <button class="mid-button link" data-href="/categories/"><?=get('index:category-button');?></button>
+            <button class="mid-button link button button-blue" data-href="/categories/"><?=get('index:category-button');?></button>
             <br/><br/>
             <div class="mid-sample-box small">
                 <h3>Popular Tutorials</h3>

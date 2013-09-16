@@ -2,6 +2,9 @@
 <html>
 <head>
     <title><?=$this->title()?> - <?=get('main:title');?></title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="/Rainbow/solarized-dark.css" rel="stylesheet" media="all">
@@ -14,17 +17,20 @@
 <div class="content">
     <div class="head">
         <div class="title-bar">
-            <h2 class="title pull-left"><?=get('main:bar-title');?></h2>
+            <h2 class="title pull-left"><i class="icon-linux"></i> <?=get('main:bar-title');?></h2>
             <div class="pull-right right-search">
-                <form action="/search/" method="get"><i class="icon-search" style="color: black; background-color: white; padding: 5px; margin-right: 3px;"></i><input name="q" id="title-tag-search" placeholder="<?=get('main:bar-search');?>"/></form>
+                <form action="/search/" method="get">
+                    <i class="icon-search" style="color: white;"></i>
+                    <input name="q" id="title-tag-search" placeholder="<?=get('main:bar-search');?>"/>
+                </form>
             </div>
         </div>
         <div class="sub-bar">
             <ul class="sub-links">
-                <li class="link sub-link span2 <?= $this->active('index'); ?>" data-href="/">Home</li>
-                <li class="link sub-link span2 <?= $this->active('categories'); ?>" data-href="/categories/">Categories</li>
-                <li class="link sub-link span2 <?= $this->active('about-us'); ?>" data-href="/about-us/">About Us</li>
-                <li class="link sub-link span2 <?= $this->active('create'); ?>" data-href="/create/">Create a page</li>
+                <li class="link sub-link span2 <?= $this->active('index'); ?>" data-href="/"><i class="icon-home"></i> Home</li>
+                <li class="link sub-link span2 <?= $this->active('categories'); ?>" data-href="/categories/"><i class="icon-compass"></i> Categories</li>
+                <li class="link sub-link span2 <?= $this->active('about-us'); ?>" data-href="/about-us/"><i class="icon-book"></i> About Us</li>
+                <li class="link sub-link span2 <?= $this->active('create'); ?>" data-href="/create/"><i class="icon-edit"></i> Create a page</li>
                 <li class="sub-link-filler span4">&nbsp;</li>
             </ul>
         </div>

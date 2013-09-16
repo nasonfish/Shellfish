@@ -61,12 +61,12 @@ body{
     -webkit-border-radius: 3px;
     padding: 5px 25px 10px 15px;
 }
-
+/*
 button.download{
     color: #FFFFFF;
     background-color: #41db5a;
     border: groove #319a52;
-    /*padding-bottom: 20px;*/
+    /*padding-bottom: 20px;* /
 }
 
 button.download:hover{
@@ -76,6 +76,11 @@ button.download:hover{
 button.download:active{
     background-color: #309846;
 }
+button.download{
+    padding-bottom: 20px;
+}
+*/
+
 
 #md-preview{
     background-color: #FFFFFF;
@@ -107,7 +112,7 @@ h4.tag-header{
     background-color: white;
     border: 2px #333333;
 }
-
+/*
 .mid-button{
     background-color: #d3dadf;
     border: groove #b8b8b8;
@@ -117,3 +122,4 @@ h4.tag-header{
     border: ridge #b0b0b0;
     background-color: #97a8a9;
 }
+*/

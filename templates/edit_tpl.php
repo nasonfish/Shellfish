@@ -42,6 +42,8 @@ try {
             </ul>
         </div>
     </div>
+    <label for="file">Downloadable Script Name</label>
+    <input id="file" name="file" type="text" value='<?=htmlspecialchars($page->getFileName());?>'/>
     <label for="download">Downloadable Script</label>
     <textarea id="download" name="download" rows="25"><?=htmlspecialchars($page->getDownload());?></textarea>
     <label for="category">What would you categorize this under? (Choose a broad term and tag more specific terms)</label>

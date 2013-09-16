@@ -87,16 +87,16 @@ class Tutorials {
      */
     public function html_printTutorial(Page $tutorial){
         print($this->doReplaces('
-            <div class="tutorial">DEBUG: %views%
+            <div class="tutorial">
                 <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">--><a href="/category/%category%/">[%category%]</a> <b>%title%</b><!--</a>--></h3>
-                <span class="tutorial-description"><i>%desc%</i></span><br/>
-                <code class="tutorial-author">by %user%</code><hr/>
+                <span class="tutorial-description">%desc%</span><br/>
+                <i>by %user%</i><hr/>
                 <div class="tutorial-text">
                       <span class="full-text" id="tutorial-id-%id%">%ftext%</span>
                 </div>
-                <br/>
+                <!--<br/>
                 <hr/>
-                <span><a href="/edit/%id%/">Edit this page! (admins only)</a></span>
+                <span><a href="/edit/%id%/">Edit this page! (admins only)</a></span>-->
             </div>
             <br/><br/>
         ', $tutorial));
@@ -104,9 +104,9 @@ class Tutorials {
 
     public function html_printSample(Page $tutorial){
         print($this->doSimpleReplaces('
-            <div class="tutorial-sample link" data-href="/tutorial/%slug%/%id%/">DEBUG: %views%
-                <h4 class="tutorial-link-sample tutorial-header">[%category%] <b>%title%</b></h4>
-                <span class="tutorial-description-sample"><i>%desc%</i></span><br/>
+            <div class="tutorial-sample link" data-href="/tutorial/%slug%/%id%/">
+                <h4 class="tutorial-link-sample tutorial-header">%title%</h4>
+                <span class="tutorial-description-sample">%desc%</span><br/>
                 <!--<code class="tutorial-author-sample">by %user%</code>-->
             </div>
         ', $tutorial));
@@ -114,10 +114,13 @@ class Tutorials {
 
     public function html_printTutorialLink(Page $tutorial){
         print $this->doReplaces('
-            <div class="tutorial link" data-href="/tutorial/%slug%/%id%/">DEBUG: %views%
-                <h3 class="tutorial-header">[%category%] <b class="tutorial-link">%title%</b></h3>
-                <span class="tutorial-description"><i>%desc%</i></span><br/>
-                <code class="tutorial-author">by %user%</code><hr/>
+            <div class="tutorial">
+                <div class="link" data-href="/tutorial/%slug%/%id%/">
+                    <h3 class="tutorial-header tutorial-link">%title%</h3>
+                    <span class="tutorial-description">%desc%</span>
+                    <br/>
+                </div>
+                <!--<code class="tutorial-author">by %user%</code>--><hr/>
                 <div class="tutorial-text">
                       <span class="truncated-text" id="tutorial-id-%id%">%ttext%</span>
                 </div>
@@ -187,8 +190,8 @@ class Tutorials {
         // <a target="_blank" href="/_download.php?id='.$tutorial->getId().'"
         if($tutorial){
             if($tutorial->getDownload()){
-                return '<button class="download show-toggle" data-for="get-script"><!-- data-href="/_download/%s/%s.sh"-->Do it for me!</button>
-                <br/><br/>
+                return '<button class="download show-toggle button button-green" data-for="get-script"><!-- data-href="/_download/%s/%s.sh"-->Do it for me!</button>
+                <br/>
                 <div id="get-script" style="display: none;">
                     <p>To download this script, use these commands: </p>
                     <textarea style="width: 90%" class="download-script" rows=3>'.$this->getDownloadCommand($tutorial).'</textarea>
@@ -210,9 +213,9 @@ class Tutorials {
         }
         $return .= gethostname(); // wget [--no-check-certificate] http[s]://nasonfish.com. It's not perfect but it's not "localhost" either.
         $return .= ($port = $this->peregrine->server->getInt('SERVER_PORT')) == "80" || $port == "443" ? '' : ':' . $port; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]
-        $slug = substr($tutorial->getTitleSlug(), 0, 14);
-        $return .= sprintf('/_download/%s/%s.sh', $tutorial->getId(), $slug);
-        $return .= sprintf('; chmod +x %s.sh; ./%s.sh', $slug, $slug);
+        $slug = $tutorial->getFileName();
+        $return .= sprintf('/_download/%s/%s', $tutorial->getId(), $slug);
+        $return .= sprintf('; chmod +x %s; ./%s', $slug, $slug);
         return $return; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]/_download/0/this-is-a-tutorial.sh
     }
 
@@ -416,7 +419,7 @@ class Tutorials {
      * @param string $ip The ip of the user who submitted it. We can use this if bad things happen.
      * @return int|mixed|\Predis\ResponseObjectInterface Integer, the id of the page we just created.
      */
-    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $distro = "all", $username = "Anonymous", $ip = "Unknown"){
+    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $distro = "all", $username = "Anonymous", $ip = "Unknown", $file = false){
 
         // First, let's just initialize the database. This is pretty simple, but you can comment it out after there are things in the database.
         // I'll do that later
@@ -452,7 +455,10 @@ class Tutorials {
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':ip', $ip));
         $this->redis->executeCommand($cmd);
-
+        if($file){
+            $cmd->setRawArguments(array('page:' . $id . ':file', $file));
+            $this->redis->executeCommand($cmd);
+        }
         $cmd->setRawArguments(array('page:' . $id . ':category', $distro));
         $this->redis->executeCommand($cmd);
         $cmd = new Predis\Command\SetAdd();
@@ -481,7 +487,7 @@ class Tutorials {
         return $id;
     }
 
-    public function edit($id, $title, $description, $text, $download, $tags, $distro, $username, $ip){ // TODO add defaults.
+    public function edit($id, $title, $description, $text, $download, $tags, $distro, $username, $ip, $file = false){ // TODO add defaults.
         // String data of the tutorial
         $cmd = new Predis\Command\StringSet();
 
@@ -509,7 +515,14 @@ class Tutorials {
 
         $cmd->setRawArguments(array('page:' . $id . ':ip', $ip));
         $this->redis->executeCommand($cmd);
-
+        if($file){
+            $cmd->setRawArguments(array('page:' . $id . ':file', $file));
+            $this->redis->executeCommand($cmd);
+        } else {
+            $del = new Predis\Command\KeyDelete();
+            $del->setRawArguments(array('page:' . $id . ':file'));
+            $this->redis->executeCommand($del);
+        }
         /* Category */
         $cmd->setRawArguments(array('page:' . $id . ':category', $distro));
         $this->redis->executeCommand($cmd);
@@ -576,6 +589,8 @@ class Tutorials {
         $cmd->setRawArguments(array('page:' . $id . ':ip'));
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':category'));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':file'));
         $this->redis->executeCommand($cmd);
         // Remove this tutorial from its old tags
         $cmd = new Predis\Command\SetMembers();

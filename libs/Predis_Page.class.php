@@ -122,6 +122,16 @@ class Page{
         return $this->get('category');
     }
 
+    public function getFileName(){
+        $cmd = new Predis\Command\KeyExists();
+        $cmd->setRawArguments(array('page:' . $this->id . ':file'));
+        if($this->redis->executeCommand($cmd)){
+            return $this->get('file');
+        } else {
+            return substr($this->getTitleSlug(), 0, 14) . '.sh';
+        }
+    }
+
     public function getId(){
         return $this->id;
     }

@@ -14,8 +14,13 @@ a{
     color: rgb(37, 93, 135);
 }
 
+body{
+    font-family: "Open Sans", sans-serif;
+}
+
 h1,h2,h3,h4,h5,h6{
     color: #135696;
+    font-family: "Source Sans Pro", sans-serif;
 }
 
 a:hover, .link:hover{
@@ -55,7 +60,13 @@ ul.tags, ol.tags{
 .title{
     text-align: left;
     padding-left: 35px;
-    font-family: Sansation,serif;
+    padding-top: 4.5px;
+    font-family: "Cabin", sans-serif;
+}
+
+#title-label{
+    margin: 0;
+    padding: 0;
 }
 
 .right-search{
@@ -99,27 +110,33 @@ ul.tags, ol.tags{
 }
 
 #bottom{
-    position: absolute;
+    position: relative;
     bottom: 0;
     text-align: center;
     width: 100%;
-    padding-bottom: 1px;
-    padding-top: 9px;
+    padding: 0;
+    margin: 0;
 }
 .bottom-bar{
     display: table;
     list-style: none;
+    margin: 0;
+    padding: 0;
     width: 100%;
 }
 .bottom-link{
     list-style: none;
     display: table-cell;
     width: 50%;
+    margin: 0;
+    padding: 0;
 }
 .bottom-link a{
     display: block;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
+    margin: 0;
+    padding: 4px 0;
 }
 /* Edit/Create Pages */
 textarea{
@@ -179,9 +196,7 @@ input.main-tag-search{
     width: 75%;
     margin-right: auto;
     margin-left: auto;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
+    font-weight: bold;
 }
 
 .mid-sample-box{
@@ -203,29 +218,28 @@ input.main-tag-search{
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
-
+/*
 .tutorial.link:hover, .tutorial-sample.link:hover{
     background-color: #efefef;
 }
 .tutorial.link:active, .tutorial-sample.link:active{
     background-color: #dedede;
 }
-
+*/
 .tutorial-description{
     font-size: 16px;
 }
-
-.tutorial-author{
-    font-size: 14px;
-    margin-left: 10px;
-    margin-top: 12px;
-}
-
+/*
 button.download{
     padding: 7px;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    font-size: 19px;
+    font-weight: bold;
+}*/
+
+button.download{
     font-size: 19px;
     font-weight: bold;
 }

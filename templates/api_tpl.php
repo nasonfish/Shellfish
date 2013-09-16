@@ -37,6 +37,17 @@
         <p><a href="/_api/recent.php">Example</a></p>
         <p>Data Structure: <a href="#ds-tutorial">Tutorial</a></p>
     </div>
+    <br/>
+    <div class="margined group-sample">
+        <h4 id="pg-popular">Popular</h4>
+        <p>This will return the most pupular tutorial, by views.</p>
+        <p>File: <code>/_api/popular.php</code></p>
+        <p>Parameters: <ul>
+            <li>None are needed.</li>
+        </ul>
+        <p><a href="/_api/popular.php">Example</a></p>
+        <p>Data Structure: <a href="#ds-tutorial">Tutorial</a></p>
+    </div>
     <hr/>
     <h2>JSON data</h2>
     <h3 id="ds-error">Errors</h3>

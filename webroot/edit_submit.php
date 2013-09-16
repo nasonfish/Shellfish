@@ -29,6 +29,7 @@ $tutorials->edit($peregrine->post->getInt('id'),
     $peregrine->post->isEmpty('tags') ? array() : explode(',', strtolower($peregrine->post->getRaw('tags'))),
     strtolower($peregrine->post->getRaw('category')),
     $peregrine->post->getUsername('username'),
-    $peregrine->server->getIP('REMOTE_ADDR'));
+    $peregrine->server->getIP('REMOTE_ADDR'),
+    $peregrine->post->getRaw('file'));
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
 header('Location: /tutorial/'.$tutorials->page($peregrine->post->getInt('id'))->getTitleSlug().'/'.$peregrine->post->getInt('id').'/');

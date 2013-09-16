@@ -36,6 +36,8 @@
             </ul>
         </div>
     </div>
+    <label for="file">Downloadable Script Name</label>
+    <input id="file" name="file" type="text" placeholder="I-am-a-fi.sh"/>
     <label for="download">Optionally, you can create a downloadable script for the user.</label>
     <textarea id="download" name="download" placeholder="#!/bin/bash" rows="25"></textarea>
     <label for="category">What would you categorize this under? (Choose a broad term and tag more specific terms)</label>
