@@ -17,7 +17,11 @@
 <div class="content">
     <div class="head">
         <div class="title-bar">
-            <h2 class="title pull-left"><i class="icon-linux"></i> <?=get('main:bar-title');?></h2>
+            <h2 class="title pull-left">
+                <span class="icon-stack" style="font-size: 22px;">
+                    <i class="icon-cloud icon-stack-base"></i>
+                    <i class="icon-linux icon-dark"></i>
+                </span> <?=get('main:bar-title');?></h2>
             <div class="pull-right right-search">
                 <form action="/search/" method="get">
                     <i class="icon-search" style="color: white;"></i>
