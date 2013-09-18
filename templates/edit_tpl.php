@@ -44,6 +44,9 @@ try {
     </div>
     <label for="file">Downloadable Script Name</label>
     <input id="file" name="file" type="text" value='<?=htmlspecialchars($page->getFileName());?>'/>
+    <label for="script">Download Script</label>
+    <span>For the advanced user, you can make your own script. <code>%s</code> means your file name, <code>%d</code> means your id. <code>/_download/%d/%s</code> will be your script download link. <i>Be careful with this.</i></span>
+    <input id="script" name="script" type="text" value='<?=htmlspecialchars($page->getScript(true));?>'/>
     <label for="download">Downloadable Script</label>
     <textarea id="download" name="download" rows="25"><?=htmlspecialchars($page->getDownload());?></textarea>
     <label for="category">What would you categorize this under? (Choose a broad term and tag more specific terms)</label>

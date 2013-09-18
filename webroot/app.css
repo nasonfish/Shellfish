@@ -105,6 +105,10 @@ ul.tags, ol.tags{
     display: table-cell;
 }
 
+.link.sub-link.span2.active {
+    margin-top: -1px;
+}
+
 .body{
     padding-bottom: 45px;
 }
@@ -127,7 +131,7 @@ ul.tags, ol.tags{
 .bottom-link{
     list-style: none;
     display: table-cell;
-    width: 50%;
+    width: 33.33%;
     margin: 0;
     padding: 0;
 }

@@ -132,6 +132,33 @@ class Page{
         }
     }
 
+
+    public function getScript($raw = false){
+        $cmd = new Predis\Command\KeyExists();
+        $cmd->setRawArguments(array('page:' . $this->id . ':script'));
+        if($this->redis->executeCommand($cmd)){
+            if($raw){
+                return $this->get('script');
+            }
+            return str_replace('%d', $this->id, str_replace('%s', $this->getFileName(), $this->get('script')));
+        }
+        $return = "wget ";
+        if(get('backend:ssl:self-signed') && $this->tutorials->getPeregrine()->server->getRaw('HTTPS') == "on"){
+            $return .= '--no-check-certificate '; // wget --no-check-certificate
+        }
+        if($this->tutorials->getPeregrine()->server->getRaw('HTTPS') == "on"){
+            $return .= 'https://'; // wget [--no-check-certificate] https://
+        } else {
+            $return .= 'http://'; // wget http://
+        }
+        $return .= gethostname(); // wget [--no-check-certificate] http[s]://nasonfish.com. It's not perfect but it's not "localhost" either.
+        $return .= ($port = $this->tutorials->getPeregrine()->server->getInt('SERVER_PORT')) == "80" || $port == "443" ? '' : ':' . $port; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]
+        $slug = $this->getFileName();
+        $return .= sprintf('/_download/%s/%s', $this->getId(), $slug);
+        $return .= sprintf('; chmod +x %s; ./%s', $slug, $slug);
+        return $return; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]/_download/0/this-is-a-tutorial.sh
+    }
+
     public function getId(){
         return $this->id;
     }

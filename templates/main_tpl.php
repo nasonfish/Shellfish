@@ -29,7 +29,7 @@
                 </form>
             </div>
         </div>
-        <div class="sub-bar">
+        <div class="sub-bar row-fluid">
             <ul class="sub-links">
                 <li class="link sub-link span2 <?= $this->active('index'); ?>" data-href="/"><i class="icon-home"></i> Home</li>
                 <li class="link sub-link span2 <?= $this->active('categories'); ?>" data-href="/categories/"><i class="icon-compass"></i> Categories</li>
@@ -42,10 +42,11 @@
     </div>
     <div class="body row-fluid">
          <?php $this->page(); ?>
-        <?php $this->foot(); ?>
+         <?php $this->foot(); ?>
     </div>
     <div class="foot" id="bottom">
         <ul class="bottom-bar row">
+            <li class="bottom-link"><a href="/api/">Check out our API!</a></li>
             <li class="bottom-link"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Tutorials licensed under Creative Commons BY-NC-SA license.</a></li>
             <li class="bottom-link"><a href="http://github.com/nasonfish/Tutorials/">Source code is available on GitHub</a></li>
         </ul>

@@ -30,6 +30,8 @@ $tutorials->edit($peregrine->post->getInt('id'),
     strtolower($peregrine->post->getRaw('category')),
     $peregrine->post->getUsername('username'),
     $peregrine->server->getIP('REMOTE_ADDR'),
-    $peregrine->post->getRaw('file'));
+    $peregrine->post->getRaw('file'),
+    $peregrine->post->getRaw('script')
+);
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
 header('Location: /tutorial/'.$tutorials->page($peregrine->post->getInt('id'))->getTitleSlug().'/'.$peregrine->post->getInt('id').'/');

@@ -194,29 +194,12 @@ class Tutorials {
                 <br/>
                 <div id="get-script" style="display: none;">
                     <p>To download this script, use these commands: </p>
-                    <textarea style="width: 90%" class="download-script" rows=3>'.$this->getDownloadCommand($tutorial).'</textarea>
+                    <strong>Be careful with this! Go one command at a time if you need to. These can be user-entered!</strong>
+                    <textarea style="width: 90%" class="download-script" rows=3>'.$tutorial->getScript().'</textarea>
                 </div>';
             }
         }
         return '';
-    }
-
-    public function getDownloadCommand(Page $tutorial){
-        $return = "wget ";
-        if(get('backend:ssl:self-signed') && $this->peregrine->server->getRaw('HTTPS') == "on"){
-            $return .= '--no-check-certificate '; // wget --no-check-certificate
-        }
-        if($this->peregrine->server->getRaw('HTTPS') == "on"){
-            $return .= 'https://'; // wget [--no-check-certificate] https://
-        } else {
-            $return .= 'http://'; // wget http://
-        }
-        $return .= gethostname(); // wget [--no-check-certificate] http[s]://nasonfish.com. It's not perfect but it's not "localhost" either.
-        $return .= ($port = $this->peregrine->server->getInt('SERVER_PORT')) == "80" || $port == "443" ? '' : ':' . $port; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]
-        $slug = $tutorial->getFileName();
-        $return .= sprintf('/_download/%s/%s', $tutorial->getId(), $slug);
-        $return .= sprintf('; chmod +x %s; ./%s', $slug, $slug);
-        return $return; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]/_download/0/this-is-a-tutorial.sh
     }
 
     public function html_printTags(Page $tutorial){
@@ -419,7 +402,7 @@ class Tutorials {
      * @param string $ip The ip of the user who submitted it. We can use this if bad things happen.
      * @return int|mixed|\Predis\ResponseObjectInterface Integer, the id of the page we just created.
      */
-    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $distro = "all", $username = "Anonymous", $ip = "Unknown", $file = false){
+    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $distro = "all", $username = "Anonymous", $ip = "Unknown", $file = false, $script = false){
 
         // First, let's just initialize the database. This is pretty simple, but you can comment it out after there are things in the database.
         // I'll do that later
@@ -459,6 +442,10 @@ class Tutorials {
             $cmd->setRawArguments(array('page:' . $id . ':file', $file));
             $this->redis->executeCommand($cmd);
         }
+        if($script){
+            $cmd->setRawArguments(array('page:' . $id . ':script', $script));
+            $this->redis->executeCommand($cmd);
+        }
         $cmd->setRawArguments(array('page:' . $id . ':category', $distro));
         $this->redis->executeCommand($cmd);
         $cmd = new Predis\Command\SetAdd();
@@ -487,7 +474,7 @@ class Tutorials {
         return $id;
     }
 
-    public function edit($id, $title, $description, $text, $download, $tags, $distro, $username, $ip, $file = false){ // TODO add defaults.
+    public function edit($id, $title, $description, $text, $download, $tags, $distro, $username, $ip, $file = false, $script = false){ // TODO add defaults.
         // String data of the tutorial
         $cmd = new Predis\Command\StringSet();
 
@@ -521,6 +508,14 @@ class Tutorials {
         } else {
             $del = new Predis\Command\KeyDelete();
             $del->setRawArguments(array('page:' . $id . ':file'));
+            $this->redis->executeCommand($del);
+        }
+        if($script){
+            $cmd->setRawArguments(array('page:' . $id . ':script', $script));
+            $this->redis->executeCommand($cmd);
+        } else {
+            $del = new Predis\Command\KeyDelete();
+            $del->setRawArguments(array('page:' . $id . ':script'));
             $this->redis->executeCommand($del);
         }
         /* Category */
@@ -591,6 +586,8 @@ class Tutorials {
         $cmd->setRawArguments(array('page:' . $id . ':category'));
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':file'));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('page:' . $id . ':script'));
         $this->redis->executeCommand($cmd);
         // Remove this tutorial from its old tags
         $cmd = new Predis\Command\SetMembers();

@@ -121,14 +121,10 @@ simpleDOM = function( selector ){
          * @returns simpleDOM
          */
         css: function( att, val ){
-            if(val !== false && val !== undefined){
-                for( var n = 0, l = _matches.length; n < l; n++ ){
-                    _matches[n].style[att] = val;
-                }
-                return this;
-            } else {
-                return this.get(0).style[att]; // does this work?
+            for( var n = 0, l = _matches.length; n < l; n++ ){
+                _matches[n].style[att] = val;
             }
+            return this;
         },
 
         /**

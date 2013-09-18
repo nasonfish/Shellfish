@@ -36,10 +36,16 @@
             </ul>
         </div>
     </div>
-    <label for="file">Downloadable Script Name</label>
-    <input id="file" name="file" type="text" placeholder="I-am-a-fi.sh"/>
-    <label for="download">Optionally, you can create a downloadable script for the user.</label>
-    <textarea id="download" name="download" placeholder="#!/bin/bash" rows="25"></textarea>
+    <a class="show-toggle" data-for="download-box">Want a downloadable script?</a>
+    <div id="download-box" style="display: none">
+        <label for="file">Downloadable Script Name</label>
+        <input id="file" name="file" type="text" placeholder="I-am-a-fi.sh"/>
+        <label for="script">Download Script</label>
+        <span>For the advanced user, you can make your own script. <code>%s</code> means your file name, <code>%d</code> means your id. <code>/_download/%d/%s</code> will be your script download link. <i>Be careful with this.</i></span>
+        <input id="script" name="script" type="text" value='<?=htmlspecialchars($page->getScript(true));?>'/>
+        <label for="download">Optionally, you can create a downloadable script for the user.</label>
+        <textarea id="download" name="download" placeholder="#!/bin/bash" rows="25"></textarea>
+    </div>
     <label for="category">What would you categorize this under? (Choose a broad term and tag more specific terms)</label>
     <input id="category" name="category" type="text" placeholder="CentOS 6.4"/>
     <label for="tags">Pick some tags so people can find your tutorial! (Separate with ',')</label>

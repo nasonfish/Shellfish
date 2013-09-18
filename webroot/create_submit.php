@@ -29,7 +29,8 @@ $id = $tutorials->create($peregrine->post->getRaw('title'),
     strtolower($peregrine->post->getRaw('category')),
     $peregrine->server->getUsername('PHP_AUTH_USER'),
     $peregrine->server->getIP('REMOTE_ADDR'),
-    $peregrine->post->getRaw('file')
+    $peregrine->post->getRaw('file'),
+    $peregrine->post->getRaw('script')
 );
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
 header('Location: /tutorial/'.$tutorials->page($id)->getTitleSlug().'/'.$id.'/');
