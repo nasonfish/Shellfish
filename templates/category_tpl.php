@@ -2,7 +2,7 @@
     <div class="span9">
 <?php
 if(isset($pass[0])){
-    foreach($tutorials->categorySearch($tutorials->getAllPages(), strtolower($pass[0])) as $result){
+    foreach($tutorials->categorySearch($tutorials->getAllPages(), urldecode(strtolower($pass[0]))) as $result){
         $tutorials->html_printTutorialLink($tutorials->page($result));
     }
 } else {
@@ -12,7 +12,7 @@ if(isset($pass[0])){
 ?>
     </div>
     <div class="span3 group-sample">
-        <h4>You're browsing tutorials categorized under <code><?=$pass[0]?></code>!</h4>
+        <h4>You're browsing tutorials categorized under <code><?=urldecode($pass[0])?></code>!</h4>
         <p>Hello World!</p>
         <!--Ads here? something cool can go here.-->
     </div>

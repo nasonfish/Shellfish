@@ -153,8 +153,8 @@ class Page{
         }
         $return .= gethostname(); // wget [--no-check-certificate] http[s]://nasonfish.com. It's not perfect but it's not "localhost" either.
         $return .= ($port = $this->tutorials->getPeregrine()->server->getInt('SERVER_PORT')) == "80" || $port == "443" ? '' : ':' . $port; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]
-        $slug = $this->getFileName();
-        $return .= sprintf('/_download/%s/%s', $this->getId(), $slug);
+        $slug = $raw ? '%s' : $this->getFileName();
+        $return .= sprintf('/_download/%s/%s', $raw ? '%d' : $this->getId(), $slug);
         $return .= sprintf('; chmod +x %s; ./%s', $slug, $slug);
         return $return; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]/_download/0/this-is-a-tutorial.sh
     }

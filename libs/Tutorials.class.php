@@ -88,7 +88,7 @@ class Tutorials {
     public function html_printTutorial(Page $tutorial){
         print($this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">--><a href="/category/%category%/">[%category%]</a> <b>%title%</b><!--</a>--></h3>
+                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">--><a href="%categorylink%">[%category%]</a> <b>%title%</b><!--</a>--></h3>
                 <span class="tutorial-description">%desc%</span><br/>
                 <i>by %user%</i><hr/>
                 <div class="tutorial-text">
@@ -132,6 +132,7 @@ class Tutorials {
 
     private function doReplaces($string, Page $tutorial){
         $text = $tutorial->getText();
+        $category = $tutorial->getCategory();
         $replaces = array(
             '%id%' => $tutorial->getId(),
             '%slug%' => $tutorial->getTitleSlug(),
@@ -140,7 +141,8 @@ class Tutorials {
             '%user%' => htmlspecialchars($tutorial->getUsername()),
             '%ttext%' => $this->md->defaultTransform($this->syntax(strlen($text) > 250 ? substr($text, 0, 250) . '...' : $text)),
             '%ftext%' => $this->md->defaultTransform($this->syntax($text)),
-            '%category%' => ucwords(htmlspecialchars($tutorial->getCategory())),
+            '%category%' => ucwords(htmlspecialchars($category)),
+            '%categorylink%' => '/category/' . str_replace(' ', '+', ucwords(htmlspecialchars($category))) . '/',
             '%views%' => $tutorial->getViews()
         );
         foreach($replaces as $key => $val){
@@ -196,6 +198,7 @@ class Tutorials {
                     <p>To download this script, use these commands: </p>
                     <strong>Be careful with this! Go one command at a time if you need to. These can be user-entered!</strong>
                     <textarea style="width: 90%" class="download-script" rows=3>'.$tutorial->getScript().'</textarea>
+                    <button class="preview-download button button-blue" data-link="/_download/'.$tutorial->getId().'/data.txt">Preview Script</button>
                 </div>';
             }
         }
@@ -206,7 +209,7 @@ class Tutorials {
         $return = "<h4 class='tag-header'>Tags</h4><hr class='tag-hr'/>";
         $return .= '<ul class="tags blue">';
         foreach($tutorial->getTags() as $tag){
-            $return .= sprintf('<li><a href="/tag/%s/">%s <span>%s</span></a></li>', $tag, $tag, sizeof($this->tagged($tag)));
+            $return .= sprintf('<li><a href="/tag/%s/">%s <span>%s</span></a></li>', str_replace(' ', '+', $tag), $tag, sizeof($this->tagged($tag)));
         }
         $return .= "</ul>";
         return $return;

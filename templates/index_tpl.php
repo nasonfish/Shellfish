@@ -2,7 +2,7 @@
     <h2 class="main-header"><?=get('index:main-header');?></h2>
     <h4 class="sub-header"><?=get('index:sub-header');?></h4>
     <br/>
-    <form method="GET" action="/search/"><input name="q" class="main-tag-search" type="text" placeholder="Search the site for information!"/></form>
+    <form method="GET" action="/search/"><input name="q" class="main-tag-search" type="text" placeholder="Search the site for information!" style="width: 50%;"/></form>
     <div class="mid-boxes">
         <div class="span6 mid-box">
             <button class="mid-button link button button-blue" data-href="/all/"><?=get('index:all-button');?></button>
