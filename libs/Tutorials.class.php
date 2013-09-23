@@ -188,23 +188,6 @@ class Tutorials {
         return $this->md;
     }
 
-    public function html_downloadLink(Page $tutorial){
-        // <a target="_blank" href="/_download.php?id='.$tutorial->getId().'"
-        if($tutorial){
-            if($tutorial->getDownload()){
-                return '<button class="download show-toggle button button-green" data-for="get-script"><!-- data-href="/_download/%s/%s.sh"-->Do it for me!</button>
-                <br/>
-                <div id="get-script" style="display: none;">
-                    <p>To download this script, use these commands: </p>
-                    <strong>Be careful with this! Go one command at a time if you need to. These can be user-entered!</strong>
-                    <textarea style="width: 90%" class="download-script" rows=3>'.$tutorial->getScript().'</textarea>
-                    <button class="preview-download button button-blue" data-link="/_download/'.$tutorial->getId().'/data.txt">Preview Script</button>
-                </div>';
-            }
-        }
-        return '';
-    }
-
     public function html_printTags(Page $tutorial){
         $return = "<h4 class='tag-header'>Tags</h4><hr class='tag-hr'/>";
         $return .= '<ul class="tags blue">';
@@ -405,7 +388,7 @@ class Tutorials {
      * @param string $ip The ip of the user who submitted it. We can use this if bad things happen.
      * @return int|mixed|\Predis\ResponseObjectInterface Integer, the id of the page we just created.
      */
-    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $download = false, $tags = array(), $distro = "all", $username = "Anonymous", $ip = "Unknown", $file = false, $script = false){
+    public function create($title = "New Tutorial", $description = "Tutorial description", $text = "Tutorial", $tags = array(), $distro = "all", $username = "Anonymous", $ip = "Unknown"){
 
         // First, let's just initialize the database. This is pretty simple, but you can comment it out after there are things in the database.
         // I'll do that later
@@ -431,24 +414,12 @@ class Tutorials {
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':description', $description));
         $this->redis->executeCommand($cmd);
-        if($download != false){
-            $cmd->setRawArguments(array('page:' . $id . ':download', $download));
-            $this->redis->executeCommand($cmd);
-        }
         $cmd->setRawArguments(array('page:' . $id . ':text', $text));
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':username', $username));
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':ip', $ip));
         $this->redis->executeCommand($cmd);
-        if($file){
-            $cmd->setRawArguments(array('page:' . $id . ':file', $file));
-            $this->redis->executeCommand($cmd);
-        }
-        if($script){
-            $cmd->setRawArguments(array('page:' . $id . ':script', $script));
-            $this->redis->executeCommand($cmd);
-        }
         $cmd->setRawArguments(array('page:' . $id . ':category', $distro));
         $this->redis->executeCommand($cmd);
         $cmd = new Predis\Command\SetAdd();
@@ -477,7 +448,7 @@ class Tutorials {
         return $id;
     }
 
-    public function edit($id, $title, $description, $text, $download, $tags, $distro, $username, $ip, $file = false, $script = false){ // TODO add defaults.
+    public function edit($id, $title, $description, $text, $tags, $distro, $username, $ip){ // TODO add defaults.
         // String data of the tutorial
         $cmd = new Predis\Command\StringSet();
 
@@ -487,16 +458,6 @@ class Tutorials {
         $cmd->setRawArguments(array('page:' . $id . ':description', $description));
         $this->redis->executeCommand($cmd);
 
-        /* Download */
-        if($download != false){
-            $cmd->setRawArguments(array('page:' . $id . ':download', $download));
-            $this->redis->executeCommand($cmd);
-        } else {
-            $rem = new Predis\Command\KeyDelete();
-            $rem->setRawArguments(array('page:' . $id . ':download'));
-            $this->redis->executeCommand($rem);
-        }
-
         $cmd->setRawArguments(array('page:' . $id . ':text', $text));
         $this->redis->executeCommand($cmd);
 
@@ -505,22 +466,6 @@ class Tutorials {
 
         $cmd->setRawArguments(array('page:' . $id . ':ip', $ip));
         $this->redis->executeCommand($cmd);
-        if($file){
-            $cmd->setRawArguments(array('page:' . $id . ':file', $file));
-            $this->redis->executeCommand($cmd);
-        } else {
-            $del = new Predis\Command\KeyDelete();
-            $del->setRawArguments(array('page:' . $id . ':file'));
-            $this->redis->executeCommand($del);
-        }
-        if($script){
-            $cmd->setRawArguments(array('page:' . $id . ':script', $script));
-            $this->redis->executeCommand($cmd);
-        } else {
-            $del = new Predis\Command\KeyDelete();
-            $del->setRawArguments(array('page:' . $id . ':script'));
-            $this->redis->executeCommand($del);
-        }
         /* Category */
         $cmd->setRawArguments(array('page:' . $id . ':category', $distro));
         $this->redis->executeCommand($cmd);
@@ -578,8 +523,6 @@ class Tutorials {
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':description'));
         $this->redis->executeCommand($cmd);
-        $cmd->setRawArguments(array('page:' . $id . ':download'));
-        $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':text'));
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':username'));
@@ -587,10 +530,6 @@ class Tutorials {
         $cmd->setRawArguments(array('page:' . $id . ':ip'));
         $this->redis->executeCommand($cmd);
         $cmd->setRawArguments(array('page:' . $id . ':category'));
-        $this->redis->executeCommand($cmd);
-        $cmd->setRawArguments(array('page:' . $id . ':file'));
-        $this->redis->executeCommand($cmd);
-        $cmd->setRawArguments(array('page:' . $id . ':script'));
         $this->redis->executeCommand($cmd);
         // Remove this tutorial from its old tags
         $cmd = new Predis\Command\SetMembers();

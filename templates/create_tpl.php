@@ -36,15 +36,6 @@
             </ul>
         </div>
     </div>
-    <h4>Optional Downloadable Script - you can ignore this if you want.</h4>
-    <div id="download-box" class="group-sample">
-        <label for="file">Downloadable Script Name</label>
-        <input id="file" name="file" type="text" placeholder="I-am-a-fi.sh"/>
-        <label for="script">For tutorials that would use a different command to execute a script, you can make your own download script. <code>%s</code> means your file name, <code>%d</code> means your id. <code>/_download/%d/%s</code> will be your script download link. <i>Be careful with this.</i></label>
-        <input id="script" name="script" type="text" placeholder="wget https://this-site.com/_download/%d/%s; chmod +x %s; ./%s;"/>
-        <label for="download">Create your script here! <i>Don't be malicious!</i></label>
-        <textarea id="download" name="download" placeholder="#!/bin/bash" rows="25"></textarea>
-    </div>
     <label for="category">What would you categorize this under? (Choose a broad term and tag more specific terms)</label>
     <input id="category" name="category" type="text" placeholder="CentOS 6.4"/>
     <label for="tags">Pick some tags so people can find your tutorial! (Separate with ',')</label>

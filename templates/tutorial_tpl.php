@@ -11,8 +11,6 @@ try{
     <?php $tutorials->html_printTutorial($tutorials->page($pass[1]), true); ?>
 </div>
 <div class="span3 pull-right">
-    <?=($tutorials->html_downloadLink($tutorials->page($pass[1]))); ?>
-    <div id="download-preview"></div>
     <?=($tutorials->html_printTags($tutorials->page($pass[1]))); ?>
 </div>
 </div>

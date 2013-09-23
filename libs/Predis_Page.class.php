@@ -96,15 +96,6 @@ class Page{
         return $this->get('title');
     }
 
-    public function getDownload(){
-        $cmd = new Predis\Command\KeyExists();
-        $cmd->setRawArguments(array('page:' . $this->id . ':download'));
-        if(!$this->redis->executeCommand($cmd)){
-            return false;
-        }
-        return $this->get('download');
-    }
-
     public function getUsername(){
         return $this->get('username');
     }
@@ -120,43 +111,6 @@ class Page{
 
     public function getCategory(){
         return $this->get('category');
-    }
-
-    public function getFileName(){
-        $cmd = new Predis\Command\KeyExists();
-        $cmd->setRawArguments(array('page:' . $this->id . ':file'));
-        if($this->redis->executeCommand($cmd)){
-            return $this->get('file');
-        } else {
-            return substr($this->getTitleSlug(), 0, 14) . '.sh';
-        }
-    }
-
-
-    public function getScript($raw = false){
-        $cmd = new Predis\Command\KeyExists();
-        $cmd->setRawArguments(array('page:' . $this->id . ':script'));
-        if($this->redis->executeCommand($cmd)){
-            if($raw){
-                return $this->get('script');
-            }
-            return str_replace('%d', $this->id, str_replace('%s', $this->getFileName(), $this->get('script')));
-        }
-        $return = "wget ";
-        if(get('backend:ssl:self-signed') && $this->tutorials->getPeregrine()->server->getRaw('HTTPS') == "on"){
-            $return .= '--no-check-certificate '; // wget --no-check-certificate
-        }
-        if($this->tutorials->getPeregrine()->server->getRaw('HTTPS') == "on"){
-            $return .= 'https://'; // wget [--no-check-certificate] https://
-        } else {
-            $return .= 'http://'; // wget http://
-        }
-        $return .= gethostname(); // wget [--no-check-certificate] http[s]://nasonfish.com. It's not perfect but it's not "localhost" either.
-        $return .= ($port = $this->tutorials->getPeregrine()->server->getInt('SERVER_PORT')) == "80" || $port == "443" ? '' : ':' . $port; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]
-        $slug = $raw ? '%s' : $this->getFileName();
-        $return .= sprintf('/_download/%s/%s', $raw ? '%d' : $this->getId(), $slug);
-        $return .= sprintf('; chmod +x %s; ./%s', $slug, $slug);
-        return $return; // wget [--no-check-certificate] http[s]://nasonfish.com[:81]/_download/0/this-is-a-tutorial.sh
     }
 
     public function getId(){
@@ -180,8 +134,7 @@ class Page{
                   'title-slug' => $this->getTitleSlug(),
                   //'ip' => $this->getIP(),
                   'username' => $this->getUsername(),
-                  'download' => $this->getDownload(),
-                  'text' => $this->tutorials->getMarkdown()->defaultTransform($this->getText())
+                  'text' => $this->getText()
               )
         );
         return json_encode($data);

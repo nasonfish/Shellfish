@@ -83,10 +83,6 @@ simpleDOM('#tags').bind('keydown', function(event){
     }
 });
 
-simpleDOM('.download-script').bind('keydown', function(event){
-    event.preventDefault();
-});
-
 simpleDOM('#category-filter').bind('keyup', function(event){
     var filter = simpleDOM(this).val();
     simpleDOM('.categories-item').each(function(elem){
@@ -139,17 +135,4 @@ simpleDOM('.show-toggle').bind('click', function(){
 
 simpleDOM('.link').bind('click', function(){
     window.location.href = simpleDOM(this).attr('data-href');
-});
-
-simpleDOM('.preview-download').bind('click', function(){
-    var previewBox = simpleDOM('#download-preview');
-    if(previewBox.hasClass('displayed')){
-        previewBox.removeClass('displayed').addClass('hidden').hide();
-    } else if(previewBox.hasClass('hidden')){
-        previewBox.removeClass('hidden').addClass('displayed').show();
-    } else {
-        simpleAJAX(simpleDOM(this).attr('data-link'), "GET", {}, function(data){
-            previewBox.html('<pre>' + data.replace('<', '&lt;').replace('>', '&gt;') + '</pre>').addClass('displayed');
-        });
-    }
 });
