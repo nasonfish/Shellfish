@@ -104,13 +104,13 @@ class Tutorials {
 
     public function html_printSample(Page $tutorial){
         print($this->doSimpleReplaces('
-            <div class="tutorial-sample">
-                <a class="link" href="/tutorial/%id%/%slug%/">
+            <a class="link" href="/tutorial/%id%/%slug%/">
+                <div class="tutorial-sample">
                     <h4 class="tutorial-link-sample tutorial-header">%title%</h4>
                     <span class="tutorial-description-sample">%desc%</span><br/>
                     <!--<code class="tutorial-author-sample">by %user%</code>-->
-                </a>
-            </div>
+                </div>
+            </a>
         ', $tutorial));
     }
 
@@ -118,9 +118,11 @@ class Tutorials {
         print $this->doReplaces('
             <div class="tutorial">
                 <a class="link" href="/tutorial/%id%/%slug%/">
-                    <h3 class="tutorial-header tutorial-link">%title%</h3>
-                    <span class="tutorial-description">%desc%</span>
-                    <br/>
+                    <div>
+                        <h3 class="tutorial-header tutorial-link">%title%</h3>
+                        <span class="tutorial-description">%desc%</span>
+                        <br/>
+                    </div>
                 </a>
                 <!--<code class="tutorial-author">by %user%</code>--><hr/>
                 <div class="tutorial-text">
