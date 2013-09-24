@@ -8,11 +8,11 @@ try{
 ?>
 <div class="margined">
 <div class="span9 pull-left">
-    <?php $tutorials->html_printTutorial($tutorials->page($pass[1]), true); ?>
+    <?php $tutorials->html_printTutorial($page, true); ?>
 </div>
 <div class="span3 pull-right">
-    <?=($tutorials->html_attachments($tutorials->page($pass[1]))); ?>
-    <?=($tutorials->html_printTags($tutorials->page($pass[1]))); ?>
+    <?=($tutorials->html_attachments($page)); ?>
+    <?=($tutorials->html_printTags($page)); ?>
 </div>
 </div>
 <?php
