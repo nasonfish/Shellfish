@@ -58,7 +58,11 @@ ul.tags, ol.tags{
 }
 /* Main_tpl page */
 .title-bar{
-    height: 70px;
+    height: 90px;
+}
+
+#title-search{
+    margin: 32px 32px 0 0;
 }
 
 .title{
@@ -71,11 +75,6 @@ ul.tags, ol.tags{
 #title-label{
     margin: 0;
     padding: 0;
-}
-
-.right-search{
-    padding-right: 30px;
-    padding-top: 20px;
 }
 
 .sub-bar{
