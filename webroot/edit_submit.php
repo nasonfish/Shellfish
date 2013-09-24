@@ -34,4 +34,4 @@ $tutorials->edit($peregrine->post->getInt('id'),
     $peregrine->server->getIP('REMOTE_ADDR')
 );
 //     public function create($title, $description, $text, $download, $tags, $username, $ip){
-header('Location: /tutorial/'.$tutorials->page($peregrine->post->getInt('id'))->getTitleSlug().'/'.$peregrine->post->getInt('id').'/');
+header('Location: /tutorial/'.$peregrine->post->getInt('id').'/'.$tutorials->page($peregrine->post->getInt('id'))->getTitleSlug().'/');

@@ -86,8 +86,7 @@
     <p>Sure!</p>
     <ul>
         <li>You can use a shortened link using <code>/_r/pageid/</code>, it redirects to the longer link with the slug.</li>
-        <li>Links are in the form of <code>/tutorial/your-tutorial-slug/id/</code>, however, the slug can be anything, and you will still see the correct tutorial.</li>
-        <li>Downloads are the same way, the link is <code>/_download/id/slug.sh</code>, however, anything from <code>/_download/id</code> to <code>/_download/id/djasifonsaiofasidofnosiadnfoa/</code> will work.</li>
+        <li>Links are in the form of <code>/tutorial/id/your-tutorial-slug/</code>, however, the slug can be anything, and you will still see the correct tutorial.</li>
         <li>You can contribute using the <a href="http://github.com/nasonfish/Tutorials/">GitHub link</a> if you want to. :-)</li>
     </ul>
 </div>

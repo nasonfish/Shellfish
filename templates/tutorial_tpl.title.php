@@ -1,7 +1,7 @@
 <?php
 try{
-    $pass[1] = isset($pass[1]) ? $pass[1] : -1;
-    print "Tutorial - " . $tutorials->page($pass[1])->getTitle();
+    $pass[0] = isset($pass[0]) ? $pass[0] : -1;
+    print "Tutorial - " . $tutorials->page($pass[0])->getTitle();
 } catch (PredisPageDoesNotExistException $e){
     print "Tutorial Not Found";
 }

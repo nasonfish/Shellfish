@@ -31,4 +31,4 @@ $id = $tutorials->create($peregrine->post->getRaw('title'),
     $peregrine->server->getUsername('PHP_AUTH_USER'),
     $peregrine->server->getIP('REMOTE_ADDR')
 );
-header('Location: /tutorial/'.$tutorials->page($id)->getTitleSlug().'/'.$id.'/');
+header('Location: /tutorial/'.$id.'/'.$tutorials->page($id)->getTitleSlug().'/');
