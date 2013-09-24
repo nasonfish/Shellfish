@@ -132,7 +132,3 @@ simpleDOM('.show-toggle').bind('click', function(){
         target.addClass('displayed');
     }//.slideIn(0);
 });
-
-simpleDOM('.link').bind('click', function(){
-    window.location.href = simpleDOM(this).attr('data-href');
-});

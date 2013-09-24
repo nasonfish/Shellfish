@@ -31,10 +31,10 @@
         </div>
         <div class="sub-bar row-fluid">
             <ul class="sub-links">
-                <li class="link sub-link span2 <?= $this->active('index'); ?>" data-href="/"><i class="icon-home"></i> Home</li>
-                <li class="link sub-link span2 <?= $this->active('categories'); ?>" data-href="/categories/"><i class="icon-compass"></i> Categories</li>
+                <li class="sub-link span2 <?= $this->active('index'); ?>"><a class="link" href="/"><i class="icon-home"></i> Home</a></li>
+                <li class="sub-link span2 <?= $this->active('categories'); ?>"><a class="link" href="/categories/"><i class="icon-compass"></i> Categories</a></li>
                 <!--<li class="link sub-link span2 <?= $this->active('about-us'); ?>" data-href="/about-us/"><i class="icon-book"></i> About Us</li>-->
-                <li class="link sub-link span2 <?= $this->active('create'); ?>" data-href="/create/"><i class="icon-edit"></i> Create a page</li>
+                <li class="sub-link span2 <?= $this->active('create'); ?>"><a class="link" href="/create/"><i class="icon-edit"></i> Create a page</a></li>
                 <li class="sub-link-filler span4">&nbsp;</li>
             </ul>
         </div>
