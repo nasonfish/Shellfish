@@ -14,7 +14,7 @@ if(empty($found)){
 ?>
     </div>
     <div class="span3 group-sample">
-        <h4>You're browsing tutorials tagged with <code><?=urldecode(implode(', ', $pass))?></code>!</h4>
+        <h4>You're browsing tutorials tagged with <code><?=htmlspecialchars(urldecode(implode(', ', $pass)))?></code>!</h4>
         <p>Hello World!</p>
         <!--Ads here? something cool can go here.-->
     </div>

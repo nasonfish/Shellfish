@@ -12,7 +12,7 @@ if(isset($pass[0])){
 ?>
     </div>
     <div class="span3 group-sample">
-        <h4>You're browsing tutorials categorized under <code><?=urldecode($pass[0])?></code>!</h4>
+        <h4>You're browsing tutorials categorized under <code><?=htmlspecialchars(urldecode($pass[0]))?></code>!</h4>
         <p>Hello World!</p>
         <!--Ads here? something cool can go here.-->
     </div>
