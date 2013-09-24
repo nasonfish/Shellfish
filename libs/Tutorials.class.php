@@ -198,6 +198,31 @@ class Tutorials {
         return $return;
     }
 
+    public function html_attachments(Page $tutorial){
+        $files = $tutorial->getFiles();
+        if(empty($files)){return "";}
+        $return = "";
+        $return .= '<h3>Attachments</h3><ul>';
+        foreach($tutorial->getFiles() as $file){
+            $fileName = $this->attachmentName($tutorial->getId(), $file);
+            $return .= sprintf('<li><a href="/_file/%s/%s/%s">%s</a></li>', $tutorial->getId(), $file, $fileName, $fileName);
+        }
+        $return .= '</ui>';
+        return $return;
+    }
+
+    public function attachmentText($id, $subid){
+        $cmd = new Predis\Command\StringGet();
+        $cmd->setRawArguments(array('file:' . $id . ':' . $subid . ':text'));
+        return $this->redis->executeCommand($cmd);
+    }
+
+    public function attachmentName($id, $subid){
+        $cmd = new Predis\Command\StringGet();
+        $cmd->setRawArguments(array('file:' . $id . ':' . $subid . ':name'));
+        return $this->redis->executeCommand($cmd);
+    }
+
     public function tagged($tag){
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('tag:' . strtolower($tag)));
@@ -577,6 +602,33 @@ class Tutorials {
     }
 
     /*
+     * FILES
+     */
+
+    public function attach($text="#!/bin/bash\r\necho An Error occurred saving this file. Sorry.", $id = -1, $name = "hello-world.txt"){
+        $thisid = max($this->page($id)->getFiles()) + 1;
+        $cmd = new Predis\Command\SetAdd();
+        $cmd->setRawArguments(array('file:' . $id, $thisid));
+        $this->redis->executeCommand($cmd);
+        $cmd = new Predis\Command\StringSet();
+        $cmd->setRawArguments(array('file:' . $id . ':' . $thisid . ':text', $text));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('file:' . $id . ':' . $thisid . ':name', $name));
+        $this->redis->executeCommand($cmd);
+    }
+
+    public function detach($id, $thisid){
+        $cmd = new Predis\Command\SetRemove();
+        $cmd->setRawArguments(array('file:' . $id, $thisid));
+        $this->redis->executeCommand($cmd);
+        $cmd = new Predis\Command\KeyDelete();
+        $cmd->setRawArguments(array('file:' . $id . ':' . $thisid . ':text'));
+        $this->redis->executeCommand($cmd);
+        $cmd->setRawArguments(array('file:' . $id . ':' . $thisid . ':name'));
+        $this->redis->executeCommand($cmd);
+    }
+
+    /*
      * Okay, so here's our schema.
      * "tags" SET(tagname, othertag, blah)
      * "tag:<tagname>" SET(1, 2, 3, 4, ids_of_pages)
@@ -586,6 +638,10 @@ class Tutorials {
      *
      * "categories" SET(distroname, anotherdistro, onemoredistro, softwaare, blah)
      * "category:<catname>" SET(5, 2, 3, 5, ids_of_pages)
+     *
+     * "file:pageid:subid:(text|name)" STRING("the text or filename")
+     * "file:pageid" SET(1, 2, 5, 6, subids)
+     *
      * // We might be able to have category:<catname>:pic link to a picture of the logo of that category.
      *
      * "next_id" string(id of the next page we will add)

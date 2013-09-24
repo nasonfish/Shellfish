@@ -113,6 +113,12 @@ class Page{
         return $this->get('category');
     }
 
+    public function getFiles(){
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array('file:' . $this->id));
+        return $this->redis->executeCommand($cmd);
+    }
+
     public function getId(){
         return $this->id;
     }
