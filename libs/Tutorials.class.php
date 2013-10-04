@@ -80,6 +80,12 @@ class Tutorials {
         return new Page($id, $this);
     }
 
+    public function random(){
+        $cmd = new Predis\Command\SetRandomMember();
+        $cmd->setRawArguments(array('pages'));
+        return $this->page($this->redis->executeCommand($cmd));
+    }
+
     /**
      * Print out the nice HTML of a tutorial.
      *
@@ -292,6 +298,7 @@ class Tutorials {
         $cmd = new Predis\Command\SetMembers();
         $cmd->setRawArguments(array('pages'));
         $pages = $this->redis->executeCommand($cmd);
+        sort($pages);
         $pages = $reverse ? array_reverse($pages) : $pages;
         return $this->shorten($pages, $limit, $pagination);
     }

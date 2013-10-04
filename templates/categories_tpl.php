@@ -5,11 +5,9 @@
 <div class="span3 categories categories-left">
     <h4>Categories</h4>
     <input type="text" placeholder="Filter categories..." id="category-filter"/>
-    <ul class="tags red">
         <?php $categories = $tutorials->getCategories(); foreach($categories as $category): ?>
-            <div class="categories-item" data-for="<?=strtolower($category)?>"><li><a><?=$category?> <span><?=sizeof($tutorials->categorized($category));?></span></a></li><br/><br/></div>
+            <div class="categories-item button button-blue" style="display: block; margin-top: 4px; margin-right: 50%; margin-left: 0;" data-for="<?=strtolower($category)?>"><?=$category?> <span>(<?=sizeof($tutorials->categorized($category));?>)</span></div>
         <?php endforeach; ?>
-    </ul>
 </div>
 <div class="span7 categories categories-right">
     <?php

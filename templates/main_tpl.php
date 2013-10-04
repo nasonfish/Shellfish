@@ -29,7 +29,7 @@
             <ul class="sub-links">
                 <li class="sub-link span2 <?= $this->active('index'); ?>"><a class="link" href="/"><div style="width: 100%; height: 100%"><i class="icon-home"></i> Home</div></a></li>
                 <li class="sub-link span2 <?= $this->active('categories'); ?>"><a class="link" href="/categories/"><div style="width: 100%; height: 100%"><i class="icon-compass"></i> Categories</div></a></li>
-                <!--<li class="link sub-link span2 <?= $this->active('about-us'); ?>" data-href="/about-us/"><i class="icon-book"></i> About Us</li>-->
+                <li class="sub-link span2"><a class="link" href="/_random/"><div style="width: 100%; height: 100%;"><i class="icon-book"></i> Random Tutorial</div></a></li>
                 <li class="sub-link span2 <?= $this->active('create'); ?>"><a class="link" href="/create/"><div style="width: 100%; height: 100%"><i class="icon-edit"></i> Create a page</div></a></li>
                 <li class="sub-link-filler span4">&nbsp;</li>
             </ul>
