@@ -7,7 +7,7 @@ if(get('admin:auth')){
         echo '401 Unauthorized - No username/password supplied. Sorry.';
         exit;
     } else {
-        if($_SERVER['PHP_AUTH_PW'] != file_get_contents('../pass.txt')){
+        if($_SERVER['PHP_AUTH_PW'] != trim(file_get_contents('../pass.txt'))){
             header("WWW-Authenticate: Basic realm=\"Tutorials.pufferfi.sh - Add file\"");
             header("HTTP/1.0 401 Unauthorized");
             echo "401 Unauthorized - Incorrect username/password. Sorry.";
