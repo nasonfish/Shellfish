@@ -233,10 +233,7 @@ class Tutorials {
             $categorized = array_merge($categorized, $this->categorized($word));
             $tagged = array_merge($tagged, $this->tagged($word));
         }
-        $categorized = array_reverse($categorized); // Flip these guys so categorized gets the best say, and is in front.
-        $tagged = array_reverse($tagged);
-        $result = array_merge($tagged, $categorized);
-        $result = array_reverse($result);
+        $result = array_merge($categorized, $tagged);
         $result = array_unique($result);
         return /*$this->shorten(*/$result/*, $limit, $pagination)*/;
     }
