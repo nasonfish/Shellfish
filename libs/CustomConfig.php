@@ -18,6 +18,8 @@ $_CONFIG['backend:ssl:self-signed'] = true; // This will append --no-check-certi
 $_CONFIG['admin:auth'] = true;
 
 global $redis;
+require 'Predis/Autoloader.php';
+Predis\Autoloader::register();
 $this->redis = new Predis\Client();
 $pass = trim(file_get_contents_d('../redispass.txt'));
 $auth = new Predis\Command\ConnectionAuth();

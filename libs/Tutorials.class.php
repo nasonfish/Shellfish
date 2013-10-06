@@ -52,9 +52,7 @@ class Tutorials {
     public function __construct(){
         global $redis;
         $this->redis = $redis;
-        require 'Predis/Autoloader.php';
         include_d('../Markdown/Michelf/MarkdownExtra.php');
-        Predis\Autoloader::register();
         $this->md = new \Michelf\MarkdownExtra();
         include_d("../Peregrine/Peregrine.php");
         $this->peregrine = new Peregrine;
