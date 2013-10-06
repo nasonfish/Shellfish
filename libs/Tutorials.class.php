@@ -94,7 +94,7 @@ class Tutorials {
     public function html_printTutorial(Page $tutorial){
         print($this->doReplaces('
             <div class="tutorial">
-                <h3 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">--><a href="%categorylink%">[%category%]</a> <b>%title%</b><!--</a>--></h3>
+                <h2 class="tutorial-header"><!--<a class="tutorial-link" href="/tutorial/%slug%/%id%/">--><a href="%categorylink%">[%category%]</a> <b>%title%</b><!--</a>--></h2>
                 <span class="tutorial-description">%desc%</span><br/>
                 <i>by %user%</i><hr/>
                 <div class="tutorial-text">
@@ -112,7 +112,7 @@ class Tutorials {
         print($this->doSimpleReplaces('
             <a class="link" href="/tutorial/%id%/%slug%/">
                 <div class="tutorial-sample">
-                    <h4 class="tutorial-link-sample tutorial-header">%title%</h4>
+                    <h3 class="tutorial-link-sample tutorial-header">%title%</h3>
                     <span class="tutorial-description-sample">%desc%</span><br/>
                     <!--<code class="tutorial-author-sample">by %user%</code>-->
                 </div>
@@ -125,7 +125,7 @@ class Tutorials {
             <div class="tutorial">
                 <a class="link" href="/tutorial/%id%/%slug%/">
                     <div>
-                        <h3 class="tutorial-header tutorial-link">%title%</h3>
+                        <h2 class="tutorial-header tutorial-link">%title%</h2>
                         <span class="tutorial-description">%desc%</span>
                         <br/>
                     </div>
