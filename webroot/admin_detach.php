@@ -22,5 +22,5 @@ if(empty($_POST)){
 require('../libs/Tutorials.class.php');
 $tutorials = new Tutorials;
 $id = $tutorials->getPeregrine()->post->getInt('id');
-$tutorials->delete($id);
-header('Location: /');
+$subid = $tutorials->getPeregrine()->post->getInt('subid');
+$tutorials->detach($id, $subid);

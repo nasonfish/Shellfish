@@ -69,6 +69,12 @@ class Page{
         return $this->redis->executeCommand($cmd);
     }
 
+    public function getAllViews(){
+        $cmd = new Predis\Command\SetMembers();
+        $cmd->setRawArguments(array('page:' . $this->id . ':views'));
+        return $this->redis->executeCommand($cmd);
+    }
+
     public function getTags(){
         $return = array();
         $cmd = new Predis\Command\SetMembers();

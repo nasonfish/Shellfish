@@ -22,5 +22,20 @@ if(empty($_POST)){
 require('../libs/Tutorials.class.php');
 $tutorials = new Tutorials;
 $id = $tutorials->getPeregrine()->post->getInt('id');
-$tutorials->delete($id);
-header('Location: /');
+$page = $tutorials->page($id);
+?>
+<a target="_blank" href="/edit/<?=$id?>/">Edit this page!</a>
+<h2>Attachments</h2>
+<ul>
+    <?php foreach($page->getFiles() as $file):
+        $fileName = $tutorials->attachmentName($page->getId(), $file);
+        echo sprintf('<li><a href="/_file/%s/%s/%s">%s</a> <span class="detach" data-id="%s" data-subid="%s">X</span></li>', $page->getId(), $file, $fileName, $fileName, $page->getId(), $file);
+    endforeach; ?>
+</ul>
+<h2>Views</h2>
+<p>Total: <strong><?=$page->getViews();?></strong></p>
+<ul>
+<?php foreach($page->getAllViews() as $view): ?>
+    <li><?=$view?></li>
+<?php endforeach; ?>
+</ul>
