@@ -91,7 +91,7 @@ class Tutorials {
         print($this->doSimpleReplaces('
             <a class="link" href="/tutorial/%id%/%slug%/">
                 <div class="tutorial-sample">
-                    <h3 class="tutorial-link-sample tutorial-header">%title%</h3>
+                    <h4 class="tutorial-link-sample tutorial-header">%title%</h4>
                     <span class="tutorial-description-sample">%desc%</span><br/>
                     <!--<code class="tutorial-author-sample">by %user%</code>-->
                 </div>
