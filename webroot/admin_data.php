@@ -24,7 +24,14 @@ $tutorials = new Tutorials;
 $id = $tutorials->getPeregrine()->post->getInt('id');
 $page = $tutorials->page($id);
 ?>
-<a target="_blank" href="/edit/<?=$id?>/">Edit this page!</a>
+<br/>
+<a href="/_r/<?=$id?>/"><button class="button button-blue">View this page!</button></a>
+<p>or</p>
+<a href="/edit/<?=$id?>/"><button class="button button-green">Edit this page!</button></a>
+<p>or</p>
+<form method="post" action="/delete.php">
+    <input type="number" style="display: none;" name="id" value="<?=$id?>" onclick="return confirm('Are you sure you want to delete this page? This can not be undone.');"/>
+    <button type="submit" class="button button-red">Delete this page?</button>
 <h2>Attachments</h2>
 <ul>
     <?php foreach($page->getFiles() as $file):
