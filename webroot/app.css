@@ -89,6 +89,10 @@ ul.tags, ol.tags{
     margin-left: 0;
 }
 
+.sub-link{
+    margin-left: 0;
+}
+
 #get-script{
     padding: 7px;
     background-color: white;
@@ -106,6 +110,14 @@ ul.tags, ol.tags{
 }
 .sub-link-filler{
     display: table-cell;
+}
+
+.sub-header{
+    font-weight: normal;
+}
+
+.main-header{
+    font-weight: bold;
 }
 
 .body{

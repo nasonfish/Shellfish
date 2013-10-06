@@ -17,7 +17,7 @@
 <div class="content">
     <div class="head">
         <div class="title-bar">
-            <img class="pull-left" style="padding: 5px;" src="/logo.png"/>
+            <a href="/" title="Shellfish.io"><img class="pull-left" style="padding: 5px;" src="/title.png"/></a>
             <div class="pull-right" id="title-search">
                 <form action="/search/" method="get">
                     <i class="icon-search" style="color: white;"></i>
@@ -27,11 +27,12 @@
         </div>
         <div class="sub-bar row-fluid">
             <ul class="sub-links">
-                <li class="sub-link span2 <?= $this->active('index'); ?>"><a class="link" href="/"><div style="width: 100%; height: 100%"><i class="icon-home"></i> Home</div></a></li>
-                <li class="sub-link span2 <?= $this->active('categories'); ?>"><a class="link" href="/categories/"><div style="width: 100%; height: 100%"><i class="icon-compass"></i> Categories</div></a></li>
-                <li class="sub-link span2"><a class="link" href="/_random/"><div style="width: 100%; height: 100%;"><i class="icon-book"></i> Random Tutorial</div></a></li>
-                <li class="sub-link span2 <?= $this->active('create'); ?>"><a class="link" href="/create/"><div style="width: 100%; height: 100%"><i class="icon-edit"></i> Create a page</div></a></li>
-                <li class="sub-link-filler span4">&nbsp;</li>
+                <li class="span2 sub-link <?= $this->active('index'); ?>"><a class="link" href="/"><div style="width: 100%; height: 100%"><i class="icon-home"></i> Home</div></a></li>
+                <li class="span2 sub-link <?= $this->active('categories'); ?>"><a class="link" href="/categories/"><div style="width: 100%; height: 100%"><i class="icon-compass"></i> Categories</div></a></li>
+                <li class="span2 sub-link"><a class="link" href="/_random/"><div style="width: 100%; height: 100%;"><i class="icon-book"></i> Random Tutorial</div></a></li>
+                <li class="span2 sub-link <?= $this->active('all'); ?>"><a class="link" href="/all/"><div style="width: 100%; height: 100%"><i class="icon-archive"></i> See All Tutorials</div></a></li>
+                <!--<li class="sub-link span2 <?= $this->active('create'); ?>"><a class="link" href="/create/"><div style="width: 100%; height: 100%"><i class="icon-edit"></i> Create a page</div></a></li>-->
+                <li class="span1 sub-link pull-right"><a href="/admin/" title="View Admin Panel"><i class="icon-wrench"></i></a></li>
             </ul>
         </div>
         <?php $this->head(); ?>

@@ -6,7 +6,7 @@
     <h4>Categories</h4>
     <input type="text" placeholder="Filter categories..." id="category-filter"/>
         <?php $categories = $tutorials->getCategories(); foreach($categories as $category): ?>
-            <div class="categories-item button button-blue" style="display: block; margin-top: 4px; margin-right: 50%; margin-left: 0;" data-for="<?=strtolower($category)?>"><?=$category?> <span>(<?=sizeof($tutorials->categorized($category));?>)</span></div>
+            <div class="categories-item link" style="color: #0f33bb; display: block; margin-top: 4px; margin-right: 50%; margin-left: 0;" data-for="<?=strtolower($category)?>"><?=$category?> <span>(<?=sizeof($tutorials->categorized($category));?>)</span></div>
         <?php endforeach; ?>
 </div>
 <div class="span7 categories categories-right">

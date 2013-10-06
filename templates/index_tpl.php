@@ -1,8 +1,8 @@
 <div class="welcome">
-    <h2 class="main-header"><?=get('index:main-header');?></h2>
-    <h4 class="sub-header"><?=get('index:sub-header');?></h4>
+    <h1 class="main-header"><?=get('index:main-header');?></h1>
+    <h3 class="sub-header"><?=get('index:sub-header');?></h3>
     <br/>
-    <form method="GET" action="/search/"><input name="q" class="main-tag-search" type="text" placeholder="Search the site for information!" style="width: 50%;"/></form>
+    <img style="margin-bottom: 15px;" src="/logo.png"/>
     <div class="mid-boxes">
         <div class="span6 mid-box">
             <a class="link" href="/all/"><button class="mid-button button button-blue"><?=get('index:all-button');?></button></a>

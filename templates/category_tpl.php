@@ -12,8 +12,8 @@ if(isset($pass[0])){
 ?>
     </div>
     <div class="span3 group-sample">
-        <h4>You're browsing tutorials categorized under <code><?=htmlspecialchars(urldecode($pass[0]))?></code>!</h4>
-        <p>Hello World!</p>
+        <h4>You're browsing tutorials categorized under "<b><?=htmlspecialchars(urldecode($pass[0]))?></b>"</h4>
+
         <!--Ads here? something cool can go here.-->
     </div>
 </div>
