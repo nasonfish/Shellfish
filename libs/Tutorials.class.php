@@ -50,14 +50,11 @@ class Tutorials {
     private $peregrine;
 
     public function __construct(){
+        global $redis;
+        $this->redis = $redis;
         require 'Predis/Autoloader.php';
         include_d('../Markdown/Michelf/MarkdownExtra.php');
         Predis\Autoloader::register();
-        $pass = trim(file_get_contents_d('../redispass.txt'));
-        $this->redis = new Predis\Client();
-        $auth = new Predis\Command\ConnectionAuth();
-        $auth->setRawArguments(array($pass));
-        $this->redis->executeCommand($auth);
         $this->md = new \Michelf\MarkdownExtra();
         include_d("../Peregrine/Peregrine.php");
         $this->peregrine = new Peregrine;

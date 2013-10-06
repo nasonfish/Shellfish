@@ -16,3 +16,10 @@ $_CONFIG['main:bar-search'] = 'Search for tutorials!';
 $_CONFIG['backend:ssl:self-signed'] = true; // This will append --no-check-certificate to the wget command for "Do it for me!".
 
 $_CONFIG['admin:auth'] = true;
+
+global $redis;
+$this->redis = new Predis\Client();
+$pass = trim(file_get_contents_d('../redispass.txt'));
+$auth = new Predis\Command\ConnectionAuth();
+$auth->setRawArguments(array($pass));
+$this->redis->executeCommand($auth);
