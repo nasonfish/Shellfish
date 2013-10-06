@@ -23,23 +23,7 @@
  * Class Tutorials
  */
 
-/* These are pretty bad... */
 
-function include_d($file){
-    if(file_exists($file)){
-        include($file);
-    } else {
-        include('../' . $file);
-    }
-}
-
-function file_get_contents_d($file){
-    if(file_exists($file)){
-        return file_get_contents($file);
-    } else {
-        return file_get_contents('../' . $file);
-    }
-}
 
 class Tutorials {
 
