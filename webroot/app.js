@@ -144,3 +144,44 @@ simpleDOM('.admin-auth-ajax').bind('click', function(){
         });
     });
 });
+
+simpleDOM('#title-tag-search').bind('keyup', function(event){
+    elem = simpleDOM(this);
+    if(!elem.hasClass('loaded')){
+        simpleAJAX('/all_tutorials.php', 'GET', {}, function(data){
+            elem.addClass('loaded');
+            elem.addAttr('data-info', data); // Turn the data into json and put it under data-info
+        });
+    }
+    simpleDOM('.search-complete').remove();
+    var q = elem.val();
+    if(q === "") return;
+    var info = eval('(' + elem.attr('data-info') + ')');
+    var res = {};
+    for (var name in info){
+        var t = true;
+        q.split(' ').forEach(function(word){
+                if(name.toLowerCase().indexOf(word.toLowerCase()) === -1){
+                    t = false;
+                }
+            }
+        );
+        if(t){
+            res[name] = info[name];
+        }
+    }
+    var pos = elem.get(0).getBoundingClientRect();
+    var loop = 0;
+    for(name in res){
+        var div = document.createElement('div');
+        simpleDOM(div).addClass('search-complete')
+            .html('<a href="/_r/'+res[name]+'/" style="width: 100%; height: 100%;">' + name + '</a>')
+            .css('position', 'absolute').css('top', (pos.bottom + loop * 50) + "px")
+            .css('left', '' + (pos.left) + "px").css('height', '50px')
+            .css('border', 'ridge')
+            .css('width', '206px')
+            .css('z-index', 100);
+        loop += 1;
+        simpleDOM('#title-search').get(0).appendChild(div);
+    }
+});

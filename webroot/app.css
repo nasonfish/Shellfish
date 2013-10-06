@@ -302,3 +302,10 @@ hr.tag-hr{
 .category-sample{
     display: none;
 }
+
+.search-complete{
+    background-color: white;
+}
+.search-complete:hover{
+    background-color: #cfcfcf;
+}
