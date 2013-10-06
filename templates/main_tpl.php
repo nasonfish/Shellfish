@@ -21,7 +21,7 @@
             <div class="pull-right" id="title-search">
                 <form action="/search/" method="get">
                     <i class="icon-search" style="color: white;"></i>
-                    <input name="q" id="title-tag-search" placeholder="<?=get('main:bar-search');?>"/>
+                    <input name="q" id="title-tag-search" placeholder="<?=get('main:bar-search');?>" autocomplete="off"/>
                 </form>
             </div>
         </div>
