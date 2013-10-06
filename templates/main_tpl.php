@@ -17,7 +17,7 @@
 <div class="content">
     <div class="head">
         <div class="title-bar">
-            <a href="/" title="Shellfish.io"><img class="pull-left" style="padding: 5px;" src="/title.png"/></a>
+            <a href="/" title="Shellfish.io"><img class="pull-left" style="padding: 5px;" height="80" src="/title.png"/></a>
             <div class="pull-right" id="title-search">
                 <form action="/search/" method="get">
                     <i class="icon-search" style="color: white;"></i>
