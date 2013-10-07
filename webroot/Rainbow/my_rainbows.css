@@ -46,8 +46,12 @@ pre .subcommand{
     color: #8ea1a3;
 }
 
-.red, pre .superuser{
-    color: #cab03e;
+.red{
+    color: red;
+}
+
+pre .superuser{
+    color: #b58900;
 }
 
 pre .package-manager.command{
