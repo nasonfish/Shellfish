@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/plain');
 if(isset($args[0]) && isset($args[1])){
     $id = $args[0];
     $subid = $args[1];

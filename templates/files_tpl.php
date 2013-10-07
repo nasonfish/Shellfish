@@ -10,7 +10,7 @@
         <input type="number" id="id" name="id" value="<?=$tutorials->getPeregrine()->get->getInt('id')?>"/>
         <label for="name">What is the name of this file?</label>
         <input type="text" id="name" name="name" placeholder="hello-world.txt"/>
-        <button type="submit">Submit!</button>
+        <button type="submit" class="file-submit">Submit!</button>
     </form>
 </div>
 <?php endif; ?>
