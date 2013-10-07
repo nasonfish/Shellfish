@@ -10,7 +10,7 @@ Rainbow.extend('terminal', [
             7: 'command',
             8: 'subcommand'
         },
-        'pattern': /([^@]+)(@)([^:]+)(:)([^#\$]+)([#\$]? )([^ ]+) (.+$)/g
+        'pattern': /([^@]+)(@)([^:]+)(:)([^#\$]+)([#\$]? *)([^ ]*) *(.*$)/g
     }
 ]);
 Rainbow.color();
