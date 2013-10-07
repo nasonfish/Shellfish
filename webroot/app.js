@@ -1,13 +1,3 @@
-var bottomBar = function(){
-    // This will actually happen, not bound to an event.
-    if(document.body.clientHeight > ("innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight)){// - $('.footer').height();
-        simpleDOM('#bottom').css('position', 'relative').css('bottom', '0');
-    } else {
-        simpleDOM('#bottom').css('position', 'absolute').css('bottom', '0');
-    }
-};
-bottomBar();
-
 simpleDOM('.showall').bind('click', function(){
     simpleDOM('#' + simpleDOM(this).attr('for') + '-dot').hide();
     simpleDOM('#' + simpleDOM(this).attr('for') + '-truncated').hide();
@@ -131,18 +121,6 @@ simpleDOM('.show-toggle').bind('click', function(){
         target.show();
         target.addClass('displayed');
     }//.slideIn(0);
-});
-
-simpleDOM('.admin-auth-ajax').bind('click', function(){
-    simpleAJAX('/admin_data.php', 'POST', {id:simpleDOM('#page-id').html()}, function(data){
-        simpleDOM('.data').html(data);
-        simpleDOM('.detach').bind('click', function(){ // So this actually is bound.
-            var elem = simpleDOM(this);
-            simpleAJAX('/admin_detach.php', 'POST', {id: elem.attr('data-id'), subid: elem.attr('data-subid')}, function(data){
-                this.parentNode.hide();
-            });
-        });
-    });
 });
 
 simpleDOM('#title-tag-search').bind('keyup', function(event){

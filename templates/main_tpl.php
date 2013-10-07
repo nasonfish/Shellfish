@@ -41,6 +41,8 @@
          <?php $this->page(); ?>
          <?php $this->foot(); ?>
     </div>
+    <div id="push"></div>
+</div>
     <div class="foot" id="bottom">
         <ul class="bottom-bar row">
             <li class="bottom-link"><a href="/api/">Check out our API!</a></li>
@@ -48,7 +50,6 @@
             <li class="bottom-link"><a href="https://github.com/pufferfi-sh/Shellfish/">Source code is available on GitHub</a></li>
         </ul>
     </div>
-</div>
 <footer>
     <script src="/simpledom.js"></script>
     <script src="/Rainbow/rainbow-custom.min.js"></script>

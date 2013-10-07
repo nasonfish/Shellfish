@@ -52,12 +52,11 @@ class PageHandler {
     }
 
     public function editLink(){
-        $res = '<a href="/admin/%s" title="View Admin Panel%s"><i class="icon-wrench"></i></a>';
         if($this->template == "tutorial" && $this->pass[0] && $this->tutorials->exists($this->pass[0])){
-            $res = sprintf($res, $this->pass[0] . '/', ' of this page'); // this is stupid, a little.
-            $res .= ' | <a href="/edit/'.$this->pass[0].'/" title="Edit this page"><i class="icon-edit"></i></a>';
+            $res = '<a href="/admin/%s/" title="View Admin Panel of this page"><i class="icon-wrench"></i></a> | <a href="/edit/%s/" title="Edit this page"><i class="icon-edit"></i></a>';
+            $res = sprintf($res, $this->pass[0], $this->pass[0]);
         } else {
-            $res = sprintf($res, '', '');
+            $res = '<a href="/create/" title="Create a new tutorial"><i class="icon-edit"></i></a>';
         }
         return $res;
     }

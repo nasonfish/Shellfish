@@ -2,10 +2,10 @@
     <?php if($pass[0]): ?>
         <div class="auth">
             <p id="page-id" style="display: none;"><?=$pass[0]?></p>
-            <button type="submit" class="admin-auth-ajax">Load!</button>
         </div>
         <div class="data"></div>
     <?php else: ?>
-    <a href="/create/">Create a page!</a>
+        <h3>403 Forbidden</h3>
+        <p>Hey. Uh. What's up? Sorry. Wasn't expecting to see you here.</p>
     <?php endif; ?>
 </div>
