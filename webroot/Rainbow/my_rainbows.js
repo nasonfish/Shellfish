@@ -22,5 +22,5 @@ Rainbow.extend('terminal', [
         },
         'pattern': /([^@]+)(@)([^:]+)(:)([^#\$]+)([#\$]? )/g
     }
-]);
+], true);
 Rainbow.color();
