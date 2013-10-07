@@ -45,3 +45,7 @@ pre .command{
 pre .subcommand{
     color: #8ea1a3;
 }
+
+.red{
+    color: red;
+}

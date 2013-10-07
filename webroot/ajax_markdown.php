@@ -16,6 +16,9 @@ function syntax($text){
     }
     $text = str_replace('{alert}', '<div class="alert">', $text);
     $text = str_replace('{/alert}', '</div>', $text);
+
+    $text = str_replace('{r}', '<span class="red">', $text);
+    $text = str_replace('{/r}', '</span>', $text);
     return $text;
 }
 print $md->defaultTransform(syntax($_POST['text']));
