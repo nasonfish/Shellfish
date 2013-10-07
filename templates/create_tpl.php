@@ -33,7 +33,7 @@
                     We also have syntax highlighting (using <a href="http://craig.is/making/rainbows">Rainbows</a>). Simply use <code>{language}Your code goes here!{/language}</code> to use syntax highlighting for your code blocks! (For example, <code>{python}print "Hello!"{/python}</code>). <span class="show-toggle" data-for="languages"><a>Languages supported...</a></span><ul id="languages" style="display: none"><li>c</li><li>shell</li><li>java</li><li>d</li><li>coffeescript</li><li>generic</li><li>scheme</li><li>javascript</li><li>r</li><li>haskell</li><li>python</li><li>html</li><li>smalltalk</li><li>csharp</li><li>go</li><li>php</li><li>ruby</li><li>lua</li><li>css</li><li>terminal</li></ul>
                 </li>
                 <li>You can create boxes for different colored notices with <code>{boxname}Hey! Stuff goes here!{/boxname}</code>. <a><span class="show-toggle" data-for="color-boxes">Box types...</span></a><ul id="color-boxes"><li><span class="alert alert-info">info</span></li><li><span class="alert alert-error">error</span></li><li><span class="alert alert-success">success</span></li><li><span class="alert">alert</span></li></ul></li>
-                <li>Use {r}red text{/r} to use red text. We'll expand upon this at some point.</li>
+                <li>Use <code>{red}red text{/red}</code> to use <span class="red">red text</span>. We'll expand upon this at some point.</li>
             </ul>
         </div>
     </div>
