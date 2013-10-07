@@ -47,7 +47,8 @@
     <div class="foot" id="bottom">
         <ul class="bottom-bar row">
             <li class="bottom-link"><a href="/api/">Check out our API!</a></li>
-            <li class="bottom-link"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Tutorials licensed under Creative Commons BY-NC-SA license.</a></li>
+            <li class="bottom-link"><a href="/irc/">Stop by and say hello on IRC!</a></li>
+            <li class="bottom-link"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Tutorials licensed under CC BY-NC-SA license.</a></li>
             <li class="bottom-link"><a href="https://github.com/pufferfi-sh/Shellfish/">Source code is available on GitHub</a></li>
         </ul>
     </div>

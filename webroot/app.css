@@ -144,7 +144,7 @@ ul.tags, ol.tags{
 .bottom-link{
     list-style: none;
     display: table-cell;
-    width: 33.33%;
+    width: 25%;
     margin: 0;
     padding: 0;
 }
@@ -262,7 +262,7 @@ button.download{
     font-weight: bold;
 }
 
-botton.download:active{
+button.download:active{
     border-style: ridge;
 }
 
