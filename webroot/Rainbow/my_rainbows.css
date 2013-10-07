@@ -59,7 +59,7 @@ pre .package-manager.command{
 }
 
 pre .package-manager.subcommand{
-    color: #268bd2;
+    color: #d33682;
 }
 
 pre .package-manager.package{
