@@ -6,13 +6,13 @@
     <h4>Categories</h4>
     <input type="text" placeholder="Filter categories..." id="category-filter"/>
         <?php $categories = $tutorials->getCategories(); foreach($categories as $category): ?>
-            <div class="categories-item link" style="color: #0f33bb; display: block; margin-top: 4px; margin-right: 50%; margin-left: 0;" data-for="<?=strtolower($category)?>"><?=$category?> <span>(<?=sizeof($tutorials->categorized($category));?>)</span></div>
+            <div class="categories-item link" style="color: #0f33bb; display: block; margin-top: 4px; margin-right: 50%; margin-left: 0;" data-for="<?=preg_replace('/[^A-Za-z ]/', ' ', strtolower($category))?>"><?=$category?> <span>(<?=sizeof($tutorials->categorized($category));?>)</span></div>
         <?php endforeach; ?>
 </div>
 <div class="span7 categories categories-right">
     <?php
     foreach($categories as $category){
-        print '<div class="category-sample category-sample-'.$category.'" data-category="'.$category.'">';
+        print '<div class="category-sample category-sample-'.preg_replace('/[^A-Za-z ]/', ' ', $category).'" data-category="'.$category.'">';
         print '<h4><a href="/category/'.$category.'/">See all tutorials under the category <code>'.$category.'</code>!</a></h4>';
         foreach($tutorials->categorySearch($tutorials->getAllPages(), $category, 6) as $tutorial){
             print "<hr/>";

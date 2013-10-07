@@ -24,7 +24,6 @@ simpleDOM('.categories-item').bind('click', function(){
     simpleDOM('.category-sample').hide();
     simpleDOM('.category-sample-' + category).show();
     Rainbow.color();
-    bottomBar();
 });
 
 
