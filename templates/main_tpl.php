@@ -9,6 +9,7 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="/Rainbow/solarized-dark.css" rel="stylesheet" media="all">
     <link href="/sliding-tags/12-sliding-tags/css/style.css" rel="stylesheet" media="all">
+    <link href="/Rainbow/my_rainbows.css" rel="stylesheet" media="all">
     <link href="/app.css" rel="stylesheet" media="all">
     <link href="/colors.css" rel="stylesheet" media="all">
     <?php $this->css(); ?>
@@ -53,6 +54,7 @@
 <footer>
     <script src="/simpledom.js"></script>
     <script src="/Rainbow/rainbow-custom.min.js"></script>
+    <script src="/Rainbow/my_rainbows.js"></script>
     <script src="/app.js"></script>
     <?php $this->js(); ?>
 </footer>
