@@ -15,11 +15,11 @@
 }
 
 pre .shellpart.user{
-    color: #268bd2;
+    color: #839496;
 }
 
 pre .shellpart.at{
-    color: #839496;
+    color: #2aa198;
 }
 
 pre .shellpart.host{
@@ -27,7 +27,7 @@ pre .shellpart.host{
 }
 
 pre .shellpart.colon{
-    color: #839496;
+    color: #2aa198;
 }
 
 pre .shellpart.directory{
@@ -46,6 +46,18 @@ pre .subcommand{
     color: #8ea1a3;
 }
 
-.red{
+.red, pre .superuser{
     color: red;
+}
+
+pre .package-manager.command{
+    color: #268bd2;
+}
+
+pre .package-manager.subcommand{
+    color: #268bd2;
+}
+
+pre .package-manager.package{
+    font-weight: bold;
 }
