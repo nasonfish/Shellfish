@@ -1,5 +1,5 @@
 <div class="margined">
-    <?php if($pass[0]): ?>
+    <?php if(isset($pass[0])): ?>
         <div class="auth">
             <p id="page-id" style="display: none;"><?=$pass[0]?></p>
         </div>
