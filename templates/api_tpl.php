@@ -48,6 +48,17 @@
         <p><a href="/_api/popular.php">Example</a></p>
         <p>Data Structure: <a href="#ds-tutorial">Tutorial</a></p>
     </div>
+    <br/>
+    <div class="margined group-sample">
+        <h4 id="pg-random">Raindom</h4>
+        <p>This will return a random tutorial.</p>
+        <p>File: <code>/_api/random.php</code></p>
+        <p>Parameters: <ul>
+            <li>None are needed.</li>
+        </ul>
+        <p><a href="/_api/random.php">Example</a></p>
+        <p>Data Structure: <a href="#ds-tutorial">Tutorial</a></p>
+    </div>
     <hr/>
     <h2>JSON data</h2>
     <h3 id="ds-error">Errors</h3>
