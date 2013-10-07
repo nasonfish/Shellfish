@@ -52,7 +52,7 @@ class PageHandler {
     }
 
     public function editLink(){
-        if($this->template == "tutorial" && $this->pass[0] && $this->tutorials->exists($this->pass[0])){
+        if($this->template == "tutorial" && isset($this->pass[0]) && $this->tutorials->exists($this->pass[0])){
             $res = '<a href="/admin/%s/" title="View Admin Panel of this page"><i class="icon-wrench"></i></a> | <a href="/edit/%s/" title="Edit this page"><i class="icon-edit"></i></a>';
             $res = sprintf($res, $this->pass[0], $this->pass[0]);
         } else {
