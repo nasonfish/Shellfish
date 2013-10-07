@@ -34,10 +34,12 @@ $page = $tutorials->page($id);
     <button type="submit" class="button button-red">Delete this page?</button>
 </form>
 <h2>Attachments</h2>
+<b><a href="/files/?id=<?=$id?>">Add new file!</a></b>
+<h4>Hit the <code>X</code> to delete a file.</h4>
 <ul>
     <?php foreach($page->getFiles() as $file):
         $fileName = $tutorials->attachmentName($page->getId(), $file);
-        echo sprintf('<li><a href="/_file/%s/%s/%s">%s</a> <span class="detach" data-id="%s" data-subid="%s">X</span></li>', $page->getId(), $file, $fileName, $fileName, $page->getId(), $file);
+        echo sprintf('<li><a href="/_file/%s/%s/%s">%s</a> <span class="detach red" data-id="%s" data-subid="%s">X</span></li>', $page->getId(), $file, $fileName, $fileName, $page->getId(), $file);
     endforeach; ?>
 </ul>
 <h2>Views</h2>

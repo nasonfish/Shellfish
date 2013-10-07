@@ -1,5 +1,6 @@
 <?php if(isset($pass[0])): ?>
-
+    <h3>403 Forbidden</h3>
+    <p>Hey. Uh. What's up? Sorry. Wasn't expecting to see you here.</p>
 <?php else: ?>
 <div class="margined">
     <h3>Manage Files</h3>

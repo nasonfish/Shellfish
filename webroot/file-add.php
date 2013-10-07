@@ -28,4 +28,4 @@ $tutorials->attach(
     $peregrine->post->getInt('id'),
     $peregrine->post->getRaw('name')
 );
-header('Location: /files/'.$peregrine->post->getInt('id').'/');
+header('Location: /admin/'.$peregrine->post->getInt('id').'/');
