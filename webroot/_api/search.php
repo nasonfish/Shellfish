@@ -2,6 +2,7 @@
 include '../../libs/Tutorials.class.php';
 include '../../libs/Predis_Page.class.php';
 include '../../libs/PredisPageDoesNotExistException.php';
+include '../../libs/Config.php';
 $tutorials = new Tutorials;
 $pages = $tutorials->search($tutorials->getPeregrine()->get->getRaw('q'));
 if(sizeof($pages) < 1){

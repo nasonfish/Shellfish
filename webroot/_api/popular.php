@@ -2,6 +2,7 @@
 include '../../libs/Tutorials.class.php';
 include '../../libs/Predis_Page.class.php';
 include '../../libs/PredisPageDoesNotExistException.php';
+include '../../libs/Config.php';
 $tutorials = new Tutorials;
 $page = $tutorials->quickPopular(1);
 try{

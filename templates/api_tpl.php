@@ -4,7 +4,7 @@
     <p>We currently support <code>GET</code> requests that return <code>JSON</code> data.</p>
     <hr/>
     <p>To access the api, send a GET request with the intended parameters to /_api/&lt;filename&gt;.php.</p>
-    <p>For example, to access the <code>search</code> page with the parameter <code>q</code>, send a request to <code>https://nasonfish.com/_api/search.php?q=your+query</code>.</p>
+    <p>For example, to access the <code>search</code> page with the parameter <code>q</code>, send a request to <code>http://shellfish.io/_api/search.php?q=your+query</code>.</p>
     <div class="margined group-sample">
         <h4 id="pg-search">Search</h4>
         <p>This will search the site for tutorials and return the first result. Searching uses tags and categories, and prioritizes them as such.</p>
@@ -40,7 +40,7 @@
     <br/>
     <div class="margined group-sample">
         <h4 id="pg-popular">Popular</h4>
-        <p>This will return the most pupular tutorial, by views.</p>
+        <p>This will return the most popular tutorial, by views.</p>
         <p>File: <code>/_api/popular.php</code></p>
         <p>Parameters: <ul>
             <li>None are needed.</li>
@@ -74,7 +74,7 @@
         "description": "A small description of the tutorial",
         "tags": [ "tagname", "moretags", "blah", "blahblah" ],
         "category": "theMainCategory",
-        "title-slug": "a-tutorial-title-with-no-special-characters-for-the-link", // http://nasonfish.com:81/tutorial/this-slug/id/
+        "title-slug": "a-tutorial-title-with-no-special-characters-for-the-link",
         "username": "author",
         "download": "The Downloadable File, if there is one",
         "text": "The text of the actual tutorial."
@@ -87,6 +87,7 @@
     <ul>
         <li>You can use a shortened link using <code>/_r/pageid/</code>, it redirects to the longer link with the slug.</li>
         <li>Links are in the form of <code>/tutorial/id/your-tutorial-slug/</code>, however, the slug can be anything, and you will still see the correct tutorial.</li>
-        <li>You can contribute using the <a href="http://github.com/nasonfish/Tutorials/">GitHub link</a> if you want to. :-)</li>
+        <li>You can contribute using the <a href="http://github.com/pufferfi-sh/Shellfish/">GitHub link</a> if you want to. :-)</li>
+        <li>Got any questions? Suggestions? Ideas? Come stop by and say hello in our <a href="/irc/">IRC channel</a>!</li>
     </ul>
 </div>
