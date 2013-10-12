@@ -1,7 +1,7 @@
 Rainbow.extend('terminal', [
     {
         'name': 'superuser',
-        'pattern': /root|sudo/g
+        'pattern': /root/g
     },
     {
         'matches': {
@@ -18,9 +18,19 @@ Rainbow.extend('terminal', [
             3: 'shellpart.host',
             4: 'shellpart.colon',
             5: 'shellpart.directory',
-            6: 'shellpart.prompt'
+            6: 'shellpart.prompt',
+            7: 'superuser',
+            8: 'command'
         },
-        'pattern': /([^@]+)(@)([^:]+)(:)([^#\$]+)([#\$]? )/g
+        'pattern': /([^@]+)(@)([^:]+)(:)([^#\$]+)([#\$]?)(?: ?(sudo |)([^ ]*)|)/g
+    },
+    {
+        'name': 'flag',
+        'pattern': / (\-|\+)[^ ]*/g
+    },
+    {
+        'name': 'path',
+        'pattern': / (\/|\.|~|[a-z]*:\/\/.*)[^ ]*/g
     }
 ], true);
 Rainbow.color();

@@ -65,3 +65,15 @@ pre .package-manager.subcommand{
 pre .package-manager.package{
     font-weight: bold;
 }
+
+pre .flag{
+    color: #d33682;
+}
+
+pre .command{
+    color: #268bd2;
+}
+
+pre .path{
+    color: #859900;
+}

@@ -181,12 +181,14 @@ class Tutorials {
     }
 
     public function html_printTags(Page $tutorial){
+        $tags = $tutorial->getTags();
+        if(empty($tags)){return "";}
         $return = "<h4 class='tag-header'>Tags</h4><hr class='tag-hr'/>";
         $return .= '<ul class="tags blue">';
-        foreach($tutorial->getTags() as $tag){
+        foreach($tags as $tag){
             $return .= sprintf('<li><a href="/tag/%s/">%s <span>%s</span></a></li>', str_replace(' ', '+', $tag), $tag, sizeof($this->tagged($tag)));
         }
-        $return .= "</ul>";
+        $return .= '</ul>';
         return $return;
     }
 
@@ -194,12 +196,12 @@ class Tutorials {
         $files = $tutorial->getFiles();
         if(empty($files)){return "";}
         $return = "";
-        $return .= '<h3>Attachments</h3><ul>';
+        $return .= '<h4 class="tag-header">Attachments</h4><hr class="tag-hr"/><ul>';
         foreach($tutorial->getFiles() as $file){
             $fileName = $this->attachmentName($tutorial->getId(), $file);
             $return .= sprintf('<li><a href="/_file/%s/%s/%s">%s</a></li>', $tutorial->getId(), $file, $fileName, $fileName);
         }
-        $return .= '</ui>';
+        $return .= '</ul><hr style="border-color: white; border-width: 1px; margin-left: -5%; margin-right: -5%;"/>';
         return $return;
     }
 
