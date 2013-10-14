@@ -43,7 +43,7 @@ pre .command{
 }
 
 pre .subcommand{
-    color: #8ea1a3;
+    color: #268bd2; /* blue */
 }
 
 .red{

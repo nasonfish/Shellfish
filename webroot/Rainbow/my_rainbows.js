@@ -1,5 +1,5 @@
 Rainbow.extend('terminal', [
-    {
+    /*{
         'name': 'superuser',
         'pattern': /root/g
     },
@@ -10,27 +10,23 @@ Rainbow.extend('terminal', [
             3: 'package-manager.package'
         },
         'pattern': /(apt\-get|yum|aptitude) (install) ([^ ]+)|(pacman) (\-S) ([^ ]+)/g
-    },
+    },*/
     {
         'matches': {
             1: 'shellpart.user',
-            2: 'shellpart.at',
-            3: 'shellpart.host',
-            4: 'shellpart.colon',
-            5: 'shellpart.directory',
-            6: 'shellpart.prompt',
-            7: 'superuser',
-            8: 'command'
+            2: 'superuser',
+            3: 'shellpart.at',
+            4: 'shellpart.host',
+            5: 'shellpart.colon',
+            6: 'shellpart.directory',
+            7: 'shellpart.prompt',
+            8: 'superuser',
+            9: 'command',
+            10:'flag',
+            11:'path',
+            12:'subcommand'
         },
-        'pattern': /([^@]+)(@)([^:]+)(:)([^#\$]+)([#\$]?)(?: ?(sudo |)([^ ]*)|)/g
-    },
-    {
-        'name': 'flag',
-        'pattern': / (\-|\+)[^ ]*/g
-    },
-    {
-        'name': 'path',
-        'pattern': / (\/|\.|~|[a-z]*:\/\/.*)[^ ]*/g
+        'pattern': /(?:([^@]+)|(root))(@)([^:]+)(:)([^#\$]+)([#\$]) ?(sudo )?([^ ]*)?(?: (?:([-\+][^ ]*)|((?:[\/\.~]|[a-z]*:\/\/)[^ ]*)|([^ ]+)))*/g
     }
 ], true);
 Rainbow.color();
