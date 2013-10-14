@@ -52,11 +52,12 @@ class PageHandler {
     }
 
     public function editLink(){
+        if(!isset($_SESSION['admin']) || $_SESSION['admin'] === 0){return '<a href="/login.php" title="Log-in as an admin!"><i class="icon-user"></i> </a>';}
         if($this->template == "tutorial" && isset($this->pass[0]) && $this->tutorials->exists($this->pass[0])){
-            $res = '<a href="/admin/%s/" title="View Admin Panel of this page"><i class="icon-wrench"></i></a> | <a href="/edit/%s/" title="Edit this page"><i class="icon-edit"></i></a>';
+            $res = '<a href="/admin/%s/" title="View Admin Panel of this page"><i class="icon-wrench"></i> </a> | <a href="/edit/%s/" title="Edit this page"><i class="icon-edit"></i> </a>';
             $res = sprintf($res, $this->pass[0], $this->pass[0]);
         } else {
-            $res = '<a href="/create/" title="Create a new tutorial"><i class="icon-edit"></i></a>';
+            $res = '<a href="/create/" title="Create a new tutorial"><i class="icon-edit"></i> </a>';
         }
         return $res;
     }

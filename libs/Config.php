@@ -1,7 +1,6 @@
 <?php
-
+session_start();
 include('CustomConfig.php');
-
 
 function file_get_contents_d($file){
     if(file_exists($file)){
