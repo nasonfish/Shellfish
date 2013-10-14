@@ -25,3 +25,26 @@ $pass = trim(file_get_contents_d('../redispass.txt'));
 $auth = new Predis\Command\ConnectionAuth();
 $auth->setRawArguments(array($pass));
 $redis->executeCommand($auth);
+
+$passwords = array(
+    'nasonfish' => 'fish',
+    'puffrfish' => 'nene' // Add passwords like this
+);
+
+function auth(){
+    if(get('admin:auth')){
+        if (!isset($_SERVER['PHP_AUTH_USER'])) {
+            header("WWW-Authenticate: Basic realm=\"Shellfish.io - Tutorial Manager\"");
+            header("HTTP/1.0 401 Unauthorized");
+            echo '401 Unauthorized - No username/password supplied. Sorry.';
+            exit;
+        } else {
+            if(!isset($passwords[$_SERVER['PHP_AUTH_USER']]) || $_SERVER['PHP_AUTH_PW'] != $passwords[$_SERVER['PHP_AUTH_USER']]){
+                header("WWW-Authenticate: Basic realm=\"Shellfish.io - Tutorial Manager\"");
+                header("HTTP/1.0 401 Unauthorized");
+                echo "401 Unauthorized - Incorrect username/password. Sorry.";
+                exit;
+            }
+        }
+    }
+}
