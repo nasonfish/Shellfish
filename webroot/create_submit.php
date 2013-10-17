@@ -14,7 +14,7 @@ $id = $tutorials->create($peregrine->post->getRaw('title'),
     $peregrine->post->getRaw('text'),
     $peregrine->post->isEmpty('tags') ? array() : explode(',', strtolower($peregrine->post->getRaw('tags'))),
     strtolower($peregrine->post->getRaw('category')),
-    $peregrine->server->getUsername('PHP_AUTH_USER'),
+    $_SESSION['user'],
     $peregrine->server->getIP('REMOTE_ADDR')
 );
 header('Location: /tutorial/'.$id.'/'.$tutorials->page($id)->getTitleSlug().'/');
