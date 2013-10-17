@@ -13,7 +13,7 @@
     <?php
     foreach($categories as $category){
         print '<div class="category-sample category-sample-'.preg_replace('/[^A-Za-z0-9 ]/', '-', $category).'" data-category="'.$category.'">';
-        print '<h4><a href="/category/'.$category.'/">See all tutorials under the category <code>'.$category.'</code>!</a></h4>';
+        print '<h4><a href="/category/'.$category.'/">See all tutorials under the category '.$category.'!</a></h4>';
         foreach($tutorials->categorySearch($tutorials->getAllPages(), $category, 6) as $tutorial){
             print "<hr/>";
             $tutorials->html_printSample($tutorials->page($tutorial));
