@@ -13,7 +13,7 @@ if(isset($args[0]) && isset($args[1])){
     }
     $file = $tutorials->attachmentText($id, $subid);
     // Make it unix-file-ish. CRLF => LF, leading newline
-    $file = trim(str_replace("\r", "", $file), '\n') . '\n';
+    $file = trim(str_replace("\r", "", $file), "\n") . "\n";
     print($file);
 } else {
     echo('Error - That file does not exist.');
