@@ -11,7 +11,10 @@ if(isset($args[0]) && isset($args[1])){
     } catch(PredisPageDoesNotExistException $e){
         die("Error - That page id does not exist.");
     }
-    print $tutorials->attachmentText($id, $subid);
+    $file = $tutorials->attachmentText($id, $subid);
+    // Make it unix-file-ish. CRLF => LF, leading newline
+    $file = trim(str_replace("\r", "", $file), '\n') . '\n';
+    print($file);
 } else {
     echo('Error - That file does not exist.');
 }
