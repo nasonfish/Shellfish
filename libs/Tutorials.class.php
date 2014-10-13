@@ -128,7 +128,7 @@ class Tutorials {
             '%title%' => htmlspecialchars($tutorial->getTitle()),
             '%desc%' => htmlspecialchars($tutorial->getDescription()),
             '%user%' => htmlspecialchars($tutorial->getUsername()),
-            '%ttext%' => /*preg_replace("/{.*?}/g", "", */$this->md->defaultTransform(strlen($text) > 250 ? substr($text, 0, 250) . '...' : $text)/*)*/,
+            '%ttext%' => $this->syntaxStrip($this->md->defaultTransform(strlen($text) > 250 ? substr($text, 0, 250) . '...' : $text)),
             '%ftext%' => $this->md->defaultTransform($this->syntax($text)),
             '%category%' => ucwords(htmlspecialchars($category)),
             '%categorylink%' => '/category/' . str_replace(' ', '+', ucwords(htmlspecialchars($category))) . '/',
@@ -155,7 +155,6 @@ class Tutorials {
         }
         return $string;
     }
-
     public function syntax($text){
         $text = str_replace('<', '&lt;', $text);
         $text = str_replace('>', '&gt;', $text);
@@ -175,6 +174,27 @@ class Tutorials {
         $text = str_replace('{/red}', '</span>', $text);
         return $text;
     }
+
+    public function syntaxStrip($text){
+        $text = str_replace('<', '&lt;', $text);
+        $text = str_replace('>', '&gt;', $text);
+        $langs = array('c', 'shell', 'java', 'd', 'coffeescript', 'generic', 'scheme', 'javascript', 'r', 'haskell', 'python', 'html', 'smalltalk', 'csharp', 'go', 'php', 'ruby', 'lua', 'css', 'terminal');
+        foreach($langs as $lang){
+            $text = str_replace('{'.$lang.'}', '', $text);
+            $text = str_replace('{/'.$lang.'}', '', $text); // bad :/
+        }
+        foreach(array('info', 'error', 'success', 'danger') as $div){
+            $text = str_replace('{'.$div.'}', '', $text);
+            $text = str_replace('{/'.$div.'}', '', $text);
+        }
+        $text = str_replace('{alert}', '', $text);
+        $text = str_replace('{/alert}', '', $text);
+
+        $text = str_replace('{red}', '', $text);
+        $text = str_replace('{/red}', '', $text);
+        return $text;
+    }
+
 
     public function getMarkdown(){
         return $this->md;
