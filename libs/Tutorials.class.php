@@ -109,10 +109,10 @@ class Tutorials {
                         <br/>
                     </div>
                 </a>
-                <!--<code class="tutorial-author">by %user%</code>--><hr/>
+                <!--<code class="tutorial-author">by %user%</code><hr/>
                 <div class="tutorial-text">
                       <span class="truncated-text" id="tutorial-id-%id%">%ttext%</span>
-                </div>
+                </div>-->
                 <br/>
             </div>
             <br/><br/>
