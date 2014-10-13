@@ -128,7 +128,7 @@ class Tutorials {
             '%title%' => htmlspecialchars($tutorial->getTitle()),
             '%desc%' => htmlspecialchars($tutorial->getDescription()),
             '%user%' => htmlspecialchars($tutorial->getUsername()),
-            '%ttext%' => preg_replace("/[{}]/g", "", $this->md->defaultTransform(strlen($text) > 250 ? substr($text, 0, 250) . '...' : $text)),
+            '%ttext%' => /*preg_replace("/{.*?}/g", "", */$this->md->defaultTransform(strlen($text) > 250 ? substr($text, 0, 250) . '...' : $text)/*)*/,
             '%ftext%' => $this->md->defaultTransform($this->syntax($text)),
             '%category%' => ucwords(htmlspecialchars($category)),
             '%categorylink%' => '/category/' . str_replace(' ', '+', ucwords(htmlspecialchars($category))) . '/',
