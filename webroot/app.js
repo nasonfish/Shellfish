@@ -22,7 +22,7 @@ simpleDOM('.markdown-test').bind('click', function(){
 simpleDOM('.categories-item').bind('click', function(){
     var category = simpleDOM(this).attr('data-for');
     simpleDOM('.category-sample').hide();
-    simpleDOM('.category-sample-' + category).show();
+    simpleDOM('.category-sample-' + category.replace(/[^A-Za-z0-9]/g, "-")).show();
     Rainbow.color();
 });
 
