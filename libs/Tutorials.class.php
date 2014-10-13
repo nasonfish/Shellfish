@@ -109,10 +109,10 @@ class Tutorials {
                         <br/>
                     </div>
                 </a>
-                <!--<code class="tutorial-author">by %user%</code><hr/>
+                <!--<code class="tutorial-author">by %user%</code>--><hr/>
                 <div class="tutorial-text">
                       <span class="truncated-text" id="tutorial-id-%id%">%ttext%</span>
-                </div>-->
+                </div>
                 <br/>
             </div>
             <br/><br/>
@@ -128,7 +128,7 @@ class Tutorials {
             '%title%' => htmlspecialchars($tutorial->getTitle()),
             '%desc%' => htmlspecialchars($tutorial->getDescription()),
             '%user%' => htmlspecialchars($tutorial->getUsername()),
-            '%ttext%' => $this->md->defaultTransform($this->syntax(strlen($text) > 250 ? substr($text, 0, 250) . '...' : $text)),
+            '%ttext%' => preg_replace("/&lt;</p>.*<p>[^>]+>/sg", "", $this->md->defaultTransform($this->syntax(strlen($text) > 250 ? substr($text, 0, 250) . '...' : $text))),
             '%ftext%' => $this->md->defaultTransform($this->syntax($text)),
             '%category%' => ucwords(htmlspecialchars($category)),
             '%categorylink%' => '/category/' . str_replace(' ', '+', ucwords(htmlspecialchars($category))) . '/',
