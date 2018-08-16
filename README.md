@@ -1,4 +1,4 @@
-Tutorials. And stuff.
+# Shellfish -- a tutorial website
 
 ## Running
 
@@ -22,4 +22,4 @@ Libraries we use include:
  - Download Buttons (http://www.cssflow.com/snippets/download-buttons)
 
 Otherwise, this software is licensed under the GNU General Public License, more information in License,
-by nasonfish <nasonfish@nasonfish.com>, with ideas and other cool stuff by puffrfish. Feel free to fork and submit bug fixes, or run your own version of this!
+by nasonfish <nasonfish@nasonfish.com> and puffrfish. Any contribution or engagement with this project is appreciated.
