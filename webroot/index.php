@@ -11,7 +11,7 @@ $page = isset($uri[1]) ? $uri[1] : 'index';
 array_shift($uri);
 $args = $uri === NULL ? array() : $uri;
 if(strpos($page, '_') === 0){
-    include $page.'.php'; // BE WEARY OF INJECTION!!!
+    include $page.'.php';
 } else {
     new PageHandler($page, $args);
 }
